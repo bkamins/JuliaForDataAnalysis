@@ -26,6 +26,12 @@ presented in the book please perform the following setup steps:
 The codes for each chapter are stored in files named *chXX.jl*, where *XX* is
 chapter number.
 
+Solutions to the exercises that are presented in appendix B in
+the book are stored in *appB.jl* file. These solutions assume that they are
+executed in the same Julia session as the codes from the chapter where the
+question was posted (so that appropriate variables and functions are defined
+and appropriate packages are loaded).
+
 To work with codes from some given chapter:
 * start a fresh Julia session using the `julia --project` command in a folder
   containing the downloaded material;
