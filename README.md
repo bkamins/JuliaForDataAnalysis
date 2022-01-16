@@ -38,4 +38,8 @@ To work with codes from some given chapter:
 * execute the commands sequentially as they appear in the file;
   the codes were prepared in a way that you do not need to restart Julia
   when working with material from a single chapter, unless it is explicitly
-  written in the instructions to restart Julia (some of the codes require this).
+  written in the instructions to restart Julia (some of the codes require this);
+* before each code there is a comment allowing you to locate the relevant part
+  of the book where it is used; if in the code there is a blank line between
+  consecutive code sections this means that in the book these codes are
+  separated by the text of the book explaining what the code does
