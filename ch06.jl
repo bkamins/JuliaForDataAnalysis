@@ -92,12 +92,13 @@ puzzles[!, :Rating]
 puzzles[!, 4]
 puzzles[!, col]
 
+using Plots
 plot(histogram(puzzles.Rating, label="Rating"),
      histogram(puzzles.RatingDeviation, label="RatingDeviation"),
      histogram(puzzles.Popularity, label="Popularity"),
      histogram(puzzles.NbPlays, label="NbPlays"))
 
-plot([histogram(puzzles[!, col], label=col) for
+plot([histogram(puzzles[!, col]; label=col) for
       col in ["Rating", "RatingDeviation",
               "Popularity", "NbPlays"]]...)
 
@@ -125,8 +126,8 @@ good = puzzles[row_selector, ["Rating", "Popularity"]]
 
 # Code for plotting histograms
 
-plot(histogram(good.Rating, label="Rating"),
-     histogram(good.Popularity, label="Popularity"))
+plot(histogram(good.Rating; label="Rating"),
+     histogram(good.Popularity; label="Popularity"))
 
 # Code for column selectors
 
@@ -236,7 +237,6 @@ mean_popularities = map(ratings) do rating
     return mean(popularities)
 end
 
-using Plots
 scatter(ratings, mean_popularities;
         xlabel="rating", ylabel="mean popularity", legend=false)
 
@@ -245,4 +245,4 @@ model = Loess.loess(ratings, mean_popularities);
 ratings_predict = float.(sort(ratings))
 popularity_predict = Loess.predict(model, ratings_predict)
 
-plot!(ratings_predict, popularity_predict, width=5, color="black")
+plot!(ratings_predict, popularity_predict; width=5, color="black")

@@ -2,6 +2,11 @@
 
 # Codes for appendix B
 
+# the solutions for exercises from a given chapter assume that
+# there are packages loaded, variables and functions defined in the user's
+# Julia session in a state that reflects the point of computations
+# at the position of the chapter where a given exercise is formulated
+
 # Code for exercise 3.1
 
 using Statistics
@@ -57,10 +62,71 @@ end
 
 test_dice()
 
-
 # Code for exercise 3.3
 
-plot(scatter(data.set1.x, data.set1.y, legend=false),
-     scatter(data.set2.x, data.set2.y, legend=false),
-     scatter(data.set3.x, data.set3.y, legend=false),
-     scatter(data.set4.x, data.set4.y, legend=false))
+plot(scatter(data.set1.x, data.set1.y; legend=false),
+     scatter(data.set2.x, data.set2.y; legend=false),
+     scatter(data.set3.x, data.set3.y; legend=false),
+     scatter(data.set4.x, data.set4.y; legend=false))
+
+# Code for exercise 3.4
+
+parse.(Int, ["1", "2", "3"])
+
+# Code for exercise 4.1
+
+years_table = freqtable(years)
+plot(names(years_table, 1), years_table; legend=false,
+           xlabel="year", ylabel="# of movies")
+
+
+# Code for exercise 4.2
+
+s3 = Symbol.(s1)
+@benchmark sort($s3)
+@benchmark unique($s1)
+@benchmark unique($s2)
+@benchmark unique($s3)
+
+# Code for exercise 5.1
+
+v = ["1", "2", missing, "4"]
+[ismissing(x) ? missing : parse(Int, x) for x in v]
+map(v) do x
+    if ismissing(x)
+        return missing
+    else
+        return parse(Int, x)
+    end
+end
+using Missings
+passmissing(parse).(Int, v)
+
+# Code for exercise 5.2
+
+using Dates
+Date(2021, 1, 1):Month(1):Date(2021, 12, 1)
+collect(Date(2021, 1, 1):Month(1):Date(2021, 12, 1))
+
+# Code for exercise 6.1
+
+using BenchmarkTools
+@benchmark $puzzles."Rating"
+
+# Code for exercise 6.2
+
+using StatsBase
+summarystats(puzzles[puzzles.Popularity .== 100, "NbPlays"])
+summarystats(puzzles[puzzles.Popularity .== -100, "NbPlays"])
+
+# Code for exercise 6.3
+
+sum(length, values(rating_mapping))
+nrow(good)
+
+# Code for exercise 7.1
+
+using BenchmarkTools
+x = rand(10^6);
+@btime DataFrame(x=$x);
+@btime DataFrame(x=$x; copycols=false);

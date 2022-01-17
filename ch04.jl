@@ -120,13 +120,13 @@ sort!(table)
 
 years = [record.year for record in records]
 has_drama = ["Drama" in record.genres for record in records]
-drama_prop = proptable(years, has_drama, margins=1)
+drama_prop = proptable(years, has_drama; margins=1)
 
 # Code for listing 4.5
 
 using Plots
 
-plot(names(drama_prop, 1), drama_prop[:, 2], legend=false,
+plot(names(drama_prop, 1), drama_prop[:, 2]; legend=false,
      xlabel="year", ylabel="Drama probability")
 
 # Code for section 4.6.1

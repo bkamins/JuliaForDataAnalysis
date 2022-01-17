@@ -188,7 +188,7 @@ std(skipmissing(rates))
 # Code for listing 5.8
 
 using FreqTables
-proptable(dayname.(dates), ismissing.(rates), margins=1)
+proptable(dayname.(dates), ismissing.(rates); margins=1)
 
 # Code showing how to specify a complex condition using broadcasting
 
@@ -201,11 +201,11 @@ dates[dayname.(dates) .== "Thursday" .&& ismissing.(rates)]
 # Codes for plotting exchange rate data
 
 using Plots
-plot(dates, rates, xlabel="day", ylabel="PLN/USD", legend=false)
+plot(dates, rates; xlabel="day", ylabel="PLN/USD", legend=false)
 
 rates_ok = .!ismissing.(rates)
 
-plot(dates[rates_ok], rates[rates_ok],
+plot(dates[rates_ok], rates[rates_ok];
      xlabel="day", ylabel="PLN/USD", legend=false)
 
 using Impute
