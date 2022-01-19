@@ -130,3 +130,28 @@ using BenchmarkTools
 x = rand(10^6);
 @btime DataFrame(x=$x);
 @btime DataFrame(x=$x; copycols=false);
+
+# Code for exercise 7.2
+
+df1 = DataFrame(a=1,b=2)
+df2 = DataFrame(b=3, a=4)
+vcat(df1, df2)
+vcat(df1, df2, cols=:orderequal)
+
+# Code for exercise 7.3
+
+function walk_unique_2ahead()
+    walk = DataFrame(x=0, y=0)
+    for _ in 1:10
+        current = walk[end, :]
+        push!(walk, sim_step(current))
+    end
+    return all(walk[i, :] != walk[i+2, :] for i in 1:9)
+end
+Random.seed!(2);
+proptable([walk_unique_2ahead() for _ in 1:10^5])
+
+# Code for exercise 7.4
+
+@time wide = DataFrame(ones(1, 10_000), :auto);
+@time Tables.columntable(wide);
