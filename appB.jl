@@ -155,3 +155,37 @@ proptable([walk_unique_2ahead() for _ in 1:10^5])
 
 @time wide = DataFrame(ones(1, 10_000), :auto);
 @time Tables.columntable(wide);
+
+# Code for exercise 8.1
+
+cg = complete_graph(37700)
+Base.summarysize(cg)
+@time deg_class(cg, classes_df.ml_target);
+
+# Code for exercise 8.2
+
+scatter(log1p.(agg_df.deg_ml),
+        log1p.(agg_df.deg_web);
+        zcolor=agg_df.web_mean,
+        xlabel="degree ml", ylabel="degree web",
+        markersize=2, markerstrokewidth=0, markeralpha=0.8,
+        legend=:topleft, labels = "fraction web",
+        xticks=gen_ticks(maximum(classes_df.deg_ml)),
+        yticks=gen_ticks(maximum(classes_df.deg_web)))
+
+# Code for exercise 8.3
+
+glm(@formula(ml_target~log1p(deg_ml)+log1p(deg_web)),
+    classes_df, Binomial(), ProbitLink())
+
+# Code for exercise 8.4
+
+df = DataFrame()
+df.a = [1, 2, 3]
+df.b = df.a
+df.b === df.a
+df.b = df[:, "b"]
+df.b === df.a
+df.b == df.a
+df[1:2, "a"] .= 10
+df
