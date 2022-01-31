@@ -103,6 +103,6 @@ plot(map([:time, :size],
             xrotation=20,
             markershape=[:circle :diamond :star5],
             markercolor=[:skyblue :orange :gold],
-            xtickfontsize=5, ytickfontsize=5,
-            legendfontsize=5, titlefontsize=6)
+            xtickfontsize=7, ytickfontsize=7,
+            legendfontsize=7, titlefontsize=8)
 end...)
