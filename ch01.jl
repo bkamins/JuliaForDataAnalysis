@@ -24,7 +24,7 @@ DataFrame(a=1:3, name=["Alice", "Bob", "Clyde"],
                     (city="Boston", state="MA"),
                     (city="Austin", state="TX")])
 
-# Code for comparison of languages
+# Code for comparison of languages in figure 1.1
 
 # Source of data:
 #   * https://benchmarksgame-team.pages.debian.net/benchmarksgame/fastest/julia-gcc.html
