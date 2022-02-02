@@ -4,7 +4,7 @@
 
 # Code from section 1.2.1
 
-function f(n)
+function sum_n(n)
     s = 0
     for i in 1:n
         s += i
@@ -12,7 +12,13 @@ function f(n)
     return s
 end
 
-@time f(1_000_000_000)
+@time sum_n(1_000_000_000)
+
+# Code from section 1.4
+
+@time using Plots
+@time plot(1:10)
+@time plot(1:10)
 
 # Code allowing to reproduce the data frame presented in section 1.3
 
@@ -98,11 +104,13 @@ plot(map([:time, :size],
     select!(df_plot, Not(:c))
     scatter(df_plot.problem, Matrix(select(df_plot, Not(:problem)));
             labels=permutedims(names(df_plot, Not(:problem))),
-            title=title,
+            ylabel=title,
             yaxis = col == :time ? :log : :none,
             xrotation=20,
-            markershape=[:circle :diamond :star5],
-            markercolor=[:skyblue :orange :gold],
+            markershape=[:rect :diamond :circle],
+            markersize=[4 5 5],
+            markercolor=[:lightgray :lightgray :gold],
             xtickfontsize=7, ytickfontsize=7,
-            legendfontsize=7, titlefontsize=8)
+            legendfontsize=7, ylabelfontsize=7)
+            hline!([1.0]; color="orange", labels="C")
 end...)
