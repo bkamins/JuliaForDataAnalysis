@@ -104,6 +104,18 @@ log(x)
 
 # Code showing typical one-line conditional execution expressions
 
+x > 0 && println(x)
+
+if x > 0
+    println(x)
+end
+
+x > 0 || println(x)
+
+if !(x > 0)
+    println(x)
+end
+
 x = -7
 x < 0 && println(x^2)
 iseven(x) || println("x is odd")
