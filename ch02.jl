@@ -196,7 +196,7 @@ y
 
 s = 0
 for v in y
-    s += v
+    global s += v
 end
 s
 s / length(y)
