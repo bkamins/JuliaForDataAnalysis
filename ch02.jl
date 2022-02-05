@@ -135,6 +135,14 @@ end
 
 # Code showing ternary operator
 
+x > 0 ? sqrt(x) : sqrt(-x)
+
+if x > 0
+    sqrt(x)
+else
+    sqrt(-x)
+end
+
 x = -7
 x > 0 ? println("x is positive") : println("x is not positive")
 
