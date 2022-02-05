@@ -408,6 +408,14 @@ winsorized_mean(1:10, 5)
 
 # Code from section 2.8
 
+module ExampleModule
+
+function example()
+    println("Hello")
+end
+
+end # ExampleModule
+
 import Statistics
 x = [1, 2, 3]
 mean(x)
