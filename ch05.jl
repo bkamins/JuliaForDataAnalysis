@@ -7,9 +7,9 @@
 using HTTP
 using JSON3
 query = "https://api.nbp.pl/api/exchangerates/rates/a/usd/" *
-        "2020-06-01/?format=json" #A
-response = HTTP.get(query) #B
-json = JSON3.read(response.body) #C
+        "2020-06-01/?format=json"
+response = HTTP.get(query)
+json = JSON3.read(response.body)
 
 # Code for the remainder of section 5.1.2
 
