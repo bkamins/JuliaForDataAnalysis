@@ -9,6 +9,17 @@
 
 # Code for exercise 3.1
 
+using BenchmarkTools
+x = 1:10^6;
+y = collect(x);
+@btime sort($x);
+@btime sort($y);
+@edit sort(x)
+
+# CODES BELOW REQUIRE RE-NUMBERING
+
+# Code for exercise 3.1
+
 using Statistics
 using BenchmarkTools
 aq = [10.0   8.04  10.0  9.14  10.0   7.46   8.0   6.58
