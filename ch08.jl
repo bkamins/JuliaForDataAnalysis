@@ -1,284 +1,248 @@
 # Bogumił Kamiński, 2022
 
-# Codes for chapter 8
+# Codes for chapter 6
 
-# Codes for section 8.1
+# Code for section 6.1
 
-# Code for listing 8.1
-
-import Downloads
-using SHA
-git_zip = "git_web_ml.zip"
-if !isfile(git_zip)
-    Downloads.download("https://snap.stanford.edu/data/" *
-                       "git_web_ml.zip",
-                       git_zip)
-end
-isfile(git_zip)
-open(sha256, git_zip) == [0x56, 0xc0, 0xc1, 0xc2,
-                          0xc4, 0x60, 0xdc, 0x4c,
-                          0x7b, 0xf8, 0x93, 0x57,
-                          0xb1, 0xfe, 0xc0, 0x20,
-                          0xf4, 0x5e, 0x2e, 0xce,
-                          0xba, 0xb8, 0x1d, 0x13,
-                          0x1d, 0x07, 0x3b, 0x10,
-                          0xe2, 0x8e, 0xc0, 0x31]
-
-# Code for opeining a zip archive
-
-import ZipFile
-git_archive = ZipFile.Reader(git_zip)
-
-# Code for listing 8.2
-
-function ingest_to_df(archive::ZipFile.Reader, filename::AbstractString)
-    idx = only(findall(x -> x.name == filename, archive.files))
-    return CSV.read(read(archive.files[idx]), DataFrame)
+if isfile("puzzles.csv.bz2")
+    @info "file already present"
+else
+    @info "fetching file"
+    download("https://database.lichess.org/" *
+            "lichess_db_puzzle.csv.bz2",
+            "puzzles.csv.bz2")
 end
 
-# Code for working with zip archive
+using CodecBzip2
+compressed = read("puzzles.csv.bz2")
+plain = transcode(Bzip2Decompressor, compressed)
 
-git_archive.files
+open("puzzles.csv", "w") do io
+    println(io, "PuzzleId,FEN,Moves,Rating,RatingDeviation," *
+                "Popularity,NbPlays,Themes,GameUrl")
+    write(io, plain)
+end
 
-git_archive.files[2].name
+readlines("puzzles.csv")
 
-findall(x -> x.name == "git_web_ml/musae_git_edges.csv", git_archive.files)
-findall(x -> x.name == "", git_archive.files)
-
-only(findall(x -> x.name == "git_web_ml/musae_git_edges.csv", git_archive.files))
-only(findall(x -> x.name == "", git_archive.files))
-
-# Code for listing 8.3
+# Code for section 6.2
 
 using CSV
 using DataFrames
-edges_df = ingest_to_df(git_archive, "git_web_ml/musae_git_edges.csv");
-classes_df = ingest_to_df(git_archive, "git_web_ml/musae_git_target.csv");
-close(git_archive)
-summary(edges_df)
-describe(edges_df, :min, :max, :mean, :nmissing, :eltype)
-summary(classes_df)
-describe(classes_df, :min, :max, :mean, :nmissing, :eltype)
+puzzles = CSV.read("puzzles.csv", DataFrame);
 
-# Code for updating data frame columns using broadcasting
+CSV.read(plain, DataFrame);
 
-edges_df .+= 1
-classes_df.id .+= 1
+compressed = nothing
+plain = nothing
 
-# Code for examples of data frame broadcasting
+# Code for listing 6.1
 
-df = DataFrame(a=1:3, b=[4, missing, 5])
-df .^ 2
-coalesce.(df, 0)
-df .+ [10, 11, 12]
+puzzles
 
-# Code for checking the order of :id column in a data frame
+# Code for listing 6.2
 
-classes_df.id == axes(classes_df, 1)
+describe(puzzles)
 
-# Code for the difference between ! and : in broadcasting assignment
+# Code for getting basic information about a data frame
 
-df = DataFrame(a=1:3, b=1:3)
-df[!, :a] .= "x"
-df[:, :b] .= "x"
-df
+ncol(puzzles)
 
-# Code for the difference between ! and : in assignment
+nrow(puzzles)
 
-df = DataFrame(a=1:3, b=1:3, c=1:3)
-df[!, :a] = ["x", "y", "z"]
-df[:, :b] = ["x", "y", "z"]
-df[:, :c] = [11, 12, 13]
-df
+names(puzzles)
 
-# Codes for section 8.2
+# Code for section 6.3
 
-# Code from listing 8.4
+puzzles.Rating
 
-using Graphs
-gh = SimpleGraph(nrow(classes_df))
-for (from, to) in eachrow(edges_df)
-    add_edge!(gh, from, to)
-end
-gh
-ne(gh)
-nv(gh)
+using BenchmarkTools
+@benchmark $puzzles.Rating
 
-# Code for iterator destruction in iteration specification
+puzzles.Rating == copy(puzzles.Rating)
 
-mat = [1 2; 3 4; 5 6]
-for (x1, x2) in eachrow(mat)
-    @show x1, x2
-end
+puzzles.Rating === copy(puzzles.Rating)
 
-# Code for getting degrees of nodes in the graph
+puzzles.Rating === puzzles.Rating
 
-degree(gh)
+copy(puzzles.Rating) === copy(puzzles.Rating)
 
-# Code for adding a column to a data frame
+puzzles."Rating"
 
-classes_df.deg = degree(gh)
+col = "Rating"
 
-# Code for the difference between ! and : when adding a column
+data_frame_name[selected_rows, selected_columns]
 
-df = DataFrame()
-x = [1, 2, 3]
-df[!, :x1] = x
-df[:, :x2] = x
-df
-df.x1 === x
-df.x2 === x
-df.x2 == x
+puzzles[:, "Rating"]
+puzzles[:, :Rating]
+puzzles[:, 4]
+puzzles[:, col]
 
-# Code for creating a column using broadcasting
+columnindex(puzzles, "Rating")
 
-df.x3 .= 1
-df
+columnindex(puzzles, "Some fancy column name")
 
-# Code for edge iterator of a graph
+hasproperty(puzzles, "Rating")
+hasproperty(puzzles, "Some fancy column name")
 
-edges(gh)
+@benchmark $puzzles[:, :Rating]
 
-e1 = first(edges(gh))
-dump(e1)
-e1.src
-e1.dst
-
-# Code for listing 8.5
-
-function deg_class(gh, class)
-    deg_ml = zeros(Int, length(class))
-    deg_web = zeros(Int, length(class))
-    for edge in edges(gh)
-        a, b = edge.src, edge.dst
-        if class[b] == 1
-            deg_ml[a] += 1
-        else
-            deg_web[a] += 1
-        end
-        if class[a] == 1
-            deg_ml[b] += 1
-        else
-            deg_web[b] += 1
-        end
-    end
-    return (deg_ml, deg_web)
-end
-
-# Code for computing machine learning and web neighbors for gh graph
-
-classes_df.deg_ml, classes_df.deg_web =
-deg_class(gh, classes_df.ml_target)
-
-# Code for checking type stability of deg_class function
-
-@time deg_class(gh, classes_df.ml_target);
-@code_warntype deg_class(gh, classes_df.ml_target)
-
-# Code for checking the classes_df summary statistics
-
-describe(classes_df, :min, :max, :mean, :std)
-
-# Code for average degree of node in the graph
-
-2 * ne(gh) / nv(gh)
-
-# Code for checking correctness of computations
-
-classes_df.deg_ml + classes_df.deg_web == classes_df.deg
-
-# Code for showing that DataFrames.jl checks consistency of stored objects
-
-df = DataFrame(a=1, b=11)
-push!(df.a, 2)
-df
-
-# Codes for section 8.3
-
-# Code for computing groupwise means of columns
-
-using Statistics
-for type in [0, 1], col in ["deg_ml", "deg_web"]
-    println((type, col, mean(classes_df[classes_df.ml_target .== type, col])))
-end
-
-gdf = groupby(classes_df, :ml_target)
-combine(gdf,
-        :deg_ml => mean => :mean_deg_ml,
-        :deg_web => mean => :mean_deg_web)
-
-using DataFramesMeta
-@combine(gdf,
-         :mean_deg_ml = mean(:deg_ml),
-         :mean_deg_web = mean(:deg_web))
-
-# Code for simple plotting of relationship between developer degree and type
+puzzles[!, "Rating"]
+puzzles[!, :Rating]
+puzzles[!, 4]
+puzzles[!, col]
 
 using Plots
-scatter(classes_df.deg_ml, classes_df.deg_web;
-        color=[x == 1 ? "black" : "gray" for x in classes_df.ml_target],
-        xlabel="degree ml", ylabel="degree web", labels=false)
+plot(histogram(puzzles.Rating, label="Rating"),
+     histogram(puzzles.RatingDeviation, label="RatingDeviation"),
+     histogram(puzzles.Popularity, label="Popularity"),
+     histogram(puzzles.NbPlays, label="NbPlays"))
 
-# Code for aggregation of degree data
+plot([histogram(puzzles[!, col]; label=col) for
+      col in ["Rating", "RatingDeviation",
+              "Popularity", "NbPlays"]]...)
 
-agg_df = combine(groupby(classes_df, [:deg_ml, :deg_web]),
-                 :ml_target => (x -> 1 - mean(x)) => :web_mean)
+# Code for section 6.4
 
-# Code for comparison how Julia parses expressions
+using Statistics
+plays_lo = median(puzzles.NbPlays)
+puzzles.NbPlays .> plays_lo
 
-:ml_target => (x -> 1 - mean(x)) => :web_mean
-:ml_target => x -> 1 - mean(x) => :web_mean
+puzzles.NbPlays > plays_lo
 
-# Code for aggregation using DataFramesMeta.jl
+rating_lo = 1500
+rating_hi = quantile(puzzles.Rating, 0.99)
+rating_lo .< puzzles.Rating .< rating_hi
 
-@combine(groupby(classes_df, [:deg_ml, :deg_web]),
-         :web_mean = 1 - mean(:ml_target))
+row_selector = (puzzles.NbPlays .> plays_lo) .&&
+               (rating_lo .< puzzles.Rating .< rating_hi)
 
-# Code for getting summary information about the aggregated data frame
+sum(row_selector)
+count(row_selector)
 
-describe(agg_df)
+# Code for listing 6.3
 
-# Code for log1p function
+good = puzzles[row_selector, ["Rating", "Popularity"]]
 
-log1p(0)
+# Code for plotting histograms
 
-# Code for listing 8.6
+plot(histogram(good.Rating; label="Rating"),
+     histogram(good.Popularity; label="Popularity"))
 
-function gen_ticks(maxv)
-    max2 = round(Int, log2(maxv))
-    tick = [0; 2 .^ (0:max2)]
-    return (log1p.(tick), tick)
+# Code for column selectors
+
+puzzles[1, "Rating"]
+
+puzzles[:, "Rating"]
+
+row1 = puzzles[1, ["Rating", "Popularity"]]
+
+row1["Rating"]
+row1[:Rating]
+row1[1]
+row1.Rating
+row1."Rating"
+
+good = puzzles[row_selector, ["Rating", "Popularity"]]
+
+good[1, "Rating"]
+good[1, :]
+good[:, "Rating"]
+good[:, :]
+
+names(puzzles, ["Rating", "Popularity"])
+names(puzzles, [:Rating, :Popularity])
+names(puzzles, [4, 6])
+names(puzzles, [false, false, false, true, false, true, false, false, false])
+names(puzzles, r"Rating")
+names(puzzles, Not([4, 6]))
+names(puzzles, Not(r"Rating"))
+names(puzzles, Between("Rating", "Popularity"))
+names(puzzles, :)
+names(puzzles, All())
+names(puzzles, Cols(r"Rating", "NbPlays"))
+names(puzzles, Cols(startswith("P")))
+
+names(puzzles, startswith("P"))
+
+names(puzzles, Real)
+
+names(puzzles, AbstractString)
+
+puzzles[:, names(puzzles, Real)]
+
+# Code for row subsetting
+
+df1 = puzzles[:, ["Rating", "Popularity"]];
+df2 = puzzles[!, ["Rating", "Popularity"]];
+
+df1 == df2
+df1 == puzzles
+df2 == puzzles
+
+df1.Rating === puzzles.Rating
+df1.Popularity === puzzles.Popularity
+df2.Rating === puzzles.Rating
+df2.Popularity === puzzles.Popularity
+
+@benchmark $puzzles[:, ["Rating", "Popularity"]]
+@benchmark $puzzles[!, ["Rating", "Popularity"]]
+
+puzzles[1, 1]
+puzzles[[1], 1]
+puzzles[1, [1]]
+puzzles[[1], [1]]
+
+# Code for making views
+
+@view puzzles[1, 1]
+
+@view puzzles[[1], 1]
+
+@view puzzles[1, [1]]
+
+@view puzzles[[1], [1]]
+
+@btime $puzzles[$row_selector, ["Rating", "Popularity"]];
+@btime @view $puzzles[$row_selector, ["Rating", "Popularity"]];
+
+parentindices(@view puzzles[row_selector, ["Rating", "Popularity"]])
+
+# Code for section 6.5
+
+describe(good)
+
+rating_mapping = Dict{Int, Vector{Int}}()
+for (i, rating) in enumerate(good.Rating)
+    if haskey(rating_mapping, rating)
+        push!(rating_mapping[rating], i)
+    else
+        rating_mapping[rating] = [i]
+    end
+end
+rating_mapping
+
+good[rating_mapping[2108], :]
+
+unique(good[rating_mapping[2108], :].Rating)
+
+using Statistics
+mean(good[rating_mapping[2108], "Popularity"])
+
+ratings = unique(good.Rating)
+
+mean_popularities = map(ratings) do rating
+    indices = rating_mapping[rating]
+    popularities = good[indices, "Popularity"]
+    return mean(popularities)
 end
 
-log1pjitter(x) = log1p(x) - 0.05 + rand() / 10
+scatter(ratings, mean_popularities;
+        xlabel="rating", ylabel="mean popularity", legend=false)
 
-using Random
-Random.seed!(1234);
-scatter(log1pjitter.(agg_df.deg_ml),
-        log1pjitter.(agg_df.deg_web);
-        zcolor=agg_df.web_mean,
-        xlabel="degree ml", ylabel="degree web",
-        markersize=2, markerstrokewidth=0, markeralpha=0.8,
-        legend=:topleft, labels = "fraction web",
-        xticks=gen_ticks(maximum(classes_df.deg_ml)),
-        yticks=gen_ticks(maximum(classes_df.deg_web)))
+import Loess
+model = Loess.loess(ratings, mean_popularities);
+ratings_predict = float.(sort(ratings))
+popularity_predict = Loess.predict(model, ratings_predict)
 
-# Code for fitting logistic regression model
-
-using GLM
-glm(@formula(ml_target~log1p(deg_ml)+log1p(deg_web)), classes_df, Binomial(), LogitLink())
-
-# Code for inspecting @formula result
-
-@formula(ml_target~log1p(deg_ml)+log1p(deg_web))
-
-# Code for inserting columns to a data frame
-
-df = DataFrame(x=1:3)
-insertcols!(df, :y => 4:6)
-insertcols!(df, :y => 4:6)
-insertcols!(df, :z => 1)
-
-insertcols!(df, 1, :a => 0)
-insertcols!(df, :x, :pre_x => 2)
-insertcols!(df, :x, :post_x => 3, after=true)
+plot!(ratings_predict, popularity_predict; width=5, color="black")

@@ -1,248 +1,224 @@
 # Bogumił Kamiński, 2022
 
-# Codes for chapter 6
+# Codes for chapter 4
 
-# Code for section 6.1
+# Code for listing 4.1
 
-if isfile("puzzles.csv.bz2")
-    @info "file already present"
-else
-    @info "fetching file"
-    download("https://database.lichess.org/" *
-            "lichess_db_puzzle.csv.bz2",
-            "puzzles.csv.bz2")
+import Downloads
+Downloads.download("https://raw.githubusercontent.com/" *
+                   "sidooms/MovieTweetings/" *
+                   "44c525d0c766944910686c60697203cda39305d6/" *
+                   "snapshots/10K/movies.dat",
+                   "movies.dat")
+
+# Code for string interpolation examples
+
+x = 10
+"I have $x apples"
+
+"I have \$100."
+"I have $100."
+
+# Code for multiline strings
+
+Downloads.download("https://raw.githubusercontent.com/\
+                    sidooms/MovieTweetings/\
+                    44c525d0c766944910686c60697203cda39305d6/\
+                    snapshots/10K/movies.dat",
+                   "movies.dat")
+
+"a\
+ b\
+ c"
+
+# Code for raw strings
+
+"C:\my_folder\my_file.txt"
+
+raw"C:\my_folder\my_file.txt"
+
+# Code for listing 4.2
+
+movies = readlines("movies.dat")
+
+# Code for section 4.2
+
+movie1 = first(movies)
+
+movie1_parts = split(movie1, "::")
+
+supertype(String)
+supertype(SubString{String})
+
+# Code for section 4.3
+
+movie1_parts[2]
+
+rx = r"(.*) \((\d{4})\)$"
+
+m = match(rx, movie1_parts[2])
+
+m[1]
+m[2]
+
+parse(Int, m[2])
+
+# Code for listing 4.3
+
+function parseline(line::String)
+    parts = split(line, "::")
+    m = match(r"(.*) \((\d{4})\)", parts[2])
+    return (id=parts[1],
+            name=m[1],
+            year=parse(Int, m[2]),
+            genres=split(parts[3], "|"))
 end
 
-using CodecBzip2
-compressed = read("puzzles.csv.bz2")
-plain = transcode(Bzip2Decompressor, compressed)
+# Code for parsing one line of movies data
 
-open("puzzles.csv", "w") do io
-    println(io, "PuzzleId,FEN,Moves,Rating,RatingDeviation," *
-                "Popularity,NbPlays,Themes,GameUrl")
-    write(io, plain)
+record1 = parseline(movie1)
+
+# Code for listing 4.4
+
+codeunits("a")
+codeunits("ε")
+codeunits("∀")
+
+# Codes for different patterns of string subsetting
+
+word = first(record1.name, 8)
+
+record1.name[1:8]
+
+for i in eachindex(word)
+    println(i, ": ", word[i])
 end
 
-readlines("puzzles.csv")
+codeunits("ô")
 
-# Code for section 6.2
+codeunits("Fantômas")
 
-using CSV
-using DataFrames
-puzzles = CSV.read("puzzles.csv", DataFrame);
+isascii("Hello world!")
+isascii("∀ x: x≥0")
 
-CSV.read(plain, DataFrame);
+word[1]
+word[5]
 
-compressed = nothing
-plain = nothing
+# Code for section 4.5
 
-# Code for listing 6.1
+records = parseline.(movies)
 
-puzzles
+genres = String[]
+for record in records
+    append!(genres, record.genres)
+end
+genres
 
-# Code for listing 6.2
+using FreqTables
+table = freqtable(genres)
+sort!(table)
 
-describe(puzzles)
+years = [record.year for record in records]
+has_drama = ["Drama" in record.genres for record in records]
+drama_prop = proptable(years, has_drama; margins=1)
 
-# Code for getting basic information about a data frame
-
-ncol(puzzles)
-
-nrow(puzzles)
-
-names(puzzles)
-
-# Code for section 6.3
-
-puzzles.Rating
-
-using BenchmarkTools
-@benchmark $puzzles.Rating
-
-puzzles.Rating == copy(puzzles.Rating)
-
-puzzles.Rating === copy(puzzles.Rating)
-
-puzzles.Rating === puzzles.Rating
-
-copy(puzzles.Rating) === copy(puzzles.Rating)
-
-puzzles."Rating"
-
-col = "Rating"
-
-data_frame_name[selected_rows, selected_columns]
-
-puzzles[:, "Rating"]
-puzzles[:, :Rating]
-puzzles[:, 4]
-puzzles[:, col]
-
-columnindex(puzzles, "Rating")
-
-columnindex(puzzles, "Some fancy column name")
-
-hasproperty(puzzles, "Rating")
-hasproperty(puzzles, "Some fancy column name")
-
-@benchmark $puzzles[:, :Rating]
-
-puzzles[!, "Rating"]
-puzzles[!, :Rating]
-puzzles[!, 4]
-puzzles[!, col]
+# Code for listing 4.5
 
 using Plots
-plot(histogram(puzzles.Rating, label="Rating"),
-     histogram(puzzles.RatingDeviation, label="RatingDeviation"),
-     histogram(puzzles.Popularity, label="Popularity"),
-     histogram(puzzles.NbPlays, label="NbPlays"))
 
-plot([histogram(puzzles[!, col]; label=col) for
-      col in ["Rating", "RatingDeviation",
-              "Popularity", "NbPlays"]]...)
+plot(names(drama_prop, 1), drama_prop[:, 2]; legend=false,
+     xlabel="year", ylabel="Drama probability")
 
-# Code for section 6.4
+# Code for section 4.6.1
 
-using Statistics
-plays_lo = median(puzzles.NbPlays)
-puzzles.NbPlays .> plays_lo
+s1 = Symbol("x")
+s2 = Symbol("hello world!")
+s3 = Symbol("x", 1)
 
-puzzles.NbPlays > plays_lo
+typeof(s1)
+typeof(s2)
+typeof(s3)
 
-rating_lo = 1500
-rating_hi = quantile(puzzles.Rating, 0.99)
-rating_lo .< puzzles.Rating .< rating_hi
+Symbol("1")
 
-row_selector = (puzzles.NbPlays .> plays_lo) .&&
-               (rating_lo .< puzzles.Rating .< rating_hi)
+:x
+:x1
 
-sum(row_selector)
-count(row_selector)
+:hello world
+:1
 
-# Code for listing 6.3
+# Code for section 4.6.2
 
-good = puzzles[row_selector, ["Rating", "Popularity"]]
+supertype(Symbol)
 
-# Code for plotting histograms
+:x == :x
+:x == :y
 
-plot(histogram(good.Rating; label="Rating"),
-     histogram(good.Popularity; label="Popularity"))
+# Code for listing 4.6
 
-# Code for column selectors
+using BenchmarkTools
+str = string.("x", 1:10^6)
+symb = Symbol.(str)
+@benchmark "x" in $str
+@benchmark :x in $symb
 
-puzzles[1, "Rating"]
+# Code for section 4.7
 
-puzzles[:, "Rating"]
+using InlineStrings
+s1 = InlineString("x")
+typeof(s1)
+s2 = InlineString("∀")
+typeof(s2)
+sv = inlinestrings(["The", "quick", "brown", "fox", "jumps",
+                    "over", "the", "lazy", "dog"])
 
-row1 = puzzles[1, ["Rating", "Popularity"]]
+# Code for listing 4.7
 
-row1["Rating"]
-row1[:Rating]
-row1[1]
-row1.Rating
-row1."Rating"
+using Random
+using BenchmarkTools
+Random.seed!(1234);
+s1 = [randstring(3) for i in 1:10^6]
+s2 = inlinestrings(s1)
 
-good = puzzles[row_selector, ["Rating", "Popularity"]]
+# Code for analyzing properties of InlineStrings.jl
 
-good[1, "Rating"]
-good[1, :]
-good[:, "Rating"]
-good[:, :]
+Base.summarysize(s1)
+Base.summarysize(s2)
 
-names(puzzles, ["Rating", "Popularity"])
-names(puzzles, [:Rating, :Popularity])
-names(puzzles, [4, 6])
-names(puzzles, [false, false, false, true, false, true, false, false, false])
-names(puzzles, r"Rating")
-names(puzzles, Not([4, 6]))
-names(puzzles, Not(r"Rating"))
-names(puzzles, Between("Rating", "Popularity"))
-names(puzzles, :)
-names(puzzles, All())
-names(puzzles, Cols(r"Rating", "NbPlays"))
-names(puzzles, Cols(startswith("P")))
+@benchmark sort($s1)
+@benchmark sort($s2)
 
-names(puzzles, startswith("P"))
+# Code for listing 4.8
 
-names(puzzles, Real)
-
-names(puzzles, AbstractString)
-
-puzzles[:, names(puzzles, Real)]
-
-# Code for row subsetting
-
-df1 = puzzles[:, ["Rating", "Popularity"]];
-df2 = puzzles[!, ["Rating", "Popularity"]];
-
-df1 == df2
-df1 == puzzles
-df2 == puzzles
-
-df1.Rating === puzzles.Rating
-df1.Popularity === puzzles.Popularity
-df2.Rating === puzzles.Rating
-df2.Popularity === puzzles.Popularity
-
-@benchmark $puzzles[:, ["Rating", "Popularity"]]
-@benchmark $puzzles[!, ["Rating", "Popularity"]]
-
-puzzles[1, 1]
-puzzles[[1], 1]
-puzzles[1, [1]]
-puzzles[[1], [1]]
-
-# Code for making views
-
-@view puzzles[1, 1]
-
-@view puzzles[[1], 1]
-
-@view puzzles[1, [1]]
-
-@view puzzles[[1], [1]]
-
-@btime $puzzles[$row_selector, ["Rating", "Popularity"]];
-@btime @view $puzzles[$row_selector, ["Rating", "Popularity"]];
-
-parentindices(@view puzzles[row_selector, ["Rating", "Popularity"]])
-
-# Code for section 6.5
-
-describe(good)
-
-rating_mapping = Dict{Int, Vector{Int}}()
-for (i, rating) in enumerate(good.Rating)
-    if haskey(rating_mapping, rating)
-        push!(rating_mapping[rating], i)
-    else
-        rating_mapping[rating] = [i]
+open("iris.txt", "w") do io
+    for i in 1:10^6
+        println(io, "Iris setosa")
+        println(io, "Iris virginica")
+        println(io, "Iris versicolor")
     end
 end
-rating_mapping
 
-good[rating_mapping[2108], :]
+# Code for section 4.8.2
 
-unique(good[rating_mapping[2108], :].Rating)
+uncompressed = readlines("iris.txt")
 
-using Statistics
-mean(good[rating_mapping[2108], "Popularity"])
+using PooledArrays
+compressed = PooledArray(uncompressed)
 
-ratings = unique(good.Rating)
+Base.summarysize(uncompressed)
+Base.summarysize(compressed)
 
-mean_popularities = map(ratings) do rating
-    indices = rating_mapping[rating]
-    popularities = good[indices, "Popularity"]
-    return mean(popularities)
-end
+# Code for section 4.8.3
 
-scatter(ratings, mean_popularities;
-        xlabel="rating", ylabel="mean popularity", legend=false)
+compressed.invpool
+compressed.pool
 
-import Loess
-model = Loess.loess(ratings, mean_popularities);
-ratings_predict = float.(sort(ratings))
-popularity_predict = Loess.predict(model, ratings_predict)
+compressed[10]
+compressed.pool[compressed.refs[10]]
 
-plot!(ratings_predict, popularity_predict; width=5, color="black")
+Base.summarysize.(compressed.pool)
+
+v1 = string.("x", 1:10^6)
+v2 = PooledArray(v1)
+Base.summarysize(v1)
+Base.summarysize(v2)
