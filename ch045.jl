@@ -198,10 +198,10 @@ r2(model)
 
 model.mm
 
-x = [3, 1, 2]
-sort(x)
+x = [3, 1, 3, 2]
+unique(x)
 x
-sort!(x)
+unique!(x)
 x
 
 empty_field!(nt, i) = empty!(nt[i])
