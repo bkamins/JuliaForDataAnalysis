@@ -16,9 +16,7 @@ y = collect(x);
 @btime sort($y);
 @edit sort(x)
 
-# CODES BELOW REQUIRE RE-NUMBERING
-
-# Code for exercise 3.1
+# Code for exercise 4.1
 
 using Statistics
 using BenchmarkTools
@@ -36,7 +34,7 @@ aq = [10.0   8.04  10.0  9.14  10.0   7.46   8.0   6.58
 @benchmark [cor($aq[:, i], $aq[:, i+1]) for i in 1:2:7]
 @benchmark [cor(view($aq, :, i), view($aq, :, i+1)) for i in 1:2:7]
 
-# Code for exercise 3.2
+# Code for exercise 4.2
 
 function dice_distribution(dice1, dice2)
     distribution = Dict{Int, Int}()
@@ -73,16 +71,18 @@ end
 
 test_dice()
 
-# Code for exercise 3.3
+# Code for exercise 4.3
 
 plot(scatter(data.set1.x, data.set1.y; legend=false),
      scatter(data.set2.x, data.set2.y; legend=false),
      scatter(data.set3.x, data.set3.y; legend=false),
      scatter(data.set4.x, data.set4.y; legend=false))
 
-# Code for exercise 3.4
+# Code for exercise 5.1
 
 parse.(Int, ["1", "2", "3"])
+
+# CODES BELOW REQUIRE RE-NUMBERING
 
 # Code for exercise 4.1
 
