@@ -1,8 +1,8 @@
 # Bogumił Kamiński, 2022
 
-# Codes for chapter 4
+# Codes for chapter 6
 
-# Code for listing 4.1
+# Code for listing 6.1
 
 import Downloads
 Downloads.download("https://raw.githubusercontent.com/" *
@@ -37,11 +37,11 @@ Downloads.download("https://raw.githubusercontent.com/\
 
 raw"C:\my_folder\my_file.txt"
 
-# Code for listing 4.2
+# Code for listing 6.2
 
 movies = readlines("movies.dat")
 
-# Code for section 4.2
+# Code for section 6.2
 
 movie1 = first(movies)
 
@@ -50,7 +50,7 @@ movie1_parts = split(movie1, "::")
 supertype(String)
 supertype(SubString{String})
 
-# Code for section 4.3
+# Code for section 6.3
 
 movie1_parts[2]
 
@@ -63,7 +63,7 @@ m[2]
 
 parse(Int, m[2])
 
-# Code for listing 4.3
+# Code for listing 6.3
 
 function parseline(line::String)
     parts = split(line, "::")
@@ -78,7 +78,7 @@ end
 
 record1 = parseline(movie1)
 
-# Code for listing 4.4
+# Code for listing 6.4
 
 codeunits("a")
 codeunits("ε")
@@ -104,7 +104,7 @@ isascii("∀ x: x≥0")
 word[1]
 word[5]
 
-# Code for section 4.5
+# Code for section 6.5
 
 records = parseline.(movies)
 
@@ -122,14 +122,14 @@ years = [record.year for record in records]
 has_drama = ["Drama" in record.genres for record in records]
 drama_prop = proptable(years, has_drama; margins=1)
 
-# Code for listing 4.5
+# Code for listing 6.5
 
 using Plots
 
 plot(names(drama_prop, 1), drama_prop[:, 2]; legend=false,
      xlabel="year", ylabel="Drama probability")
 
-# Code for section 4.6.1
+# Code for section 6.6.1
 
 s1 = Symbol("x")
 s2 = Symbol("hello world!")
@@ -147,14 +147,14 @@ Symbol("1")
 :hello world
 :1
 
-# Code for section 4.6.2
+# Code for section 6.6.2
 
 supertype(Symbol)
 
 :x == :x
 :x == :y
 
-# Code for listing 4.6
+# Code for listing 6.6
 
 using BenchmarkTools
 str = string.("x", 1:10^6)
@@ -162,7 +162,7 @@ symb = Symbol.(str)
 @benchmark "x" in $str
 @benchmark :x in $symb
 
-# Code for section 4.7
+# Code for section 6.7
 
 using InlineStrings
 s1 = InlineString("x")
@@ -172,7 +172,7 @@ typeof(s2)
 sv = inlinestrings(["The", "quick", "brown", "fox", "jumps",
                     "over", "the", "lazy", "dog"])
 
-# Code for listing 4.7
+# Code for listing 6.7
 
 using Random
 using BenchmarkTools
@@ -188,7 +188,7 @@ Base.summarysize(s2)
 @benchmark sort($s1)
 @benchmark sort($s2)
 
-# Code for listing 4.8
+# Code for listing 6.8
 
 open("iris.txt", "w") do io
     for i in 1:10^6
@@ -198,7 +198,7 @@ open("iris.txt", "w") do io
     end
 end
 
-# Code for section 4.8.2
+# Code for section 6.8.2
 
 uncompressed = readlines("iris.txt")
 
@@ -208,7 +208,7 @@ compressed = PooledArray(uncompressed)
 Base.summarysize(uncompressed)
 Base.summarysize(compressed)
 
-# Code for section 4.8.3
+# Code for section 6.8.3
 
 compressed.invpool
 compressed.pool

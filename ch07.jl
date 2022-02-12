@@ -1,8 +1,8 @@
 # Bogumił Kamiński, 2022
 
-# Codes for chapter 5
+# Codes for chapter 7
 
-# Code for listing 5.1
+# Code for listing 7.1
 
 using HTTP
 using JSON3
@@ -11,7 +11,7 @@ query = "https://api.nbp.pl/api/exchangerates/rates/a/usd/" *
 response = HTTP.get(query)
 json = JSON3.read(response.body)
 
-# Code for the remainder of section 5.1.2
+# Code for the remainder of section 7.1.2
 
 response.body
 
@@ -31,13 +31,13 @@ only(json.rates).mid
 only([])
 only([1, 2])
 
-# Code for listing 5.2
+# Code for listing 7.2
 
 query = "https://api.nbp.pl/api/exchangerates/rates/a/usd/" *
         "2020-06-06/?format=json"
 response = HTTP.get(query)
 
-# Code for listing 5.3
+# Code for listing 7.3
 
 query = "https://api.nbp.pl/api/exchangerates/rates/a/usd/" *
         "2020-06-01/?format=json"
@@ -67,7 +67,7 @@ catch e
     end
 end
 
-# Code for section 5.2
+# Code for section 7.2
 
 ismissing(missing)
 ismissing(1)
@@ -120,7 +120,7 @@ fun2 = passmissing(fun)
 fun2(1, 2)
 fun2(1, missing)
 
-# Code for section 5.3
+# Code for section 7.3
 
 using Dates
 d = Date("2020-06-01")
@@ -146,7 +146,7 @@ Date(2020, 5, 20):Day(1):Date(2020, 7, 5)
 
 collect(Date(2020, 5, 20):Day(1):Date(2020, 7, 5))
 
-# Code for listing 5.6
+# Code for listing 7.6
 
 function get_rate(date::Date)
     query = "https://api.nbp.pl/api/exchangerates/rates/" *
@@ -172,11 +172,11 @@ end
 "https://api.nbp.pl/api/exchangerates/rates/" *
 "a/usd/$dates[1]/?format=json"
 
-# Code for listing 5.7
+# Code for listing 7.7
 
 rates = get_rate.(dates)
 
-# Code for section 5.4
+# Code for section 7.4
 
 using Statistics
 mean(rates)
@@ -185,7 +185,7 @@ std(rates)
 mean(skipmissing(rates))
 std(skipmissing(rates))
 
-# Code for listing 5.8
+# Code for listing 7.8
 
 using FreqTables
 proptable(dayname.(dates), ismissing.(rates); margins=1)
@@ -194,7 +194,7 @@ proptable(dayname.(dates), ismissing.(rates); margins=1)
 
 dayname.(dates) .== "Thursday" .&& ismissing.(rates)
 
-# Code for listing 5.9
+# Code for listing 7.9
 
 dates[dayname.(dates) .== "Thursday" .&& ismissing.(rates)]
 
