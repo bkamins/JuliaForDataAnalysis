@@ -82,16 +82,14 @@ plot(scatter(data.set1.x, data.set1.y; legend=false),
 
 parse.(Int, ["1", "2", "3"])
 
-# CODES BELOW REQUIRE RE-NUMBERING
-
-# Code for exercise 4.1
+# Code for exercise 6.1
 
 years_table = freqtable(years)
 plot(names(years_table, 1), years_table; legend=false,
            xlabel="year", ylabel="# of movies")
 
 
-# Code for exercise 4.2
+# Code for exercise 6.2
 
 s3 = Symbol.(s1)
 @benchmark sort($s3)
@@ -99,7 +97,7 @@ s3 = Symbol.(s1)
 @benchmark unique($s2)
 @benchmark unique($s3)
 
-# Code for exercise 5.1
+# Code for exercise 7.1
 
 v = ["1", "2", missing, "4"]
 [ismissing(x) ? missing : parse(Int, x) for x in v]
@@ -113,43 +111,43 @@ end
 using Missings
 passmissing(parse).(Int, v)
 
-# Code for exercise 5.2
+# Code for exercise 7.2
 
 using Dates
 Date(2021, 1, 1):Month(1):Date(2021, 12, 1)
 collect(Date(2021, 1, 1):Month(1):Date(2021, 12, 1))
 
-# Code for exercise 6.1
+# Code for exercise 8.1
 
 using BenchmarkTools
 @benchmark $puzzles."Rating"
 
-# Code for exercise 6.2
+# Code for exercise 9.1
 
 using StatsBase
 summarystats(puzzles[puzzles.Popularity .== 100, "NbPlays"])
 summarystats(puzzles[puzzles.Popularity .== -100, "NbPlays"])
 
-# Code for exercise 6.3
+# Code for exercise 9.2
 
 sum(length, values(rating_mapping))
 nrow(good)
 
-# Code for exercise 7.1
+# Code for exercise 10.1
 
 using BenchmarkTools
 x = rand(10^6);
 @btime DataFrame(x=$x);
 @btime DataFrame(x=$x; copycols=false);
 
-# Code for exercise 7.2
+# Code for exercise 10.2
 
 df1 = DataFrame(a=1,b=2)
 df2 = DataFrame(b=3, a=4)
 vcat(df1, df2)
 vcat(df1, df2, cols=:orderequal)
 
-# Code for exercise 7.3
+# Code for exercise 10.3
 
 function walk_unique_2ahead()
     walk = DataFrame(x=0, y=0)
@@ -162,18 +160,18 @@ end
 Random.seed!(2);
 proptable([walk_unique_2ahead() for _ in 1:10^5])
 
-# Code for exercise 7.4
+# Code for exercise 11.1
 
 @time wide = DataFrame(ones(1, 10_000), :auto);
 @time Tables.columntable(wide);
 
-# Code for exercise 8.1
+# Code for exercise 12.1
 
 cg = complete_graph(37700)
 Base.summarysize(cg)
 @time deg_class(cg, classes_df.ml_target);
 
-# Code for exercise 8.2
+# Code for exercise 12.2
 
 scatter(log1p.(agg_df.deg_ml),
         log1p.(agg_df.deg_web);
@@ -184,12 +182,12 @@ scatter(log1p.(agg_df.deg_ml),
         xticks=gen_ticks(maximum(classes_df.deg_ml)),
         yticks=gen_ticks(maximum(classes_df.deg_web)))
 
-# Code for exercise 8.3
+# Code for exercise 12.3
 
 glm(@formula(ml_target~log1p(deg_ml)+log1p(deg_web)),
     classes_df, Binomial(), ProbitLink())
 
-# Code for exercise 8.4
+# Code for exercise 12.4
 
 df = DataFrame()
 df.a = [1, 2, 3]

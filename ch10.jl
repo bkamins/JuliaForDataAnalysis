@@ -1,8 +1,8 @@
 # Bogumił Kamiński, 2022
 
-# Codes for chapter 7
+# Codes for chapter 10
 
-# Code for section 7.1
+# Code for section 10.1
 
 aq = [10.0   8.04  10.0  9.14  10.0   7.46   8.0   6.58
        8.0   6.95   8.0  8.14   8.0   6.77   8.0   5.76
@@ -16,16 +16,11 @@ aq = [10.0   8.04  10.0  9.14  10.0   7.46   8.0   6.58
        7.0   4.82   7.0  7.26   7.0   6.42   8.0   7.91
        5.0   5.68   5.0  4.74   5.0   5.73   8.0   6.89];
 
-data = (set1=(x=aq[:, 1], y=aq[:, 2]),
-        set2=(x=aq[:, 3], y=aq[:, 4]),
-        set3=(x=aq[:, 5], y=aq[:, 6]),
-        set4=(x=aq[:, 7], y=aq[:, 8]));
-
 using DataFrames
 
-# Code for listing 7.1
+# Code for listing 10.1
 
-aq1 = ataFrame(aq, ["x1", "y1", "x2", "y2", "x3", "y3", "x4", "y4"])
+aq1 = DataFrame(aq, ["x1", "y1", "x2", "y2", "x3", "y3", "x4", "y4"])
 DataFrame(aq, [:x1, :y1, :x2, :y2, :x3, :y3, :x4, :y4])
 
 # Code for creating DataFrame with automatic column names
@@ -38,7 +33,12 @@ aq_vec = collect(eachcol(aq))
 DataFrame(aq_vec, ["x1", "y1", "x2", "y2", "x3", "y3", "x4", "y4"])
 DataFrame(aq_vec, :auto)
 
-# Codes for section 7.1.2
+# Codes for section 10.1.2
+
+data = (set1=(x=aq[:, 1], y=aq[:, 2]),
+        set2=(x=aq[:, 3], y=aq[:, 4]),
+        set3=(x=aq[:, 5], y=aq[:, 6]),
+        set4=(x=aq[:, 7], y=aq[:, 8]));
 
 data.set1.x
 
@@ -84,7 +84,11 @@ df.x
 
 DataFrame(x=[1], y=[1, 2, 3])
 
-# Codes for section 7.1.3
+using RCall
+r_df = R"data.frame(a=1:6, b=1:2, c=1:3)"
+julia_df = rcopy(r_df)
+
+# Codes for section 10.1.3
 
 data.set1
 DataFrame(data.set1)
@@ -93,11 +97,11 @@ DataFrame([(a=1, b=2), (a=3, b=4), (a=5, b=6)])
 
 data
 
-# Code for listing 7.2
+# Code for listing 10.2
 
 aq2 = DataFrame(data)
 
-# Codes for listing 7.3
+# Codes for listing 10.3
 
 data_dfs = map(DataFrame, data)
 
@@ -114,14 +118,14 @@ vcat(data_dfs.set1, data_dfs.set2, data_dfs.set3, data_dfs.set4;
 reduce(vcat, collect(data_dfs);
        source="source_id"=>string.("set", 1:4))
 
-# Code for listing 7.4
+# Code for listing 10.4
 
 df1 = DataFrame(a=1:3, b=11:13)
 df2 = DataFrame(a=4:6, c=24:26)
 vcat(df1, df2)
 vcat(df1, df2; cols=:union)
 
-# Code for listing 7.5
+# Code for listing 10.5
 
 df_agg = DataFrame()
 append!(df_agg, data_dfs.set1)
@@ -140,7 +144,7 @@ df2 = DataFrame(a=4:6, b=[14, missing, 16])
 append!(df1, df2)
 append!(df1, df2; promote=true)
 
-# Code for section 7.2.3
+# Code for section 10.2.3
 
 df = DataFrame()
 push!(df, (a=1, b=2))
@@ -188,7 +192,7 @@ range(1, 5)
 
 (3/4)^9
 
-# Code for listing 7.6
+# Code for listing 10.6
 
 function walk_unique() #A
     walk = DataFrame(x=0, y=0)
@@ -201,79 +205,8 @@ end
 Random.seed!(2);
 proptable([walk_unique() for _ in 1:10^5])
 
-# Code for a note on conversion
+# code for serialization
 
-x = [1.5]
-x[1] = 1
-x
-
-# Code from section 7.3.1
-
-Matrix(walk)
-Matrix{Any}(walk)
-Matrix{String}(walk)
-
-plot(walk)
-
-plot(Matrix(walk); labels=["x" "y"] , legend=:topleft)
-
-# Code from section 7.3.2
-
-Tables.columntable(walk)
-
-using BenchmarkTools
-function mysum(table)
-           s = 0 #A
-           for v in table.x #B
-               s += v
-           end
-           return s
-       end
-df = DataFrame(x=1:1_000_000);
-@btime mysum($df)
-
-tab = Tables.columntable(df);
-@btime mysum($tab)
-
-@code_warntype mysum(df)
-
-@code_warntype mysum(tab)
-
-typeof(tab)
-
-function barrier_mysum2(x)
-    s = 0
-    for v in x
-        s += v
-    end
-    return s
-end
-mysum2(table) = barrier_mysum2(table.x)
-@btime mysum2($df)
-
-df = DataFrame(a=[1, 1, 2], b=[1, 1, 2])
-unique(df)
-
-tab = Tables.columntable(df)
-unique(tab)
-
-# Code from section 7.3.3
-
-Tables.rowtable(walk)
-
-nti = Tables.namedtupleiterator(walk)
-for v in nti
-    println(v)
-end
-
-er = eachrow(walk)
-er[1]
-er[end]
-ec = eachcol(walk)
-ec[1]
-ec[end]
-
-identity.(eachcol(walk))
-
-df = DataFrame(x=1:2, b=["a", "b"])
-identity.(eachcol(df))
+using Serialization
+serialize("walk.bin", walk)
+deserialize("walk.bin") == walk

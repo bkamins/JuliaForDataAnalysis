@@ -1,10 +1,10 @@
 # Bogumił Kamiński, 2022
 
-# Codes for chapter 8
+# Codes for chapter 12
 
-# Codes for section 8.1
+# Codes for section 12.1
 
-# Code for listing 8.1
+# Code for listing 12.1
 
 import Downloads
 using SHA
@@ -29,7 +29,7 @@ open(sha256, git_zip) == [0x56, 0xc0, 0xc1, 0xc2,
 import ZipFile
 git_archive = ZipFile.Reader(git_zip)
 
-# Code for listing 8.2
+# Code for listing 12.2
 
 function ingest_to_df(archive::ZipFile.Reader, filename::AbstractString)
     idx = only(findall(x -> x.name == filename, archive.files))
@@ -48,7 +48,7 @@ findall(x -> x.name == "", git_archive.files)
 only(findall(x -> x.name == "git_web_ml/musae_git_edges.csv", git_archive.files))
 only(findall(x -> x.name == "", git_archive.files))
 
-# Code for listing 8.3
+# Code for listing 12.3
 
 using CSV
 using DataFrames
@@ -91,9 +91,9 @@ df[:, :b] = ["x", "y", "z"]
 df[:, :c] = [11, 12, 13]
 df
 
-# Codes for section 8.2
+# Codes for section 12.2
 
-# Code from listing 8.4
+# Code from listing 12.4
 
 using Graphs
 gh = SimpleGraph(nrow(classes_df))
@@ -144,7 +144,7 @@ dump(e1)
 e1.src
 e1.dst
 
-# Code for listing 8.5
+# Code for listing 12.5
 
 function deg_class(gh, class)
     deg_ml = zeros(Int, length(class))
@@ -193,7 +193,7 @@ df = DataFrame(a=1, b=11)
 push!(df.a, 2)
 df
 
-# Codes for section 8.3
+# Codes for section 12.3
 
 # Code for computing groupwise means of columns
 
@@ -242,7 +242,7 @@ describe(agg_df)
 
 log1p(0)
 
-# Code for listing 8.6
+# Code for listing 12.6
 
 function gen_ticks(maxv)
     max2 = round(Int, log2(maxv))
