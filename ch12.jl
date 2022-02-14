@@ -259,7 +259,7 @@ scatter(log1pjitter.(agg_df.deg_ml),
         zcolor=agg_df.web_mean,
         xlabel="degree ml", ylabel="degree web",
         markersize=2, markerstrokewidth=0, markeralpha=0.8,
-        legend=:topleft, labels = "fraction web",
+        legend=:topleft, labels="fraction web",
         xticks=gen_ticks(maximum(classes_df.deg_ml)),
         yticks=gen_ticks(maximum(classes_df.deg_web)))
 
@@ -274,9 +274,9 @@ glm(@formula(ml_target~log1p(deg_ml)+log1p(deg_web)), classes_df, Binomial(), Lo
 
 # Code for inserting columns to a data frame
 
-df = DataFrame(x=1:3)
-insertcols!(df, :y => 4:6)
-insertcols!(df, :y => 4:6)
+df = DataFrame(x=1:2)
+insertcols!(df, :y => 4:5)
+insertcols!(df, :y => 4:5)
 insertcols!(df, :z => 1)
 
 insertcols!(df, 1, :a => 0)
