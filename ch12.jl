@@ -93,12 +93,12 @@ df
 
 # Codes for section 12.2
 
-# Code from listing 12.4
+# Code for listing 12.4
 
 using Graphs
 gh = SimpleGraph(nrow(classes_df))
-for (from, to) in eachrow(edges_df)
-    add_edge!(gh, from, to)
+for (src, dst) in eachrow(edges_df)
+    add_edge!(gh, src, dst)
 end
 gh
 ne(gh)
