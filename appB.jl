@@ -165,6 +165,12 @@ proptable([walk_unique_2ahead() for _ in 1:10^5])
 @time wide = DataFrame(ones(1, 10_000), :auto);
 @time Tables.columntable(wide);
 
+# Code for exercise 11.2
+
+using Statistics
+Dict(key.city => mean(df.rainfall) for (key, df) in pairs(gdf_city))
+combine(gdf_city, :rainfall => mean)
+
 # Code for exercise 12.1
 
 cg = complete_graph(37700)
