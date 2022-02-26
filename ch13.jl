@@ -253,7 +253,7 @@ end
 
 # Code for listing 13.12
 
-test_roc =  roc(test, score=:predict, target=:arrest)
+test_roc =  roc(test; score=:predict, target=:arrest)
 plot(test_roc.pfa, test_roc.pmiss;
      color="black", lw=3,
      label="test (AUC=$(round(100*auc(test_roc), digits=2))%)",
