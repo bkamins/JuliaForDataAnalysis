@@ -247,7 +247,7 @@ histogram!(test_groups[(true,)].predict;
 # Code for computing of confusion matrix
 
 @chain test begin
-    @rselect(:observed=:arrest, :predicted=:predict > 0.15)
+    @rselect(:predicted=:predict > 0.15, :observed=:arrest)
     proptable(:predicted, :observed; margins=2)
 end
 
