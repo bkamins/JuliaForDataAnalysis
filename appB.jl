@@ -204,3 +204,44 @@ df.b === df.a
 df.b == df.a
 df[1:2, "a"] .= 10
 df
+
+# Code for exercise 13.1
+
+@rselect(owensboro,
+    :arrest = :arrest_made,
+    :day = dayofweek(:date),
+    :type,
+    :v1 = contains(:violation, agg_violation.v[1]),
+    :v2 = contains(:violation, agg_violation.v[2]),
+    :v3 = contains(:violation, agg_violation.v[3]),
+    :v4 = contains(:violation, agg_violation.v[4]))
+
+# Code for exercise 13.2
+
+select(owensboro,
+    :arrest_made => :arrest,
+    :date => ByRow(dayofweek) => :day,
+    :type,
+    [:violation =>
+     ByRow(x -> contains(x, agg_violation.v[i])) =>
+     "v$i" for i in 1:4],
+    :date => ByRow(dayname) => :dayname)
+
+# Code for exercise 13.3
+
+@chain owensboro2 begin
+    groupby(:dayname, sort=true)
+    combine(:arrest => mean)
+end
+
+@chain owensboro2 begin
+    groupby([:dayname, :type], sort=true)
+    combine(:arrest => mean)
+    unstack(:dayname, :type, :arrest_mean)
+end
+
+# Code for exercise 13.4
+
+train2 = owensboro2[owensboro2.train, :]
+test2 = owensboro2[.!owensboro2.train, :]
+test3, train3 = groupby(owensboro2, :train, sort=true)
