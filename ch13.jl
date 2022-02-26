@@ -267,4 +267,4 @@ plot!(train_roc.pfa, train_roc.pmiss;
 
 DataFrame(:a=>1, :a=>2)
 
-DataFrame(:a=>1, :a=>2, makeunique=true)
+DataFrame(:a=>1, :a=>2; makeunique=true)
