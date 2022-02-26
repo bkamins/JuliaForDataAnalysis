@@ -262,3 +262,9 @@ train_roc =  roc(train, score=:predict, target=:arrest)
 plot!(train_roc.pfa, train_roc.pmiss;
       color="gold", lw=3,
       label="train (AUC=$(round(100*auc(train_roc), digits=2))%)")
+
+# Codes for section 13.5
+
+DataFrame(:a=>1, :a=>2)
+
+DataFrame(:a=>1, :a=>2, makeunique=true)
