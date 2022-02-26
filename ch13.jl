@@ -244,15 +244,21 @@ histogram!(test_groups[(true,)].predict;
            bins=10, normalize=:probability,
            fillalpha=0.5, label="true")
 
+# Code for computing of confusion matrix
+
+@chain test begin
+    @rselect(:observed=:arrest, :predicted=:predict > 0.15)
+    proptable(:predicted, :observed; margins=2)
+end
+
 # Code for listing 13.12
 
 test_roc =  roc(test, score=:predict, target=:arrest)
-plot(test_roc.pfa, 1 .- test_roc.pmiss;
-     legend=:bottomright,
+plot(test_roc.pfa, test_roc.pmiss;
      color="black", lw=3,
-     label="test (AUC=$(round(100*(1-auc(test_roc)), digits=2))%)",
-     xlabel="FPR", ylabel="TPR")
+     label="test (AUC=$(round(100*auc(test_roc), digits=2))%)",
+     xlabel="pfa", ylabel="pmiss")
 train_roc =  roc(train, score=:predict, target=:arrest)
-plot!(train_roc.pfa, 1 .- train_roc.pmiss;
-    color="gold", lw=3,
-    label="train (AUC=$(round(100*(1-auc(train_roc)), digits=2))%)")
+plot!(train_roc.pfa, train_roc.pmiss;
+      color="gold", lw=3,
+      label="train (AUC=$(round(100*auc(train_roc), digits=2))%)")
