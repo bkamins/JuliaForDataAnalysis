@@ -57,7 +57,7 @@ in(4, [1, 2, 3])
 
 in([1, 3, 5, 7, 9], [1, 2, 3, 4])
 
-in([1, 3, 5, 7, 9], [1, 2, 3, 4, ([1, 3, 5, 7, 9]])
+in([1, 3, 5, 7, 9], [1, 2, 3, 4, [1, 3, 5, 7, 9]])
 
 in.([1, 3, 5, 7, 9], [1, 2, 3, 4])
 
@@ -159,3 +159,29 @@ x = Any[1, 2, 3]
 identity.(x)
 y = Any[1, 2.0]
 identity.(y)
+
+# Code for section 5.3
+
+using Random
+Random.seed!(1234);
+cluster1 = randn(100, 5) .- 1
+cluster2 = randn(100, 5) .+ 1
+
+data5 = vcat(cluster1, cluster2)
+
+using PyCall
+manifold = pyimport("sklearn.manifold")
+
+# Optional code to run if the pyimport("sklearn.manifold") fails
+# There is no need to run it if the above operation worked
+using Conda
+Conda.add("scikit-learn")
+
+tsne = manifold.TSNE(n_components=2, init="random",
+                     learning_rate="auto", random_state=1234)
+data2 = tsne.fit_transform(data5)
+
+using Plots
+scatter(data2[:, 1], data2[:, 2];
+        color=[fill("black", 100); fill("gold", 100)],
+        legend=false)

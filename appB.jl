@@ -82,6 +82,17 @@ plot(scatter(data.set1.x, data.set1.y; legend=false),
 
 parse.(Int, ["1", "2", "3"])
 
+# Code for exercise 5.2
+
+Random.seed!(1234);
+data5bis = [randn(100, 5) .- 0.4; randn(100, 5) .+ 0.4];
+tsne = manifold.TSNE(n_components=2, init="random",
+                     learning_rate="auto", random_state=1234);
+data2bis = tsne.fit_transform(data5bis);
+scatter(data2bis[:, 1], data2bis[:, 2];
+        color=[fill("black", 100); fill("gold", 100)],
+        legend=false)
+
 # Code for exercise 6.1
 
 years_table = freqtable(years)
