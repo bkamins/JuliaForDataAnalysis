@@ -9,8 +9,8 @@ if isfile("puzzles.csv.bz2")
 else
     @info "fetching file"
     download("https://database.lichess.org/" *
-            "lichess_db_puzzle.csv.bz2",
-            "puzzles.csv.bz2")
+             "lichess_db_puzzle.csv.bz2",
+             "puzzles.csv.bz2")
 end
 
 using CodecBzip2
@@ -112,3 +112,34 @@ plot(histogram(puzzles.Rating, label="Rating"),
 plot([histogram(puzzles[!, col]; label=col) for
       col in ["Rating", "RatingDeviation",
               "Popularity", "NbPlays"]]...)
+
+# Code for section 8.4
+
+# Codes for Arrow examples
+using Arrow
+Arrow.write("puzzles.arrow", puzzles)
+
+arrow_table = Arrow.Table("puzzles.arrow")
+puzzles_arrow = DataFrame(arrow_table);
+puzzles_arrow == puzzles
+
+puzzles_arrow.PuzzleId
+puzzles_arrow.PuzzleId[1] = "newID"
+
+puzzles_arrow = copy(puzzles_arrow);
+puzzles_arrow.PuzzleId
+
+# Codes for SQLite examples
+using SQLite
+db = SQLite.DB("puzzles.db")
+
+SQLite.load!(puzzles, db, "puzzles")
+
+SQLite.tables(db)
+SQLite.columns(db, "puzzles")
+
+query = DBInterface.execute(db, "SELECT * FROM puzzles")
+puzzles_db = DataFrame(query);
+puzzles_db == puzzles
+
+puzzles_db.PuzzleId
