@@ -78,6 +78,12 @@ puzzles[:, names(puzzles, Real)]
 
 # Code for row subsetting
 
+df_small = DataFrame(id=1:4)
+df_small[[1, 3], :]
+df_small[[true, false, true, false], :]
+df_small[Not([2, 4]), :]
+df_small[Not([false, true, false, true]), :]
+
 df1 = puzzles[:, ["Rating", "Popularity"]];
 df2 = puzzles[!, ["Rating", "Popularity"]];
 
@@ -145,9 +151,9 @@ end
 scatter(ratings, mean_popularities;
         xlabel="rating", ylabel="mean popularity", legend=false)
 
-import Loess
-model = Loess.loess(ratings, mean_popularities);
+using Loess
+model = loess(ratings, mean_popularities);
 ratings_predict = float.(sort(ratings))
-popularity_predict = Loess.predict(model, ratings_predict)
+popularity_predict = predict(model, ratings_predict)
 
 plot!(ratings_predict, popularity_predict; width=5, color="black")
