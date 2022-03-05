@@ -43,3 +43,16 @@ To work with codes from some given chapter:
   of the book where it is used; if in the code there is a blank line between
   consecutive code sections this means that in the book these codes are
   separated by the text of the book explaining what the code does
+
+For your convenience I additionally stored data files that we use in this book.
+They are respectively:
+* movies.dat (for chapter 6, shared on GitHub repository
+  https://github.com/sidooms/MovieTweetings under MIT license)
+* puzzles.csv.bz2 (for chapter 8, available puzzles at
+  https://database.lichess.org/. The data is distributed under
+  Creative Commons CC0 license)
+* git_web_ml.zip (for chapter 12, available on
+  Stanford Large Network Dataset Collection website
+  https://snap.stanford.edu/data/github-social.html under GPL-3.0 License)
+* owensboro.zip (for chapter 13, available at The Stanford Open Policing Project
+  under the Open Data Commons Attribution License)
