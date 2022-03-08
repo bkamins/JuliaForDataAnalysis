@@ -203,6 +203,7 @@ for type in [0, 1], col in ["deg_ml", "deg_web"]
 end
 
 gdf = groupby(classes_df, :ml_target)
+
 combine(gdf,
         :deg_ml => mean => :mean_deg_ml,
         :deg_web => mean => :mean_deg_web)
