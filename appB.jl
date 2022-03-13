@@ -256,3 +256,17 @@ end
 train2 = owensboro2[owensboro2.train, :]
 test2 = owensboro2[.!owensboro2.train, :]
 test3, train3 = groupby(owensboro2, :train, sort=true)
+
+# Code for exercise 14.1
+
+@time mean(x -> x < 0, -10^6:10^6)
+@time mean(x -> x < 0, -10^6:10^6)
+@time mean(x -> x < 0, -10^6:10^6)
+@time mean(<(0), -10^6:10^6)
+@time mean(<(0), -10^6:10^6)
+@time mean(<(0), -10^6:10^6)
+
+lt0(x) = x < 0
+@time mean(lt0, -10^6:10^6)
+@time mean(lt0, -10^6:10^6)
+@time mean(lt0, -10^6:10^6)
