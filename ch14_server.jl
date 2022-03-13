@@ -2,22 +2,22 @@ using Genie
 using Statistics
 using ThreadsX
 
-function v_asian_sample(T, X0, K, r, sd, m)::Float64
+function v_asian_sample(T, X0, K, r, s, m)::Float64
     X = X0
     sumX = X
     d = T / m
     for i in 1:m
-        X *= exp((r-sd^2/2)*d + sd*sqrt(d)*randn())
+        X *= exp((r-s^2/2)*d + s*sqrt(d)*randn())
         sumX += X
     end
     return exp(-r*T) * max(sumX / (m + 1) - K, 0)
 end
 
-function v_asian_value(T, X0, K, r, sd, m, max_time)
+function v_asian_value(T, X0, K, r, s, m, max_time)
     result = Float64[]
     start_time = time()
     while time() - start_time < max_time
-        append!(result, ThreadsX.map(_ -> v_asian_sample(T, X0, K, r, sd, m), 1:10_000))
+        append!(result, ThreadsX.map(_ -> v_asian_sample(T, X0, K, r, s, m), 1:10_000))
     end
     n = length(result)
     mv = mean(result)
@@ -25,7 +25,7 @@ function v_asian_value(T, X0, K, r, sd, m, max_time)
     lo95 = mv - 1.96 * sdv / sqrt(n)
     hi95 = mv + 1.96 * sdv / sqrt(n)
     zero = mean(==(0), result)
-    return (; n, mv, sdv, lo95, hi95, zero)
+    return (; n, mv, lo95, hi95, zero)
 end
 
 Genie.config.run_as_server = true
