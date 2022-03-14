@@ -106,22 +106,22 @@ Genie.Renderer.Json.json((firstname="Bogumił", lastname="Kamiński"))
 
 using HTTP
 using JSON3
-req = HTTP.request("POST", "http://127.0.0.1:8000",
-                   ["Content-Type" => "application/json"],
-                   JSON3.write((K=55.0, max_time=0.25)))
+req = HTTP.post("http://127.0.0.1:8000",
+                ["Content-Type" => "application/json"],
+                JSON3.write((K=55.0, max_time=0.25)))
 JSON3.read(req.body)
 
-HTTP.request("POST", "http://127.0.0.1:8000",
-             ["Content-Type" => "application/json"],
-             JSON3.write((K="", max_time=0.25)))
+HTTP.post("http://127.0.0.1:8000",
+          ["Content-Type" => "application/json"],
+          JSON3.write((K="", max_time=0.25)))
 
 using DataFrames
 df = DataFrame(K=30:2:80, max_time=0.25)
 df.data = map(df.K, df.max_time) do K, max_time
     @show K
-    @time req = HTTP.request("POST", "http://127.0.0.1:8000",
-                            ["Content-Type" => "application/json"],
-                            JSON3.write((;K, max_time)))
+    @time req = HTTP.post("http://127.0.0.1:8000",
+                          ["Content-Type" => "application/json"],
+                          JSON3.write((;K, max_time)))
     return JSON3.read(req.body)
 end;
 
