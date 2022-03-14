@@ -2,6 +2,24 @@
 
 # Codes for chapter 14
 
+# Codes for section 14.1
+
+using Plots
+using Statistics
+
+X = [1.0, 1.1, 1.3, 1.2, 1.2]
+T = 1.0
+m = 4
+Y = mean(X)
+K = 1.05
+plot(range(0.0, T length=m+1), X;
+           xlabel="T", legend=false, color="black")
+hline!([Y], color="gray", lw=3, ls=:dash)
+hline!([K], color="gray", lw=3, ls=:dot)
+annotate!([(T, Y + 0.01, "Y"),
+           (T, K + 0.01, "K"),
+           (T, X[end] + 0.01, "X")])
+
 # Codes for section 14.2
 
 # start Julia with and additional -t4 command line switch
