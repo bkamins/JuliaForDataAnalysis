@@ -111,6 +111,8 @@ req = HTTP.post("http://127.0.0.1:8000",
                 JSON3.write((K=55.0, max_time=0.25)))
 JSON3.read(req.body)
 
+JSON3.write((K=55.0, max_time=0.25))
+
 HTTP.post("http://127.0.0.1:8000",
           ["Content-Type" => "application/json"],
           JSON3.write((K="", max_time=0.25)))
