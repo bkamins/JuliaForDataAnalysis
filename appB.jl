@@ -270,3 +270,32 @@ lt0(x) = x < 0
 @time mean(lt0, -10^6:10^6)
 @time mean(lt0, -10^6:10^6)
 @time mean(lt0, -10^6:10^6)
+
+# Code for exercise 14.2
+
+# web service code
+
+using Genie
+Genie.config.run_as_server = true
+Genie.Router.route("/", method=POST) do
+    message = Genie.Requests.jsonpayload()
+    return try
+        n = message["n"]
+        Genie.Renderer.Json.json(rand(n))
+    catch
+        Genie.Responses.setstatus(400)
+    end
+end
+Genie.startup()
+
+# client code
+
+using HTTP
+using JSON3
+req = HTTP.post("http://127.0.0.1:8000",
+                ["Content-Type" => "application/json"],
+                JSON3.write((n=3,)))
+JSON3.read(req.body)
+HTTP.post("http://127.0.0.1:8000",
+                ["Content-Type" => "application/json"],
+                JSON3.write((x=3,)))
