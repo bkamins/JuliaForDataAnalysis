@@ -129,7 +129,7 @@ end;
 
 df
 
-all(==("OK"), getproperty.(df.data, :status))
+all(x -> x.status == "OK", df.data)
 
 df2 = select(df, :K, :data => ByRow(x -> x.value) => AsTable)
 
