@@ -131,6 +131,10 @@ df
 
 all(x -> x.status == "OK", df.data)
 
+small_df = DataFrame(x=[(a=1, b=2), (a=3, b=4), (a=5, b=6)])
+transform(small_df, :x => identity => AsTable)
+transform(small_df, :x => AsTable)
+
 df2 = select(df, :K, :data => ByRow(x -> x.value) => AsTable)
 
 using Plots
