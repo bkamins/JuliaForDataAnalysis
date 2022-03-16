@@ -1,6 +1,10 @@
+# Julia for Data Analysis
+
 This repository contains source codes for the "Julia for Data Analysis" book
 that is written by Bogumił Kamiński and is planned to be published in 2022 by
 [Manning Publications Co.](https://www.manning.com/).
+
+## Setting up your environment
 
 In order to prepare the Julia environment before working with the materials
 presented in the book please perform the following setup steps:
@@ -8,23 +12,41 @@ presented in the book please perform the following setup steps:
   [install](https://julialang.org/downloads/platform/)
   [Julia](https://julialang.org/);
   all the codes were tested under Julia 1.7;
-* make sure you can start Julia by running `julia` command in your system shell
-  (alternative ways to use Julia are described in Appendix A to the book)
+* make sure you can start Julia by running `julia` command in your terminal;
 * download [this repository](https://github.com/bkamins/JuliaForDataAnalysis)
   to a local folder on your computer;
 * start Julia in a folder containing the downloaded material using the command
   `julia --project`; the folder must
-  contain the Project.toml and Manifest.toml files prepared for this book
-  (an explanation what these files do and why they are required is given in
-   Appendix A to the book);
+  contain the Project.toml and Manifest.toml files prepared for this book that
+  allow Julia to automatically set up the project environment that will allow
+  you to work with material presented in this book
+  (a more detailed explanation what these files do and why they are required is
+  given in Appendix A to the book);
 * press *]*, write `instantiate` and press *Enter* (this process will ensure
   that Julia properly configures the working environment for working with
   the codes from the book);
 * press *Backspace*, write `exit()` and press *Enter*; now you should exit Julia
   and everything is set up to work with the materials presented in the book.
 
+Additional instructions how to manage your Julia installation are given in
+Appendix A to the book.
+
+In particular, if you use
+[Visual Stuido Code](https://code.visualstudio.com/) with
+[Julia extenssion](https://marketplace.visualstudio.com/items?itemName=julialang.language-julia)
+then open the folder with the materials contained in this repository (you can
+open it in Folder/Open Folder... menu option). Then if you run
+*Start Julia REPL* command (e.g. under Windows its keyboard shortcut is Alt-J Alt-O)
+a proper project environment will be automatically activated (the Julia extension
+will use the Project.toml and Manifest.toml files that are present in this folder).
+
+## Organization of the code
+
 The codes for each chapter are stored in files named *chXX.jl*, where *XX* is
-chapter number.
+chapter number. The only exception is chapter 14, where additionally a separate
+*ch14_server.jl* is present along with *ch14.jl* (the reason is that in this
+chapter we create a web service and the *ch14_server.jl* contains the
+server-side code that should be run in a separate Julia process).
 
 Solutions to the exercises that are presented in appendix B in
 the book are stored in *appB.jl* file. These solutions assume that they are
@@ -32,9 +54,12 @@ executed in the same Julia session as the codes from the chapter where the
 question was posted (so that appropriate variables and functions are defined
 and appropriate packages are loaded).
 
+## Running the example codes
+
 To work with codes from some given chapter:
 * start a fresh Julia session using the `julia --project` command in a folder
-  containing the downloaded material;
+  containing the downloaded material (or alternatively use Visual Studio Code
+  to activate the appropriate project environment automatically);
 * execute the commands sequentially as they appear in the file;
   the codes were prepared in a way that you do not need to restart Julia
   when working with material from a single chapter, unless it is explicitly
@@ -43,6 +68,8 @@ To work with codes from some given chapter:
   of the book where it is used; if in the code there is a blank line between
   consecutive code sections this means that in the book these codes are
   separated by the text of the book explaining what the code does
+
+## Data used in the book
 
 For your convenience I additionally stored data files that we use in this book.
 They are respectively:

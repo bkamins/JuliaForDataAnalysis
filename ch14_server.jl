@@ -1,3 +1,5 @@
+# run this file using julia --project -t4 ch14_server.jl command
+
 using Genie
 using Statistics
 using ThreadsX
