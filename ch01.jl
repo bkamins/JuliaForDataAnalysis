@@ -100,8 +100,8 @@ plot(map([:time, :size],
          ["execution time (relative to C)",
           "code size (relative to C)"]) do col, title
     df_plot = unstack(df, :problem, :language, col)
-    df_plot[!, Not(:problem)] ./= df_plot.c
-    select!(df_plot, Not(:c))
+    df_plot[!, Not(:problem)] ./= df_plot.C
+    select!(df_plot, Not(:C))
     scatter(df_plot.problem, Matrix(select(df_plot, Not(:problem)));
             labels=permutedims(names(df_plot, Not(:problem))),
             ylabel=title,
