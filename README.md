@@ -33,8 +33,8 @@ Additional instructions how to manage your Julia installation are given in
 Appendix A to the book.
 
 In particular, if you use
-[Visual Stuido Code](https://code.visualstudio.com/) with
-[Julia extenssion](https://marketplace.visualstudio.com/items?itemName=julialang.language-julia)
+[Visual Studio Code](https://code.visualstudio.com/) with
+[Julia extension](https://marketplace.visualstudio.com/items?itemName=julialang.language-julia)
 then open the folder with the materials contained in this repository (you can
 open it in Folder/Open Folder... menu option). Then if you run
 *Start Julia REPL* command (e.g. under Windows its keyboard shortcut is Alt-J Alt-O)
