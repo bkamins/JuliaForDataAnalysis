@@ -146,6 +146,20 @@ end
 x = -7
 x > 0 ? println("x is positive") : println("x is not positive")
 
+# Code showing that conditional statements return a value
+
+x = -4.0
+y = if x > 0
+        sqrt(x)
+    else
+        sqrt(-x)
+    end
+y
+
+x = 9.0
+y = x > 0 ? sqrt(x) : sqrt(-x)
+y
+
 # Code from listing 2.4
 
 for i in [1, 2, 3]
