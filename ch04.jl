@@ -69,9 +69,9 @@ axes(aq, 2)
 
 using BenchmarkTools
 x = ones(10^7, 10)
-@benchmark [mean(@view $x[:, j]) for j in axes($x, 2)]
-@benchmark [mean($x[:, j]) for j in axes($x, 2)]
-@benchmark mean($x, dims=1)
+@btime [mean(@view $x[:, j]) for j in axes($x, 2)];
+@btime [mean($x[:, j]) for j in axes($x, 2)];
+@btime mean($x, dims=1);
 
 # Code for section 4.1.5
 
