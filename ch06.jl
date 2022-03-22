@@ -125,7 +125,6 @@ drama_prop = proptable(years, has_drama; margins=1)
 # Code for listing 6.5
 
 using Plots
-
 plot(names(drama_prop, 1), drama_prop[:, 2]; legend=false,
      xlabel="year", ylabel="Drama probability")
 
@@ -159,8 +158,8 @@ supertype(Symbol)
 using BenchmarkTools
 str = string.("x", 1:10^6)
 symb = Symbol.(str)
-@benchmark "x" in $str
-@benchmark :x in $symb
+@btime "x" in $str;
+@btime :x in $symb;
 
 # Code for section 6.7
 
@@ -185,8 +184,8 @@ s2 = inlinestrings(s1)
 Base.summarysize(s1)
 Base.summarysize(s2)
 
-@benchmark sort($s1)
-@benchmark sort($s2)
+@btime sort($s1);
+@btime sort($s2);
 
 # Code for listing 6.8
 
