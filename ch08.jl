@@ -68,7 +68,7 @@ read("puzzles2.csv") == read("puzzles.csv")
 puzzles.Rating
 
 using BenchmarkTools
-@benchmark $puzzles.Rating
+@btime $puzzles.Rating;
 
 puzzles.Rating == copy(puzzles.Rating)
 
@@ -96,7 +96,7 @@ columnindex(puzzles, "Some fancy column name")
 hasproperty(puzzles, "Rating")
 hasproperty(puzzles, "Some fancy column name")
 
-@benchmark $puzzles[:, :Rating]
+@btime $puzzles[:, :Rating];
 
 puzzles[!, "Rating"]
 puzzles[!, :Rating]
