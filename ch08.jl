@@ -4,13 +4,14 @@
 
 # Code for section 8.1
 
+import Downloads
 if isfile("puzzles.csv.bz2")
     @info "file already present"
 else
     @info "fetching file"
-    download("https://database.lichess.org/" *
-             "lichess_db_puzzle.csv.bz2",
-             "puzzles.csv.bz2")
+    Downloads.download("https://database.lichess.org/" *
+                       "lichess_db_puzzle.csv.bz2",
+                       "puzzles.csv.bz2")
 end
 
 using CodecBzip2
