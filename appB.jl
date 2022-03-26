@@ -103,10 +103,10 @@ plot(names(years_table, 1), years_table; legend=false,
 # Code for exercise 6.2
 
 s3 = Symbol.(s1)
-@benchmark sort($s3)
-@benchmark unique($s1)
-@benchmark unique($s2)
-@benchmark unique($s3)
+@btime sort($s3);
+@btime unique($s1);
+@btime unique($s2);
+@btime unique($s3);
 
 # Code for exercise 7.1
 
@@ -131,7 +131,7 @@ collect(Date(2021, 1, 1):Month(1):Date(2021, 12, 1))
 # Code for exercise 8.1
 
 using BenchmarkTools
-@benchmark $puzzles."Rating"
+@btime $puzzles."Rating";
 
 # Code for exercise 9.1
 
