@@ -180,6 +180,7 @@ for _ in 1:10
 end
 walk
 
+using Plots
 plot(walk.x, walk.y;
      legend=false,
      series_annotations=1:11,
