@@ -96,8 +96,9 @@ df1.Popularity === puzzles.Popularity
 df2.Rating === puzzles.Rating
 df2.Popularity === puzzles.Popularity
 
-@benchmark $puzzles[:, ["Rating", "Popularity"]]
-@benchmark $puzzles[!, ["Rating", "Popularity"]]
+using BenchmarkTools
+@btime $puzzles[:, ["Rating", "Popularity"]];
+@btime $puzzles[!, ["Rating", "Popularity"]];
 
 puzzles[1, 1]
 puzzles[[1], 1]
