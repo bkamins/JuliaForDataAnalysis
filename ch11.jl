@@ -22,6 +22,7 @@ Matrix(walk)
 Matrix{Any}(walk)
 Matrix{String}(walk)
 
+using Plots
 plot(walk)
 
 plot(Matrix(walk); labels=["x" "y"] , legend=:topleft)
