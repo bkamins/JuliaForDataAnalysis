@@ -41,6 +41,20 @@ open it in Folder/Open Folder... menu option). Then if you run
 a proper project environment will be automatically activated (the Julia extension
 will use the Project.toml and Manifest.toml files that are present in this folder).
 
+### Note for Linux users
+
+Installation of Julia under Linux requires that you choose the folder to which
+you extract the precompiled binaries you have downloaded. Next, assuming that
+you extracted Julia in, for example, the `/opt` folder, the simplest way
+to make sure that your system can find `julia` executable is to add it to
+your system `PATH` environment variable. A standard way to do it is to
+edit your `~/.bashrc` (or `~/.bash_profile`) file and add there the:
+```
+export PATH="$PATH:/opt/julia-1.7.2/bin"
+```
+line (assuming you have downloaded Julia 1.7.2 and extracted it to `/opt` folder).
+
+
 ## Organization of the code
 
 The codes for each chapter are stored in files named *chXX.jl*, where *XX* is
