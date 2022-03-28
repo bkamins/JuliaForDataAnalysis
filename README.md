@@ -30,7 +30,12 @@ presented in the book please perform the following setup steps:
   and everything is set up to work with the materials presented in the book.
 
 Additional instructions how to manage your Julia installation are given in
-Appendix A to the book.
+Appendix A to the book. In particular I explain there how to perform a correct
+configuration of your environment when doing:
+* integration with Python using the PyCall.jl package;
+* integration with R using the RCall.jl package;
+* installation of Plots.jl (which by default uses the GR Framework that requires
+  installation of extra dependencies on operating system level under Linux).
 
 In particular, if you use
 [Visual Studio Code](https://code.visualstudio.com/) with
