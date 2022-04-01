@@ -83,7 +83,7 @@ puzzles."Rating"
 
 col = "Rating"
 
-data_frame_name[selected_rows, selected_columns]
+# data_frame_name[selected_rows, selected_columns]
 
 puzzles[:, "Rating"]
 puzzles[:, :Rating]
