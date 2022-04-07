@@ -13,12 +13,12 @@ typeof(sum) == Function
 
 supertype(typeof(sum))
 
-function traverse(T)
+function print_supertypes(T)
     println(T)
-    T == Any || traverse(supertype(T))
+    T == Any || print_supertypes(supertype(T))
     return nothing
 end
-traverse(Int64)
+print_supertypes(Int64)
 
 function print_subtypes(T, indent_level=0)
     println(" " ^ indent_level, T)
@@ -29,8 +29,8 @@ function print_subtypes(T, indent_level=0)
 end
 print_subtypes(Integer)
 
-traverse(typeof([1.0, 2.0, 3.0]))
-traverse(typeof(1:3))
+print_supertypes(typeof([1.0, 2.0, 3.0]))
+print_supertypes(typeof(1:3))
 
 AbstractVector
 
