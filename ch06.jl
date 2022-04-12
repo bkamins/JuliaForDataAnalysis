@@ -67,7 +67,7 @@ parse(Int, m[2])
 
 # Code for listing 6.3
 
-function parseline(line::String)
+function parseline(line::AbstractString)
     parts = split(line, "::")
     m = match(r"(.*) \((\d{4})\)", parts[2])
     return (id=parts[1],
