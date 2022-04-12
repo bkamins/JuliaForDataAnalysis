@@ -16,6 +16,8 @@ Downloads.download("https://raw.githubusercontent.com/" *
 x = 10
 "I have $x apples"
 
+"I have $(2 * x) apples"
+
 "I have \$100."
 "I have $100."
 
