@@ -128,6 +128,18 @@ using Dates
 Date(2021, 1, 1):Month(1):Date(2021, 12, 1)
 collect(Date(2021, 1, 1):Month(1):Date(2021, 12, 1))
 
+# Code for exercise 7.3
+
+query2 = "https://api.nbp.pl/api/exchangerates/rates/a/usd/" *
+         "2020-06-01/2020-06-30/?format=json";
+response2 = HTTP.get(query2);
+json2 = JSON3.read(response2.body)
+rates2 = [x.mid for x in json2.rates]
+dates2 = [Date(x.effectiveDate) for x in json2.rates]
+has_rate = rates .!== missing
+rates2 == rates[has_rate]
+dates2 == dates[has_rate]
+
 # Code for exercise 8.1
 
 using BenchmarkTools
