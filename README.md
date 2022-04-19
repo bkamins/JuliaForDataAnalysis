@@ -24,11 +24,12 @@ presented in the book please perform the following setup steps:
   you to work with material presented in this book
   (a more detailed explanation what these files do and why they are required is
   given in Appendix A to the book);
-* press *]*, write `instantiate` and press *Enter* (this process will ensure
-  that Julia properly configures the working environment for working with
-  the codes from the book);
-* press *Backspace*, write `exit()` and press *Enter*; now you should exit Julia
-  and everything is set up to work with the materials presented in the book.
+* press <kbd>]</kbd>, write `instantiate` and press <kbd>Enter</kbd> (this
+  process will ensure that Julia properly configures the working environment
+  for working with the codes from the book);
+* press <kbd>Backspace</kbd>, write `exit()` and press <kbd>Enter</kbd>;
+  now you should exit Julia and everything is set up to work with the materials
+  presented in the book.
 
 Additional instructions how to manage your Julia installation are given in
 Appendix A to the book. In particular I explain there how to perform a correct
@@ -44,7 +45,8 @@ In particular, if you use
 [Julia extension](https://marketplace.visualstudio.com/items?itemName=julialang.language-julia)
 then open the folder with the materials contained in this repository (you can
 open it in Folder/Open Folder... menu option). Then if you run
-*Start Julia REPL* command (e.g. under Windows its keyboard shortcut is Alt-J Alt-O)
+*Start Julia REPL* command (e.g. under Windows its keyboard shortcut is
+<kbd>Alt</kbd>-<kbd>J</kbd> <kbd>Alt</kbd>-<kbd>O</kbd>)
 a proper project environment will be automatically activated (the Julia extension
 will use the Project.toml and Manifest.toml files that are present in this folder).
 
@@ -110,3 +112,5 @@ They are respectively:
   <https://snap.stanford.edu/data/github-social.html> under GPL-3.0 License)
 * owensboro.zip (for chapter 13, available at The Stanford Open Policing Project
   under the Open Data Commons Attribution License)
+
+<!-- markdownlint-disable-file MD033 -->
