@@ -23,7 +23,7 @@ presented in the book please perform the following setup steps:
   allow Julia to automatically set up the project environment that will allow
   you to work with material presented in this book
   (a more detailed explanation what these files do and why they are required is
-  given in Appendix A to the book);
+  given in appendix A to the book);
 * press <kbd>]</kbd>, write `instantiate` and press <kbd>Enter</kbd> (this
   process will ensure that Julia properly configures the working environment
   for working with the codes from the book);
@@ -32,7 +32,7 @@ presented in the book please perform the following setup steps:
   presented in the book.
 
 Additional instructions how to manage your Julia installation are given in
-Appendix A to the book. In particular I explain there how to perform a correct
+appendix A to the book. In particular I explain there how to perform a correct
 configuration of your environment when doing:
 
 * integration with Python using the PyCall.jl package;
