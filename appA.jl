@@ -33,6 +33,7 @@ instantiate
 activate D:\\JuliaForDataAnalysis\\
 
 # setting up a new project folder
+# make sure your working directory is an empty folder
 
 pwd()
 # press ]
