@@ -160,13 +160,13 @@ x = 9.0
 y = x > 0 ? sqrt(x) : sqrt(-x)
 y
 
-# Code from listing 2.4
+# Code for listing 2.4
 
 for i in [1, 2, 3]
     println(i, " is ", isodd(i) ? "odd" : "even")
 end
 
-# Code from listing 2.5
+# Code for listing 2.5
 
 i = 1
 while i < 4
@@ -184,7 +184,7 @@ while true
     println(i, " is even")
 end
 
-# Code from listing 2.6
+# Code for listing 2.6
 
 x = -7
 x < 0 && begin
@@ -195,7 +195,7 @@ x < 0 && begin
 end
 x > 0 ? (println(x); x) : (x += 1; println(x); x)
 
-# Code from section 2.3.4
+# Code for section 2.3.4
 
 x = [8, 3, 1, 5, 7]
 k = 1
@@ -215,14 +215,14 @@ end
 s
 s / length(y)
 
-# Code from listing 2.7
+# Code for listing 2.7
 
 function times_two(x)
     return 2 * x
 end
 times_two(10)
 
-# Code from listing 2.8
+# Code for listing 2.8
 
 function compose(x, y=10; a, b=10)
     return x, y, a, b
@@ -233,7 +233,7 @@ compose(1; a=3)
 compose(1)
 compose(; a=3)
 
-# Code from listing 2.9
+# Code for listing 2.9
 
 times_two(x) = 2 * x
 compose(x, y=10; a, b=10) = x, y, a, b
@@ -242,7 +242,7 @@ compose(x, y=10; a, b=10) = x, y, a, b
 
 map(times_two, [1, 2, 3])
 
-# Code from listing 2.10
+# Code for listing 2.10
 
 map(x -> 2 * x, [1, 2, 3])
 
@@ -281,7 +281,7 @@ function winsorized_mean(x, k)
 end
 winsorized_mean([8, 3, 1, 5, 7], 1)
 
-# Code from section 2.5
+# Code for section 2.5
 
 function fun1()
     x = 1

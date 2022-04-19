@@ -2,7 +2,7 @@
 
 # Codes for chapter 3
 
-# Code from section 3.1
+# Code for section 3.1
 
 methods(cd)
 
@@ -36,7 +36,7 @@ AbstractVector
 
 typejoin(typeof([1.0, 2.0, 3.0]), typeof(1:3))
 
-# Code from section 3.2
+# Code for section 3.2
 
 fun(x) = println("unsupported type")
 fun(x::Number) = println("a number was passed")
@@ -78,7 +78,7 @@ winsorized_mean(10, 1)
 winsorized_mean(1:10, -1)
 winsorized_mean(1:10, 5)
 
-# Code from section 3.3
+# Code for section 3.3
 
 module ExampleModule
 
@@ -117,7 +117,7 @@ using StatsBase
 ?winsor
 mean(winsor([8, 3, 1, 5, 7], count=1))
 
-# Code from section 3.4
+# Code for section 3.4
 
 @time 1 + 2
 

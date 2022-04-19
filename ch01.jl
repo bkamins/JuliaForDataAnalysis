@@ -2,7 +2,7 @@
 
 # Codes for chapter 1
 
-# Code from section 1.2.1
+# Code for section 1.2.1
 
 function sum_n(n)
     s = 0
@@ -14,7 +14,7 @@ end
 
 @time sum_n(1_000_000_000)
 
-# Code from section 1.4
+# Code for section 1.4
 
 @time using Plots
 @time plot(1:10)

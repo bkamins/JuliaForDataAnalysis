@@ -16,7 +16,7 @@ x = [1.5]
 x[1] = 1
 x
 
-# Code from section 11.1.1
+# Code for section 11.1.1
 
 Matrix(walk)
 Matrix{Any}(walk)
@@ -27,7 +27,7 @@ plot(walk)
 
 plot(Matrix(walk); labels=["x" "y"] , legend=:topleft)
 
-# Code from section 11.1.2
+# Code for section 11.1.2
 
 Tables.columntable(walk)
 
@@ -67,7 +67,7 @@ unique(df)
 tab = Tables.columntable(df)
 unique(tab)
 
-# Code from section 11.1.3
+# Code for section 11.1.3
 
 Tables.rowtable(walk)
 
@@ -88,7 +88,7 @@ identity.(eachcol(walk))
 df = DataFrame(x=1:2, b=["a", "b"])
 identity.(eachcol(df))
 
-# Code from section 11.2
+# Code for section 11.2
 
 using CSV
 raw_data = """
