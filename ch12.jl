@@ -24,7 +24,7 @@ open(sha256, git_zip) == [0x56, 0xc0, 0xc1, 0xc2,
                           0x1d, 0x07, 0x3b, 0x10,
                           0xe2, 0x8e, 0xc0, 0x31]
 
-# Code for opeining a zip archive
+# Code for opening a zip archive
 
 import ZipFile
 git_archive = ZipFile.Reader(git_zip)
