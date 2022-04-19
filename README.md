@@ -77,6 +77,8 @@ and appropriate packages are loaded).
 ## Running the example codes
 
 To work with codes from some given chapter:
+* it is recommended to use a machine with at least 8GB of RAM when working
+  with the examples in this book;
 * start a fresh Julia session using the `julia --project` command in a folder
   containing the downloaded material (or alternatively use Visual Studio Code
   to activate the appropriate project environment automatically);
