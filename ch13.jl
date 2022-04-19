@@ -2,7 +2,7 @@
 
 # Codes for chapter 13
 
-# Codes for section 13.1
+# Codes for section 13.1.1
 
 using CSV
 using CategoricalArrays
@@ -19,6 +19,28 @@ using ROCAnalysis
 using SHA
 using Statistics
 import ZipFile
+
+# Codes for section 13.1.2
+
+sqrt(sum(1:8))
+
+@chain 1:8 begin
+    sum
+    sqrt
+end
+
+@chain 1:8 begin
+    sum(_)
+    sqrt(_)
+end
+
+string(3, string(1, 2))
+@chain 1 begin
+    string(2)
+    string(3, _)
+end
+
+# Codes for section 13.1.3
 
 url_zip = "https://stacks.stanford.edu/file/druid:yg821jf8611/" *
           "yg821jf8611_ky_owensboro_2020_04_01.csv.zip";
