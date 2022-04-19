@@ -68,10 +68,15 @@ line (assuming you have downloaded Julia 1.7.2 and extracted it to `/opt` folder
 ## Organization of the code
 
 The codes for each chapter are stored in files named *chXX.jl*, where *XX* is
-chapter number. The only exception is chapter 14, where additionally a separate
-*ch14_server.jl* is present along with *ch14.jl* (the reason is that in this
-chapter we create a web service and the *ch14_server.jl* contains the
-server-side code that should be run in a separate Julia process).
+chapter number. The exceptions are
+
+* chapter 14, where additionally a separate *ch14_server.jl* is present along
+with *ch14.jl* (the reason is that in this chapter we create a web service and
+the *ch14_server.jl* contains the server-side code that should be run in a
+separate Julia process);
+* appendix A, where the file name used is *appA.txt* because it also
+  contains other instructions than only Julia code (in particular package
+  manager mode instructions).
 
 Solutions to the exercises that are presented in appendix B in
 the book are stored in *appB.jl* file. These solutions assume that they are

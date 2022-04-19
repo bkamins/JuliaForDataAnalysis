@@ -49,8 +49,11 @@ Kamiński = 1
 x₁ = 0.5
 ε = 0.0001
 
-?₁
-?ε
+# - change to help mode by pressing `?` key
+# - type (or copy-paste) "₁" and press Enter
+
+# - change to help mode by pressing `?` key
+# - type (or copy-paste) "ε" and press Enter
 
 # Code for listing 2.3
 

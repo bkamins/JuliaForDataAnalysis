@@ -16,7 +16,9 @@ exit()
 
 # getting help
 
-?&&
+- press ?
+- write &&
+- press Enter
 
 # setting up the project environment for working with examples in the book
 # D:\\JuliaForDataAnalysis is an example folder

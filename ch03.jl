@@ -114,7 +114,10 @@ mean([1, 2, 3])
 # start a fresh Julia session before running this code
 using Statistics
 using StatsBase
-?winsor
+
+# - change to help mode by pressing `?` key
+# - type "winsor" and press Enter
+
 mean(winsor([8, 3, 1, 5, 7], count=1))
 
 # Code for section 3.4

@@ -60,7 +60,9 @@ end
 [std(aq[:, j]) for j in axes(aq, 2)]
 
 axes(aq, 2)
-?Base.OneTo
+
+# - change to help mode by pressing `?` key
+# - type "Base.OneTo" and press Enter
 
 [mean(view(aq, :, j)) for j in axes(aq, 2)]
 [std(@view aq[:, j]) for j in axes(aq, 2)]
@@ -97,7 +99,8 @@ function R²(x, y)
 end
 [R²(aq[:, i], aq[:, i+1]) for i in 1:2:7]
 
-?²
+# - change to help mode by pressing `?` key
+# - type (or copy-paste) "²" and press Enter
 
 # Code for section 4.1.7
 
