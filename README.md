@@ -3,7 +3,7 @@
 This repository contains source codes for the
 ["Julia for Data Analysis"](https://www.manning.com/books/julia-for-data-analysis?utm_source=bkamins&utm_medium=affiliate&utm_campaign=book_kaminski2_julia_3_17_22)
 book that is written by Bogumił Kamiński and is planned to be published in 2022
-by [Manning Publications Co.](https://www.manning.com/).
+by [Manning Publications Co.](https://www.manning.com/)
 
 ## Setting up your environment
 
