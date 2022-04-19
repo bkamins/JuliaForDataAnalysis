@@ -3,12 +3,13 @@
 This repository contains source codes for the
 ["Julia for Data Analysis"](https://www.manning.com/books/julia-for-data-analysis?utm_source=bkamins&utm_medium=affiliate&utm_campaign=book_kaminski2_julia_3_17_22)
 book that is written by Bogumił Kamiński and is planned to be published in 2022
-by [Manning Publications Co.](https://www.manning.com/).
+by [Manning Publications Co.](https://www.manning.com/)
 
 ## Setting up your environment
 
 In order to prepare the Julia environment before working with the materials
 presented in the book please perform the following setup steps:
+
 * [download](https://julialang.org/downloads/) and
   [install](https://julialang.org/downloads/platform/)
   [Julia](https://julialang.org/);
@@ -22,16 +23,18 @@ presented in the book please perform the following setup steps:
   allow Julia to automatically set up the project environment that will allow
   you to work with material presented in this book
   (a more detailed explanation what these files do and why they are required is
-  given in Appendix A to the book);
-* press *]*, write `instantiate` and press *Enter* (this process will ensure
-  that Julia properly configures the working environment for working with
-  the codes from the book);
-* press *Backspace*, write `exit()` and press *Enter*; now you should exit Julia
-  and everything is set up to work with the materials presented in the book.
+  given in appendix A to the book);
+* press <kbd>]</kbd>, write `instantiate` and press <kbd>Enter</kbd> (this
+  process will ensure that Julia properly configures the working environment
+  for working with the codes from the book);
+* press <kbd>Backspace</kbd>, write `exit()` and press <kbd>Enter</kbd>;
+  now you should exit Julia and everything is set up to work with the materials
+  presented in the book.
 
 Additional instructions how to manage your Julia installation are given in
-Appendix A to the book. In particular I explain there how to perform a correct
+appendix A to the book. In particular I explain there how to perform a correct
 configuration of your environment when doing:
+
 * integration with Python using the PyCall.jl package;
 * integration with R using the RCall.jl package;
 * installation of Plots.jl (which by default uses the GR Framework that requires
@@ -42,7 +45,8 @@ In particular, if you use
 [Julia extension](https://marketplace.visualstudio.com/items?itemName=julialang.language-julia)
 then open the folder with the materials contained in this repository (you can
 open it in Folder/Open Folder... menu option). Then if you run
-*Start Julia REPL* command (e.g. under Windows its keyboard shortcut is Alt-J Alt-O)
+*Start Julia REPL* command (e.g. under Windows its keyboard shortcut is
+<kbd>Alt</kbd>-<kbd>J</kbd> <kbd>Alt</kbd>-<kbd>O</kbd>)
 a proper project environment will be automatically activated (the Julia extension
 will use the Project.toml and Manifest.toml files that are present in this folder).
 
@@ -54,11 +58,12 @@ you extracted Julia in, for example, the `/opt` folder, the simplest way
 to make sure that your system can find `julia` executable is to add it to
 your system `PATH` environment variable. A standard way to do it is to
 edit your `~/.bashrc` (or `~/.bash_profile`) file and add there the:
-```
+
+```text
 export PATH="$PATH:/opt/julia-1.7.2/bin"
 ```
-line (assuming you have downloaded Julia 1.7.2 and extracted it to `/opt` folder).
 
+line (assuming you have downloaded Julia 1.7.2 and extracted it to `/opt` folder).
 
 ## Organization of the code
 
@@ -77,6 +82,7 @@ and appropriate packages are loaded).
 ## Running the example codes
 
 To work with codes from some given chapter:
+
 * it is recommended to use a machine with at least 8GB of RAM when working
   with the examples in this book;
 * start a fresh Julia session using the `julia --project` command in a folder
@@ -95,13 +101,16 @@ To work with codes from some given chapter:
 
 For your convenience I additionally stored data files that we use in this book.
 They are respectively:
+
 * movies.dat (for chapter 6, shared on GitHub repository
-  https://github.com/sidooms/MovieTweetings under MIT license)
+  <https://github.com/sidooms/MovieTweetings> under MIT license)
 * puzzles.csv.bz2 (for chapter 8, available puzzles at
-  https://database.lichess.org/. The data is distributed under
+  <https://database.lichess.org/>. The data is distributed under
   Creative Commons CC0 license)
 * git_web_ml.zip (for chapter 12, available on
   Stanford Large Network Dataset Collection website
-  https://snap.stanford.edu/data/github-social.html under GPL-3.0 License)
+  <https://snap.stanford.edu/data/github-social.html> under GPL-3.0 License)
 * owensboro.zip (for chapter 13, available at The Stanford Open Policing Project
   under the Open Data Commons Attribution License)
+
+<!-- markdownlint-disable-file MD033 -->
