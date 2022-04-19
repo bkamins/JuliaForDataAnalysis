@@ -206,7 +206,7 @@ scatter(log1p.(agg_df.deg_ml),
         log1p.(agg_df.deg_web);
         zcolor=agg_df.web_mean,
         xlabel="degree ml", ylabel="degree web",
-        markersize=2, markerstrokewidth=0, markeralpha=0.8,
+        markersize=2, markerstrokewidth=0.5, markeralpha=0.8,
         legend=:topleft, labels = "fraction web",
         xticks=gen_ticks(maximum(classes_df.deg_ml)),
         yticks=gen_ticks(maximum(classes_df.deg_web)))
