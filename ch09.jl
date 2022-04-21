@@ -88,8 +88,6 @@ df1 = puzzles[:, ["Rating", "Popularity"]];
 df2 = puzzles[!, ["Rating", "Popularity"]];
 
 df1 == df2
-df1 == puzzles
-df2 == puzzles
 
 df1.Rating === puzzles.Rating
 df1.Popularity === puzzles.Popularity

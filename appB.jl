@@ -186,6 +186,8 @@ proptable([walk_unique_2ahead() for _ in 1:10^5])
 # Code for exercise 11.1
 
 @time wide = DataFrame(ones(1, 10_000), :auto);
+@time wide = DataFrame(ones(1, 10_000), :auto);
+@time Tables.columntable(wide);
 @time Tables.columntable(wide);
 
 # Code for exercise 11.2
