@@ -56,7 +56,7 @@ supertype(SubString{String})
 
 movie1_parts[2]
 
-rx = r"(.*) \((\d{4})\)$"
+rx = r"(.+) \((\d{4})\)$"
 
 m = match(rx, movie1_parts[2])
 
@@ -69,7 +69,7 @@ parse(Int, m[2])
 
 function parseline(line::AbstractString)
     parts = split(line, "::")
-    m = match(r"(.*) \((\d{4})\)", parts[2])
+    m = match(r"(.+) \((\d{4})\)", parts[2])
     return (id=parts[1],
             name=m[1],
             year=parse(Int, m[2]),
