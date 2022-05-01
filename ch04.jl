@@ -40,8 +40,8 @@ using BenchmarkTools
 
 # Code comparing vector and tuple construction
 
-[1, 1.0]
-(1, 1.0)
+[1, 2.0]
+(1, 2.0)
 
 # Code for section 4.1.2
 
