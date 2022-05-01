@@ -33,6 +33,7 @@ aq = [10.0   8.04  10.0  9.14  10.0   7.46   8.0   6.58
        5.0   5.68   5.0  4.74   5.0   5.73   8.0   6.89];
 @benchmark [cor($aq[:, i], $aq[:, i+1]) for i in 1:2:7]
 @benchmark [cor(view($aq, :, i), view($aq, :, i+1)) for i in 1:2:7]
+[cor(@view(aq[:, i]), @view(aq[:, i+1])) for i in 1:2:7]
 
 # Code for exercise 4.2
 
