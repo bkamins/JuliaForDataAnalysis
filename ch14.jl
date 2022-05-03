@@ -20,6 +20,20 @@ annotate!([(T, Y + 0.01, "Y"),
            (T, K + 0.01, "K"),
            (T, X[end] + 0.01, "X")])
 
+using DataFrames
+using Random
+Random.seed!(1234);
+X0, T, s, r, m = 1.0, 2.0, 0.2, 0.1, 4
+gbm = DataFrame(X=X0, t=0.0)
+for i in 1:m
+    Z = randn()
+    log_return = (r - s^2/2) * T/m + s * sqrt(T/m) * Z
+    next_X = gbm.X[end] * exp(log_return)
+    next_t = gbm.t[end] + T/m
+    push!(gbm, (next_X, next_t))
+end
+gbm
+
 # Codes for section 14.2
 
 # start Julia with and additional -t4 command line switch
