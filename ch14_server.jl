@@ -21,7 +21,7 @@ function asian_value(T, X0, K, r, s, m, max_time)
     start_time = time()
     while time() - start_time < max_time
         append!(result,
-                ThreadsX.map(_ -> payoff_asian_sample(T, X0, K, r, s, m),
+                ThreadsX.map(i -> payoff_asian_sample(T, X0, K, r, s, m),
                              1:10_000))
     end
     n = length(result)
