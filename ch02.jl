@@ -218,6 +218,14 @@ end
 s
 s / length(y)
 
+function f!(x)
+    x[1] = 10
+    return x
+end
+x = [1, 2, 3]
+f!(x)
+x
+
 # Code for listing 2.7
 
 function times_two(x)
