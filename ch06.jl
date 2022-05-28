@@ -39,6 +39,8 @@ Downloads.download("https://raw.githubusercontent.com/\
 
 raw"C:\my_folder\my_file.txt"
 
+print(raw"C:\my_folder\my_file.txt")
+
 # Code for listing 6.2
 
 movies = readlines("movies.dat")
