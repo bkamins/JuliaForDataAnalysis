@@ -59,6 +59,10 @@ end
 [mean(col) for col in eachcol(aq)]
 [std(col) for col in eachcol(aq)]
 
+x = (-2, -1, 0, 1, 2)
+[abs(v) for v in x]
+map(abs, x)
+
 # Code for section 4.1.3
 
 [mean(aq[:, j]) for j in axes(aq, 2)]
