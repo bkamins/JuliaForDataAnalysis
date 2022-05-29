@@ -155,6 +155,8 @@ model = loess(ratings, mean_popularities);
 ratings_predict = float.(sort(ratings))
 popularity_predict = predict(model, ratings_predict)
 
+methods(predict)
+
 plot!(ratings_predict, popularity_predict; width=5, color="black")
 
 combine(groupby(good, :Rating), :Popularity => mean)
