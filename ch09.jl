@@ -152,7 +152,7 @@ scatter(ratings, mean_popularities;
 
 using Loess
 model = loess(ratings, mean_popularities);
-ratings_predict = float.(sort(ratings))
+ratings_predict = float(sort(ratings))
 popularity_predict = predict(model, ratings_predict)
 
 methods(predict)
