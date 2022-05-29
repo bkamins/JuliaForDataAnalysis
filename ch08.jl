@@ -34,9 +34,9 @@ puzzles = CSV.read("puzzles.csv", DataFrame);
 
 puzzles2 = CSV.read(plain, DataFrame;
                     header=["PuzzleId", "FEN", "Moves",
-                            "Rating","RatingDeviation",
+                            "Rating", "RatingDeviation",
                             "Popularity", "NbPlays",
-                            "Themes","GameUrl"]);
+                            "Themes", "GameUrl"]);
 puzzles == puzzles2
 
 compressed = nothing
