@@ -61,8 +61,8 @@ summary(classes_df)
 describe(classes_df, :min, :max, :mean, :nmissing, :eltype)
 
 findall(n -> n == "bkamins", classes_df.name)
-findall(n -> n == "oxinabox", classes_df.name)
-classes_df[findall(n -> n == "oxinabox", classes_df.name), :]
+findall(n -> n == "StefanKarpinski", classes_df.name)
+classes_df[findall(n -> n == "StefanKarpinski", classes_df.name), :]
 
 # Code for updating data frame columns using broadcasting
 
@@ -221,7 +221,7 @@ using DataFramesMeta
 
 using Plots
 scatter(classes_df.deg_ml, classes_df.deg_web;
-        color=[x == 1 ? "black" : "gray" for x in classes_df.ml_target],
+        color=[x == 1 ? "black" : "yellow" for x in classes_df.ml_target],
         xlabel="degree ml", ylabel="degree web", labels=false)
 
 # Code for aggregation of degree data
