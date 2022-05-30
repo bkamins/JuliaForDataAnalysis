@@ -60,6 +60,10 @@ describe(edges_df, :min, :max, :mean, :nmissing, :eltype)
 summary(classes_df)
 describe(classes_df, :min, :max, :mean, :nmissing, :eltype)
 
+findall(n -> n == "bkamins", classes_df.name)
+findall(n -> n == "oxinabox", classes_df.name)
+classes_df[findall(n -> n == "oxinabox", classes_df.name), :]
+
 # Code for updating data frame columns using broadcasting
 
 edges_df .+= 1
