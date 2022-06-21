@@ -144,3 +144,5 @@ puzzles_db = DataFrame(query);
 puzzles_db == puzzles
 
 puzzles_db.PuzzleId
+
+close(db)
