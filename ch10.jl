@@ -101,6 +101,18 @@ data
 
 aq2 = DataFrame(data)
 
+# Codes for section 10.1.4
+
+aq1
+
+using Statistics
+using StatsBase
+cor_mat = pairwise(cor, eachcol(aq1))
+
+using Plots
+heatmap(names(aq1), names(aq1), cor_mat;
+        aspect_ratio=:equal, xlim=(0,8))
+
 # Codes for listing 10.3
 
 data_dfs = map(DataFrame, data)
