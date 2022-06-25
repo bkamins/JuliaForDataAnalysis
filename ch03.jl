@@ -139,7 +139,8 @@ mean(winsor([8, 3, 1, 5, 7], count=1))
 using BenchmarkTools
 x = rand(10^6);
 @benchmark winsorized_mean($x, 10^5)
-using Statistics, StatsBase
+using Statistics
+using StatsBase
 @benchmark mean(winsor($x; count=10^5))
 
 @edit winsor(x, count=10^5)
