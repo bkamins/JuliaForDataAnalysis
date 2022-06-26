@@ -166,6 +166,9 @@ end
 
 # Code for showing how string interpolation works
 
+d
+"d=$d"
+
 "https://api.nbp.pl/api/exchangerates/rates/" *
 "a/usd/$(dates[1])/?format=json"
 
