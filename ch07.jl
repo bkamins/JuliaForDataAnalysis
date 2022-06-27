@@ -204,14 +204,14 @@ dates[dayname.(dates) .== "Thursday" .&& ismissing.(rates)]
 # Codes for plotting exchange rate data
 
 using Plots
-plot(dates, rates; xlabel="day", ylabel="PLN/USD", legend=false)
+plot(dates, rates; xlabel="day", ylabel="PLN/USD", legend=false, marker=:o)
 
 rates_ok = .!ismissing.(rates)
 
 plot(dates[rates_ok], rates[rates_ok];
-     xlabel="day", ylabel="PLN/USD", legend=false)
+     xlabel="day", ylabel="PLN/USD", legend=false, marker=:o)
 
 using Impute
 rates_filled = Impute.interp(rates)
 
-scatter!(dates, rates_filled)
+scatter!(dates, rates_filled, markersize=3)
