@@ -215,3 +215,7 @@ using Impute
 rates_filled = Impute.interp(rates)
 
 scatter!(dates, rates_filled, markersize=3)
+
+plot(dates[rates_ok], rates[rates_ok];
+     xlabel="day", ylabel="PLN/USD", legend=false, marker=:o,
+     xticks=dates[rates_ok], xrot=90, bottommargin=5Plots.mm)
