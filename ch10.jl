@@ -111,8 +111,8 @@ cor_mat = pairwise(cor, eachcol(aq1))
 
 using Plots
 heatmap(names(aq1), names(aq1), cor_mat;
-        aspect_ratio=:equal, xlim=(0,8))
-
+        aspect_ratio=:equal, size=(400, 400),
+        rightmargin=5Plots.mm)
 # Codes for listing 10.3
 
 data_dfs = map(DataFrame, data)
