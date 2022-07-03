@@ -157,6 +157,12 @@ summarystats(puzzles[puzzles.Popularity .== -100, "NbPlays"])
 sum(length, values(rating_mapping))
 nrow(good)
 
+# Code for exercise 9.3
+
+model2 = loess(ratings, mean_popularities; span=0.25);
+popularity_predict2 = predict(model2, ratings_predict);
+plot!(ratings_predict, popularity_predict2; width=5, color="yellow");
+
 # Code for exercise 10.1
 
 using BenchmarkTools
