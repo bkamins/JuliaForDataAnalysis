@@ -5,13 +5,13 @@
 # Code for section 8.1
 
 import Downloads
-if isfile("puzzles.csv.bz2")
+if isfile("new_puzzles.csv.bz2")
     @info "file already present"
 else
     @info "fetching file"
     Downloads.download("https://database.lichess.org/" *
                        "lichess_db_puzzle.csv.bz2",
-                       "puzzles.csv.bz2")
+                       "new_puzzles.csv.bz2")
 end
 
 using CodecBzip2
