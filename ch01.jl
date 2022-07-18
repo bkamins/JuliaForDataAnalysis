@@ -24,7 +24,8 @@ end
 
 using DataFrames
 
-DataFrame(a=1:3, name=["Alice", "Bob", "Clyde"],
+DataFrame(id=1:3,
+          name=["Alice", "Bob", "Clyde"],
           age=[19, 24, 21], friends=[[2], [1, 3], [2]],
           location=[(city="Atlanta", state="GA"),
                     (city="Boston", state="MA"),
