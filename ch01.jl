@@ -109,8 +109,8 @@ plot(map([:time, :size],
             xrotation=20,
             markershape=[:rect :diamond :circle],
             markersize=[4 5 5],
-            markercolor=[:lightgray :lightgray :gold],
+            markercolor=[:lightgray :lightblue :gold],
             xtickfontsize=7, ytickfontsize=7,
             legendfontsize=7, ylabelfontsize=7)
-            hline!([1.0]; color="orange", labels="C")
+            hline!([1.0]; color=:red, labels="C")
 end...)
