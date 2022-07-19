@@ -35,6 +35,12 @@ map(*, [1, 2, 3], [4, 5])
 
 ["x", "y"] .=> [sum minimum maximum]
 
+left_matrix = ["x" "x" "x"
+               "y" "y" "y"]
+right_matrix = [sum minimum maximum
+                sum minimum maximum]
+left_matrix .=> right_matrix
+
 abs.([1, -2, 3, -4])
 
 abs([1, 2, 3])
