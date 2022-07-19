@@ -48,7 +48,7 @@ puzzles
 
 # Code for listing 8.2
 
-describe(puzzles)
+show(describe(puzzles); truncate=14)
 
 # Code for getting basic information about a data frame
 
