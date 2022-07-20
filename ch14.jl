@@ -12,7 +12,7 @@ T = 1.0
 m = 4
 Y = mean(X)
 K = 1.05
-plot(range(0.0, T length=m+1), X;
+plot(range(0.0, T; length=m+1), X;
            xlabel="T", legend=false, color="black")
 hline!([Y], color="gray", lw=3, ls=:dash)
 hline!([K], color="gray", lw=3, ls=:dot)
