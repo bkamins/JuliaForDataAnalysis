@@ -89,7 +89,8 @@ and appropriate packages are loaded).
 To work with codes from some given chapter:
 
 * it is recommended to use a machine with at least 8GB of RAM when working
-  with the examples in this book;
+  with the examples in this book (some examples require more RAM, which
+  is clearly indicated in the book);
 * start a fresh Julia session using the `julia --project` command in a folder
   containing the downloaded material (or alternatively use Visual Studio Code
   to activate the appropriate project environment automatically);
@@ -97,10 +98,22 @@ To work with codes from some given chapter:
   the codes were prepared in a way that you do not need to restart Julia
   when working with material from a single chapter, unless it is explicitly
   written in the instructions to restart Julia (some of the codes require this);
+  when you move to a new chapter start a new Julia session;
 * before each code there is a comment allowing you to locate the relevant part
   of the book where it is used; if in the code there is a blank line between
   consecutive code sections this means that in the book these codes are
-  separated by the text of the book explaining what the code does
+  separated by the text of the book explaining what the code does;
+
+## Accompanying materials
+
+There are the following videos that feature material related to this book:
+* Analysis of Lichess puzzles database: https://www.twitch.tv/videos/1483517202
+  (a shortened version of material covered in chapters 8 and 9); also covered
+  in [this blogpost](https://bkamins.github.io/julialang/2022/05/12/twitch.html);
+* Analysis of GitHub developer graph: https://www.twitch.tv/videos/1527593261
+  (a shortened version of material covered in chapter 12)
+
+
 
 ## Data used in the book
 
@@ -111,7 +124,7 @@ They are respectively:
   <https://github.com/sidooms/MovieTweetings> under MIT license)
 * puzzles.csv.bz2 (for chapter 8, available puzzles at
   <https://database.lichess.org/>. The data is distributed under
-  Creative Commons CC0 license)
+  Creative Commons CC0 license);
 * git_web_ml.zip (for chapter 12, available on
   Stanford Large Network Dataset Collection website
   <https://snap.stanford.edu/data/github-social.html> under GPL-3.0 License)
