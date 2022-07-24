@@ -107,10 +107,10 @@ To work with codes from some given chapter:
 ## Accompanying materials
 
 There are the following videos that feature material related to this book:
-* Analysis of Lichess puzzles database: https://www.twitch.tv/videos/1483517202
+* [Analysis of Lichess puzzles database](https://www.twitch.tv/videos/1483517202)
   (a shortened version of material covered in chapters 8 and 9); also covered
   in [this blogpost](https://bkamins.github.io/julialang/2022/05/12/twitch.html);
-* Analysis of GitHub developer graph: https://www.twitch.tv/videos/1527593261
+* [Analysis of GitHub developer graph](https://www.twitch.tv/videos/1527593261)
   (a shortened version of material covered in chapter 12)
 
 
