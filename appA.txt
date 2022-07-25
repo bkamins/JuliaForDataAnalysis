@@ -21,9 +21,9 @@ exit()
 - press Enter
 
 # setting up the project environment for working with examples in the book
-# D:\\JuliaForDataAnalysis is an example folder
+# D:\JuliaForDataAnalysis is an example folder
 
-cd("D:\\JuliaForDataAnalysis")
+cd("D:/JuliaForDataAnalysis")
 isfile("Project.toml")
 isfile("Manifest.toml")
 # switch to package manager mode by pressing ]
@@ -32,7 +32,7 @@ instantiate
 # exit package manager mode by pressing backspace
 
 # activating project environment in a given folder
-activate D:\\JuliaForDataAnalysis\\
+activate D:/JuliaForDataAnalysis
 
 # setting up a new project folder
 # make sure your working directory is an empty folder
