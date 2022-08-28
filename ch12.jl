@@ -75,6 +75,7 @@ df = DataFrame(a=1:3, b=[4, missing, 5])
 df .^ 2
 coalesce.(df, 0)
 df .+ [10, 11, 12]
+df .+ [10 11]
 
 # Code for checking the order of :id column in a data frame
 
