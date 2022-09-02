@@ -307,7 +307,7 @@ Genie.Router.route("/", method=POST) do
         Genie.Responses.setstatus(400)
     end
 end
-Genie.startup()
+Genie.Server.up()
 
 # client code
 
