@@ -47,4 +47,4 @@ Genie.Router.route("/", method=POST) do
   end
 end
 
-Genie.startup()
+Genie.Server.up()
