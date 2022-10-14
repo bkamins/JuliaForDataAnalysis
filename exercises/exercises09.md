@@ -22,69 +22,8 @@ Create `matein2` data frame that will have only puzzles that have `"mateIn2"`
 in the `Themes` column.
 Use the `contains` function (check its documentation first).
 
-### Exercise 2
-
-What is the fraction of puzzles that are mate in 2 in relation to all puzzles
-in the `puzzles` data frame?
-
-### Exercise 3
-
-Create `small` data frame that holds first 10 rows of `matein2` data frame
-and columns `Rating`, `RatingDeviation`, and `NbPlays`.
-
-### Exercise 4
-
-Iterate rows of `small` data frame and print the ratio of
-`RatingDeviation` and `NbPlays` for each row.
-
-### Exercise 5
-
-Get names of columns from the `matein2` data frame that end with `n` (ignore case).
-
-### Exercise 6
-
-Write a function `collatz` that runs the following process. Start with a
-positive number `n`. If it is even divide it by two. If it is odd multiply
-it by 3 and add one. The function should return the number of steps needed to
-reach 1.
-
-Create a `d` dictionary that maps number of steps needed to a list of numbers from
-the range `1:100` that required this number of steps.
-
-### Exercise 7
-
-Using the `d` dictionary make a scatter plot of number of steps required
-vs average value of numbers that require this number of steps.
-
-### Exercise 8
-
-Repeat the process from exercises 6 and 7, but this time use a data frame
-and try to write an appropriate expression using the `combine` and `groupby`
-functions (as it was explained in the last part of chapter 9). This time
-perform computations for numbers ranging from one to one million.
-
-### Exercise 9
-
-Set seed of random number generator to `1234`. Draw 100 random points
-from the interval `[0, 1]`. Store this vector in a data frame as `x` column.
-Now compute `y` column using a formula `4 * (x - 0.5) ^ 2`.
-Add random noise to column `y` that has normal distribution with mean 0 and
-standard deviation 0.25. Call this column `z`.
-Make a scatter plot with `x` on x-axis and `y` and `z` on y-axis.
-
-### Exercise 10
-
-Add a line of LOESS regression of `x` explaining `z` plot to figure produced in exercise 10.
-
-# Solutions
-
 <details>
-
-<summary>Show!</summary>
-
-### Exercise 1
-
-Solution:
+<summary>Solution</summary>
 
 ```
 julia> matein2 = puzzles[contains.(puzzles.Themes, "mateIn2"), :]
@@ -104,9 +43,17 @@ julia> matein2 = puzzles[contains.(puzzles.Themes, "mateIn2"), :]
                                                                                                                                          1 column and 274127 rows omitted
 ```
 
+</details>
+
 ### Exercise 2
 
-Solution (two ways to do it):
+What is the fraction of puzzles that are mate in 2 in relation to all puzzles
+in the `puzzles` data frame?
+
+<details>
+<summary>Solution</summary>
+
+Two ways to do it:
 
 ```
 julia> using Statistics
@@ -118,9 +65,15 @@ julia> mean(contains.(puzzles.Themes, "mateIn2"))
 0.12852152542746353
 ```
 
+</details>
+
 ### Exercise 3
 
-Solution:
+Create `small` data frame that holds first 10 rows of `matein2` data frame
+and columns `Rating`, `RatingDeviation`, and `NbPlays`.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> small = matein2[1:10, ["Rating", "RatingDeviation", "NbPlays"]]
@@ -140,9 +93,15 @@ julia> small = matein2[1:10, ["Rating", "RatingDeviation", "NbPlays"]]
   10 │    979              144       14
 ```
 
+</details>
+
 ### Exercise 4
 
-Solution:
+Iterate rows of `small` data frame and print the ratio of
+`RatingDeviation` and `NbPlays` for each row.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> for row in eachrow(small)
@@ -160,9 +119,16 @@ julia> for row in eachrow(small)
 10.285714285714286
 ```
 
+</details>
+
 ### Exercise 5
 
-Solution (several options):
+Get names of columns from the `matein2` data frame that end with `n` (ignore case).
+
+<details>
+<summary>Solution</summary>
+
+Several options:
 ```
 julia> names(matein2, Cols(col -> uppercase(col[end]) == 'N'))
 2-element Vector{String}:
@@ -180,9 +146,20 @@ julia> names(matein2, r"[nN]$")
  "RatingDeviation"
 ```
 
+</details>
+
 ### Exercise 6
 
-Solution:
+Write a function `collatz` that runs the following process. Start with a
+positive number `n`. If it is even divide it by two. If it is odd multiply
+it by 3 and add one. The function should return the number of steps needed to
+reach 1.
+
+Create a `d` dictionary that maps number of steps needed to a list of numbers from
+the range `1:100` that required this number of steps.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> function collatz(n)
@@ -232,9 +209,15 @@ Dict{Int64, Vector{Int64}} with 45 entries:
 As we can see even for small `n` the number of steps required to reach `1`
 can get quite large.
 
+</details>
+
 ### Exercise 7
 
-Solution:
+Using the `d` dictionary make a scatter plot of number of steps required
+vs average value of numbers that require this number of steps.
+
+<details>
+<summary>Solution</summary>
 
 ```
 using Plots
@@ -247,9 +230,17 @@ scatter(steps, mean_number, xlabel="steps", ylabel="mean of numbers", legend=fal
 Note that we needed to use `collect` on `keys` as `scatter` expects an array
 not just an iterator.
 
+</details>
+
 ### Exercise 8
 
-Solution:
+Repeat the process from exercises 6 and 7, but this time use a data frame
+and try to write an appropriate expression using the `combine` and `groupby`
+functions (as it was explained in the last part of chapter 9). This time
+perform computations for numbers ranging from one to one million.
+
+<details>
+<summary>Solution</summary>
 
 ```
 df = DataFrame(n=1:10^6);
@@ -257,6 +248,8 @@ df.collatz = collatz.(df.n);
 agg = combine(groupby(df, :collatz), :n => mean);
 scatter(agg.collatz, agg.n_mean, xlabel="steps", ylabel="mean of numbers", legend=false)
 ```
+
+</details>
 
 ### Exercise 9
 
@@ -267,7 +260,8 @@ Add random noise to column `y` that has normal distribution with mean 0 and
 standard deviation 0.25. Call this column `z`.
 Make a scatter plot with `x` on x-axis and `y` and `z` on y-axis.
 
-Solution:
+<details>
+<summary>Solution</summary>
 
 ```
 using Random
@@ -278,9 +272,14 @@ df.z = df.y + randn(100) / 4
 scatter(df.x, [df.y df.z], labels=["y" "z"])
 ```
 
+</details>
+
 ### Exercise 10
 
-Solution:
+Add a line of LOESS regression of `x` explaining `z` plot to figure produced in exercise 10.
+
+<details>
+<summary>Solution</summary>
 
 ```
 using Loess

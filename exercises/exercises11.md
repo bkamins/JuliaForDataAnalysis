@@ -13,83 +13,8 @@ sampled from uniform distribution on [0, 1[ interval.
 Serialize it to disk, and next deserialize. Check if the deserialized
 object is the same as the source data frame.
 
-### Exercise 2
-
-Add a column `n` to the `df` data frame that in each row will hold the
-number of observations in column `x` that have distance less than `0.1` to
-a value stored in a given row of `x`.
-
-### Exercise 3
-
-Investigate visually how does `n` depend on `x` in data frame `df`.
-
-### Exercise 4
-
-Someone has prepared the following test data for you:
-```
-teststr = """
-"x","sinx"
-0.139279,0.138829
-0.456779,0.441059
-0.344034,0.337287
-0.140253,0.139794
-0.848344,0.750186
-0.977512,0.829109
-0.032737,0.032731
-0.702750,0.646318
-0.422339,0.409895
-0.393878,0.383772
-"""
-```
-
-Load this data into `testdf` data frame.
-
-### Exercise 5
-
-Check the accuracy of computations of sinus of `x` in `testdf`.
-Print all rows for which the absolute difference is greater than `5e-7`.
-In this case display `x`, `sinx`, the exact value of `sin(x)` and the absolute
-difference.
-
-### Exercise 6
-
-Group data in data frame `df` into buckets of 0.1 width and store the result in
-`gdf` data frame (sort the groups). Use the `cut` function from
-CategoricalArrays.jl to do it (check its documentation to learn how to do it).
-Check the number of values in each group.
-
-### Exercise 7
-
-Display the grouping keys in `gdf` grouped data frame. Show them as named tuples.
-Check what would be the group order if you asked not to sort them.
-
-### Exercise 8
-
-Compute average `n` for each group in `gdf`.
-
-### Exercise 9
-
-Fit a linear model explaining `n` by `x` separately for each group in `gdf`.
-Use the `\` operator to fit it (recall it from chapter 4).
-For each group produce the result as named tuple having fields `α₀` and `αₓ`.
-
-### Exercise 10
-
-Repeat exercise 9 but using the GLM.jl package. This time
-extract the p-value for the slope of estimated coefficient for `x` variable.
-Use the `coeftable` function from GLM.jl to get this information.
-Check the documentation of this function to learn how to do it (it will be
-easiest for you to first convert its result to a `DataFrame`).
-
-# Solutions
-
 <details>
-
-<summary>Show!</summary>
-
-### Exercise 1
-
-Solution:
+<summary>Solution</summary>
 
 ```
 julia> using DataFrames
@@ -104,9 +29,16 @@ julia> deserialize("df.bin") == df
 true
 ```
 
+</details>
+
 ### Exercise 2
 
-Solution:
+Add a column `n` to the `df` data frame that in each row will hold the
+number of observations in column `x` that have distance less than `0.1` to
+a value stored in a given row of `x`.
+
+<details>
+<summary>Solution</summary>
 
 A simple approach is:
 ```
@@ -151,9 +83,14 @@ df.n = f2(df.x)
 In this solution the fact that we used function barrier is even more relevant
 as we explicitly use loops inside.
 
+</details>
+
 ### Exercise 3
 
-Solution:
+Investigate visually how does `n` depend on `x` in data frame `df`.
+
+<details>
+<summary>Solution</summary>
 
 ```
 using Plots
@@ -162,9 +99,31 @@ scatter(df.x, df.n, xlabel="x", ylabel="neighbors", legend=false)
 
 As expected on the border of the domain number of neighbors drops.
 
+</details>
+
 ### Exercise 4
 
-Solution:
+Someone has prepared the following test data for you:
+```
+teststr = """
+"x","sinx"
+0.139279,0.138829
+0.456779,0.441059
+0.344034,0.337287
+0.140253,0.139794
+0.848344,0.750186
+0.977512,0.829109
+0.032737,0.032731
+0.702750,0.646318
+0.422339,0.409895
+0.393878,0.383772
+"""
+```
+
+Load this data into `testdf` data frame.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> using CSV
@@ -188,7 +147,17 @@ julia> testdf = CSV.read(IOBuffer(teststr), DataFrame)
   10 │ 0.393878  0.383772
 ```
 
+</details>
+
 ### Exercise 5
+
+Check the accuracy of computations of sinus of `x` in `testdf`.
+Print all rows for which the absolute difference is greater than `5e-7`.
+In this case display `x`, `sinx`, the exact value of `sin(x)` and the absolute
+difference.
+
+<details>
+<summary>Solution</summary>
 
 Since data frame is small we can use `eachrow`:
 
@@ -202,9 +171,18 @@ julia> for row in eachrow(testdf)
 (x = 0.70275, computed = 0.6463185646550751, data = 0.646318, dev = 5.646550751414736e-7)
 ```
 
+</details>
+
 ### Exercise 6
 
-Solution:
+Group data in data frame `df` into buckets of 0.1 width and store the result in
+`gdf` data frame (sort the groups). Use the `cut` function from
+CategoricalArrays.jl to do it (check its documentation to learn how to do it).
+Check the number of values in each group.
+
+<details>
+<summary>Solution</summary>
+
 ```
 julia> using CategoricalArrays
 
@@ -244,9 +222,15 @@ julia> combine(gdf, nrow) # alternative way to do it
 
 You might get a bit different numbers but all should be around 10,000.
 
+</details>
+
 ### Exercise 7
 
-Solution:
+Display the grouping keys in `gdf` grouped data frame. Show them as named tuples.
+Check what would be the group order if you asked not to sort them.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> NamedTuple.(keys(gdf))
@@ -282,9 +266,14 @@ the resulting group order could depend on the type of grouping column, so if
 you want to depend on the order of groups always spass `sort` keyword argument
 explicitly.
 
+</details>
+
 ### Exercise 8
 
-Solution:
+Compute average `n` for each group in `gdf`.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> using Statistics
@@ -319,9 +308,16 @@ julia> combine(gdf, :n => mean) # alternative way to do it
   10 │ [0.9, 1.0)  14944.5
 ```
 
+</details>
+
 ### Exercise 9
 
-Solution:
+Fit a linear model explaining `n` by `x` separately for each group in `gdf`.
+Use the `\` operator to fit it (recall it from chapter 4).
+For each group produce the result as named tuple having fields `α₀` and `αₓ`.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> function fitmodel(x, n)
@@ -364,9 +360,18 @@ julia> combine(gdf, [:x, :n] => fitmodel => AsTable) # alternative syntax that y
 We note that indeed in the first and last group the regression has a significant
 slope.
 
+</details>
+
 ### Exercise 10
 
-Solution:
+Repeat exercise 9 but using the GLM.jl package. This time
+extract the p-value for the slope of estimated coefficient for `x` variable.
+Use the `coeftable` function from GLM.jl to get this information.
+Check the documentation of this function to learn how to do it (it will be
+easiest for you to first convert its result to a `DataFrame`).
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> using GLM

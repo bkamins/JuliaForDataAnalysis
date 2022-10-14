@@ -13,11 +13,46 @@ https://archive.ics.uci.edu/ml/machine-learning-databases/00615/MushroomDataset.
 archive and extract primary_data.csv and secondary_data.csv files from it.
 Save the files to disk.
 
+<details>
+<summary>Solution</summary>
+
+```
+using Downloads
+import ZipFile
+Downloads.download("https://archive.ics.uci.edu/ml/machine-learning-databases/00615/MushroomDataset.zip", "MushroomDataset.zip")
+archive = ZipFile.Reader("MushroomDataset.zip")
+idx = only(findall(x -> contains(x.name, "primary_data.csv"), archive.files))
+open("primary_data.csv", "w") do io
+    write(io, read(archive.files[idx]))
+end
+idx = only(findall(x -> contains(x.name, "secondary_data.csv"), archive.files))
+open("secondary_data.csv", "w") do io
+    write(io, read(archive.files[idx]))
+end
+close(archive)
+```
+
+</details>
+
 ### Exercise 2
 
 Load primary_data.csv into the `primary` data frame.
 Load secondary_data.csv into the `secondary` data frame.
 Describe the contents of both data frames.
+
+<details>
+<summary>Solution</summary>
+
+```
+using CSV
+using DataFrames
+primary = CSV.read("primary_data.csv", DataFrame; delim=';')
+secondary = CSV.read("secondary_data.csv", DataFrame; delim=';')
+describe(primary)
+describe(secondary)
+```
+
+</details>
 
 ### Exercise 3
 
@@ -31,6 +66,25 @@ three columns just after `class` column in the `parsed_primary` data frame.
 
 Check `renamecols` keyword argument of `select` to
 avoid renaming of the produced columns.
+
+<details>
+<summary>Solution</summary>
+
+```
+parse_nominal(s::AbstractString) = split(strip(s, ['[', ']']), ", ")
+parse_nominal(::Missing) = missing
+parse_numeric(s::AbstractString) = parse.(Float64, split(strip(s, ['[', ']']), ", "))
+parse_numeric(::Missing) = missing
+idcols = ["family", "name", "class"]
+numericcols = ["cap-diameter", "stem-height", "stem-width"]
+parsed_primary = select(primary,
+                        idcols,
+                        numericcols .=> ByRow(parse_numeric),
+                        Not([idcols; numericcols]) .=> ByRow(parse_nominal);
+                        renamecols=false)
+```
+
+</details>
 
 ### Exercise 4
 
@@ -49,119 +103,8 @@ Use the following rules:
 
 For each found pair print to the screen the row number, family, name, and class.
 
-### Exercise 5
-
-Still using `parsed_primary` find what is the average probability of class being
-`p` by `family`. Additionally add number of observations in each group. Sort
-these results by the probability. Try using DataFramesMeta.jl to do this
-exercise (this requirement is optional).
-
-Store the result in `agg_primary` data frame.
-
-### Exercise 6
-
-Now using `agg_primary` data frame collapse it so that for each unique `pr_p`
-it gives us a total number of rows that had this probability and a tuple
-of mushroom family names.
-
-Optionally: try to display the produced table so that the tuple containing the
-list of families for each group is not cropped (this will require large
-terminal).
-
-### Exercise 7
-
-From our preliminary analysis of `primary` data we see that `missing` value in
-the primary data is non-informative, so in `secondary` data we should be
-cautious when building a model if we allowed for missing data (in practice
-if we were investigating some real mushroom we most likely would know its
-characteristics).
-
-Therefore as a first step drop in-place all columns in `secondary` data frame
-that have missing values.
-
-### Exercise 8
-
-Create a logistic regression predicting `class` based on all remaining features
-in the data frame. You might need to check the `Term` usage in StatsModels.jl
-documentation.
-
-You will notice that for `stem-color` and `habitat` columns you get strange
-estimation results (large absolute values of estimated parameters and even
-larger standard errors). Explain why this happens by analyzing frequency tables
-of these variables against `class` column.
-
-### Exercise 9
-
-Add `class_p` column to `secondary` as a second column that will contain
-predicted probability from the model created in exercise 8 of a given
-observation having class `p`.
-
-Print descriptive statistics of column `class_p` by `class`.
-
-### Exercise 10
-
-Plot FPR-TPR ROC curve for our model and compute associated AUC value.
-
-# Solutions
-
 <details>
-
-<summary>Show!</summary>
-
-### Exercise 1
-
-Solution:
-
-```
-using Downloads
-import ZipFile
-Downloads.download("https://archive.ics.uci.edu/ml/machine-learning-databases/00615/MushroomDataset.zip", "MushroomDataset.zip")
-archive = ZipFile.Reader("MushroomDataset.zip")
-idx = only(findall(x -> contains(x.name, "primary_data.csv"), archive.files))
-open("primary_data.csv", "w") do io
-    write(io, read(archive.files[idx]))
-end
-idx = only(findall(x -> contains(x.name, "secondary_data.csv"), archive.files))
-open("secondary_data.csv", "w") do io
-    write(io, read(archive.files[idx]))
-end
-close(archive)
-```
-
-### Exercise 2
-
-Solution:
-
-```
-using CSV
-using DataFrames
-primary = CSV.read("primary_data.csv", DataFrame; delim=';')
-secondary = CSV.read("secondary_data.csv", DataFrame; delim=';')
-describe(primary)
-describe(secondary)
-```
-
-### Exercise 3
-
-Solution:
-
-```
-parse_nominal(s::AbstractString) = split(strip(s, ['[', ']']), ", ")
-parse_nominal(::Missing) = missing
-parse_numeric(s::AbstractString) = parse.(Float64, split(strip(s, ['[', ']']), ", "))
-parse_numeric(::Missing) = missing
-idcols = ["family", "name", "class"]
-numericcols = ["cap-diameter", "stem-height", "stem-width"]
-parsed_primary = select(primary,
-                        idcols,
-                        numericcols .=> ByRow(parse_numeric),
-                        Not([idcols; numericcols]) .=> ByRow(parse_nominal);
-                        renamecols=false)
-```
-
-### Exercise 4
-
-Solution:
+<summary>Solution</summary>
 
 ```
 function overlap_numeric(v1, v2)
@@ -200,9 +143,19 @@ end
 Note that in this exercise using `eachrow` is not a problem
 (although it is not type stable) because the data is small.
 
+</details>
+
 ### Exercise 5
 
-Solution:
+Still using `parsed_primary` find what is the average probability of class being
+`p` by `family`. Additionally add number of observations in each group. Sort
+these results by the probability. Try using DataFramesMeta.jl to do this
+exercise (this requirement is optional).
+
+Store the result in `agg_primary` data frame.
+
+<details>
+<summary>Solution</summary>
 
 ```
 using Statistics
@@ -214,17 +167,40 @@ agg_primary = @chain parsed_primary begin
 end
 ```
 
+</details>
+
 ### Exercise 6
 
-Solution:
+Now using `agg_primary` data frame collapse it so that for each unique `pr_p`
+it gives us a total number of rows that had this probability and a tuple
+of mushroom family names.
+
+Optionally: try to display the produced table so that the tuple containing the
+list of families for each group is not cropped (this will require large
+terminal).
+
+<details>
+<summary>Solution</summary>
 
 ```
-show(combine(groupby(agg_primary, :pr_p), :nrow => sum => :nrow, :family => Tuple => :families), truncate=140)
+show(combine(groupby(agg_primary, :pr_p), :nrow => sum => :nrow, :family => Tuple => :families); truncate=140)
 ```
+
+</details>
 
 ### Exercise 7
 
-Solution:
+From our preliminary analysis of `primary` data we see that `missing` value in
+the primary data is non-informative, so in `secondary` data we should be
+cautious when building a model if we allowed for missing data (in practice
+if we were investigating some real mushroom we most likely would know its
+characteristics).
+
+Therefore as a first step drop in-place all columns in `secondary` data frame
+that have missing values.
+
+<details>
+<summary>Solution</summary>
 
 ```
 select!(secondary, [!any(ismissing, col) for col in eachcol(secondary)])
@@ -233,9 +209,21 @@ select!(secondary, [!any(ismissing, col) for col in eachcol(secondary)])
 Note that we select based on actual contents of the columns and not by their
 element type (column could allow for missing values but not have them).
 
+</details>
+
 ### Exercise 8
 
-Solution:
+Create a logistic regression predicting `class` based on all remaining features
+in the data frame. You might need to check the `Term` usage in StatsModels.jl
+documentation.
+
+You will notice that for `stem-color` and `habitat` columns you get strange
+estimation results (large absolute values of estimated parameters and even
+larger standard errors). Explain why this happens by analyzing frequency tables
+of these variables against `class` column.
+
+<details>
+<summary>Solution</summary>
 
 ```
 using GLM
@@ -247,12 +235,21 @@ freqtable(secondary, "stem-color", "class")
 freqtable(secondary, "habitat", "class")
 ```
 
-We can see that for cetrain levels of `stem-color` and `habitat` variables
+We can see that for certain levels of `stem-color` and `habitat` variables
 there is a perfect separation of classes.
+
+</details>
 
 ### Exercise 9
 
-Solution:
+Add `class_p` column to `secondary` as a second column that will contain
+predicted probability from the model created in exercise 8 of a given
+observation having class `p`.
+
+Print descriptive statistics of column `class_p` by `class`.
+
+<details>
+<summary>Solution</summary>
 
 ```
 insertcols!(secondary, 2, :class_p => predict(model))
@@ -264,9 +261,14 @@ end
 We can see that the model has some discriminatory power, but there
 is still a significant overlap between classes.
 
+</details>
+
 ### Exercise 10
 
-Solution:
+Plot FPR-TPR ROC curve for our model and compute associated AUC value.
+
+<details>
+<summary>Solution</summary>
 
 ```
 using Plots

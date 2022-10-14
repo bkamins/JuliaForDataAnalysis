@@ -11,63 +11,8 @@
 Read data stored in a gzip-compressed file `example8.csv.gz` into a `DataFrame`
 called `df`.
 
-### Exercise 2
-
-Get number of rows, columns, column names and summary statistics of the
-`df` data frame from exercise 1.
-
-### Exercise 3
-
-Make a plot of `number` against `square` columns of `df` data frame.
-
-### Exercise 4
-
-Add a column to `df` data frame with name `name string` containing string
-representation of numbers in column `number`, i.e.
-`["one", "two", "three", "four"]`.
-
-### Exercise 5
-
-Check if `df` contains column `square2`.
-
-### Exercise 6
-
-Extract column `number` from `df` and empty it (recall `empty!` function
-discussed in chapter 4).
-
-### Exercise 7
-
-In `Random` module the `randexp` function is defined that samples numbers
-from exponential distribution with scale 1.
-Draw two 100,000 element samples from this distribution store them
-in `x` and `y` vectors. Plot histograms of maximum of pairs of sampled values
-and sum of vector `x` and half of vector `y`.
-
-### Exercise 8
-
-Using vectors `x` and `y` from exercise 7 create the `df` data frame storing them,
-and maximum of pairs of sampled values and sum of vector `x` and half of vector `y`.
-Compute all standard descriptive statistics of columns of this data frame.
-
-### Exercise 9
-
-Store the `df` data frame from exercise 8 in Apache Arrow file and CSV file.
-Compare the size of created files using the `filesize` function.
-
-### Exercise 10
-
-Write the `df` data frame into SQLite database. Next find information about
-tables in this database. Run a query against a table representing the `df` data
-frame to calculate the mean of column `x`. Does it match the result we got in
-exercise 8?
-
-# Solutions
-
 <details>
-
-<summary>Show!</summary>
-
-### Exercise 1
+<summary>Solution</summary>
 
 CSV.jl supports reading gzip-compressed files so you can just do:
 
@@ -106,9 +51,15 @@ julia> df = CSV.read(plain, DataFrame)
    4 │      4      16
 ```
 
+</details>
+
 ### Exercise 2
 
-Solution:
+Get number of rows, columns, column names and summary statistics of the
+`df` data frame from exercise 1.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> nrow(df)
@@ -131,17 +82,30 @@ julia> describe(df)
    2 │ square       7.75      2      6.5     16         0  Int64
 ```
 
+</details>
+
 ### Exercise 3
 
-Solution:
+Make a plot of `number` against `square` columns of `df` data frame.
+
+<details>
+<summary>Solution</summary>
+
 ```
 using Plots
 plot(df.number, df.square, xlabel="number", ylabel="square", legend=false)
 ```
 
+</details>
+
 ### Exercise 4
 
-Solution:
+Add a column to `df` data frame with name `name string` containing string
+representation of numbers in column `number`, i.e.
+`["one", "two", "three", "four"]`.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> df."name string" = ["one", "two", "three", "four"]
@@ -164,7 +128,14 @@ julia> df
 
 Note that we needed to use a string as we have space in column name.
 
+</details>
+
 ### Exercise 5
+
+Check if `df` contains column `square2`.
+
+<details>
+<summary>Solution</summary>
 
 You can use either `hasproperty` or `columnindex`:
 
@@ -184,9 +155,15 @@ julia> df.square2
 ERROR: ArgumentError: column name :square2 not found in the data frame; existing most similar names are: :square
 ```
 
+</details>
+
 ### Exercise 6
 
-Solution:
+Extract column `number` from `df` and empty it (recall `empty!` function
+discussed in chapter 4).
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> empty!(df[:, :number])
@@ -198,9 +175,19 @@ as it would corrupt the `df` data frame (these operations do non-copying
 extraction of a column from a data frame as opposed to `df[:, :number]`
 which makes a copy).
 
+</details>
+
 ### Exercise 7
 
-Solution:
+In `Random` module the `randexp` function is defined that samples numbers
+from exponential distribution with scale 1.
+Draw two 100,000 element samples from this distribution store them
+in `x` and `y` vectors. Plot histograms of maximum of pairs of sampled values
+and sum of vector `x` and half of vector `y`.
+
+<details>
+<summary>Solution</summary>
+
 ```
 using Random
 using Plots
@@ -212,10 +199,19 @@ histogram!(max.(x, y), label="maximum")
 
 I have put both histograms on the same plot to show that they overlap.
 
+</details>
+
 ### Exercise 8
 
-Solution (you might get slightly different results because we did not set
-the seed of random number generator when creating `x` and `y` vectors):
+Using vectors `x` and `y` from exercise 7 create the `df` data frame storing them,
+and maximum of pairs of sampled values and sum of vector `x` and half of vector `y`.
+Compute all standard descriptive statistics of columns of this data frame.
+
+<details>
+<summary>Solution</summary>
+
+You might get slightly different results because we did not set
+the seed of random number generator when creating `x` and `y` vectors:
 
 ```
 julia> df = DataFrame(x=x, y=y);
@@ -238,7 +234,15 @@ julia> describe(df, :all)
 We indeed see that `x+y/2` and `max.(x,y)` columns have very similar summary
 statistics except `first` and `last` as expected.
 
+</details>
+
 ### Exercise 9
+
+Store the `df` data frame from exercise 8 in Apache Arrow file and CSV file.
+Compare the size of created files using the `filesize` function.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> using Arrow
@@ -258,7 +262,17 @@ julia> filesize("df.arrow")
 
 In this case Apache Arrow file is smaller.
 
+</details>
+
 ### Exercise 10
+
+Write the `df` data frame into SQLite database. Next find information about
+tables in this database. Run a query against a table representing the `df` data
+frame to calculate the mean of column `x`. Does it match the result we got in
+exercise 8?
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> using SQLite

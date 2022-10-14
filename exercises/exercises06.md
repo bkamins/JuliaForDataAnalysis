@@ -11,15 +11,46 @@
 Interpolate the expression `1 + 2` into a string `"I have apples worth 3USD"`
 (replace `3` by a proper interpolation expression) and replace `USD` by `$`.
 
+<details>
+<summary>Solution</summary>
+
+```
+julia> "I have apples worth $(1+2)\$"
+"I have apples worth 3\$"
+```
+
+</details>
+
 ### Exercise 2
 
 Download the file `https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data`
 as `iris.csv` to your local folder.
 
+<details>
+<summary>Solution</summary>
+
+```
+import Downloads
+Downloads.download("https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
+                   "iris.csv")
+```
+
+</details>
+
 ### Exercise 3
 
 Write the string `"https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"`
 in two lines so that it takes less horizontal space.
+
+<details>
+<summary>Solution</summary>
+
+```
+"https://archive.ics.uci.edu/ml/\
+ machine-learning-databases/iris/iris.data"
+```
+
+</details>
 
 ### Exercise 4
 
@@ -28,73 +59,9 @@ should be a named tuple of the form `(sl=1.0, sw=2.0, pl=3.0, pw=4.0, c="x")` if
 the source line had data `1.0,2.0,3.0,4.0,x` (note that first four elements are parsed
 as floats).
 
-### Exercise 5
-
-The `data` structure is a vector of named tuples, change it to a named tuple
-of vectors (with the same field names) and call it `data2`.
-
-### Exercise 6
-
-Calculate the frequency of each type of Iris type (`c` field in `data2`).
-
-### Exercise 7
-
-Create a vector `c2` that is derived from `c` in `data2` but holds inline strings,
-vector `c3` that is a `PooledVector`, and vector `c4` that holds `Symbol`s.
-Compare sizes of the three objects.
-
-### Exercise 8
-
-You know that `refs` field of `PooledArray` stores an integer index of a given
-value in it. Using this information make a scatter plot of `pl` vs `pw` vectors
-in `data2`, but for each Iris type give a different point color (check the
-`color` keyword argument meaning in the Plots.jl manual; you can use the
-`plot_color` function).
-
-### Exercise 9
-
-Type the following string `"a²=b² ⟺ a=b ∨ a=-b"` in your terminal and bind it to
-`str` variable (do not copy paste the string, but type it).
-
-### Exercise 10
-
-In the `str` string from exercise 9 find all matches of a pattern where `a`
-is followed by `b` but there can be some characters between them.
-
-# Solutions
-
 <details>
+<summary>Solution</summary>
 
-<summary>Show!</summary>
-
-### Exercise 1
-
-Solution:
-```
-julia> "I have apples worth $(1+2)\$"
-"I have apples worth 3\$"
-```
-
-### Exercise 2
-
-Solution:
-```
-import Downloads
-Downloads.download("https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",
-                   "iris.csv")
-```
-
-### Exercise 3
-
-Solution:
-```
-"https://archive.ics.uci.edu/ml/\
- machine-learning-databases/iris/iris.data"
-```
-
-### Exercise 4
-
-Solution:
 ```
 julia> function line_parser(line)
            elements = split(line, ",")
@@ -125,7 +92,15 @@ Note that we used `1:end-1` selector to drop last element from the read lines
 since it is empty. This is the reason why adding the
 `@assert length(elements) == 5` check in the `line_parser` function is useful.
 
+</details>
+
 ### Exercise 5
+
+The `data` structure is a vector of named tuples, change it to a named tuple
+of vectors (with the same field names) and call it `data2`.
+
+<details>
+<summary>Solution</summary>
 
 Later in the book you will learn more advanced ways to do it. Here let us
 use a most basic approach:
@@ -138,9 +113,15 @@ data2 = (sl=[d.sl for d in data],
          c=[d.c for d in data])
 ```
 
+</details>
+
 ### Exercise 6
 
-Solution:
+Calculate the frequency of each type of Iris type (`c` field in `data2`).
+
+<details>
+<summary>Solution</summary>
+
 ```
 julia> using FreqTables
 
@@ -153,9 +134,17 @@ Dim1              │
 "Iris-virginica"  │ 50
 ```
 
+</details>
+
 ### Exercise 7
 
-Solution:
+Create a vector `c2` that is derived from `c` in `data2` but holds inline strings,
+vector `c3` that is a `PooledVector`, and vector `c4` that holds `Symbol`s.
+Compare sizes of the three objects.
+
+<details>
+<summary>Solution</summary>
+
 ```
 julia> using InlineStrings
 
@@ -213,15 +202,33 @@ julia> Base.summarysize(c4)
 1240
 ```
 
+</details>
+
 ### Exercise 8
 
-Solution:
+You know that `refs` field of `PooledArray` stores an integer index of a given
+value in it. Using this information make a scatter plot of `pl` vs `pw` vectors
+in `data2`, but for each Iris type give a different point color (check the
+`color` keyword argument meaning in the Plots.jl manual; you can use the
+`plot_color` function).
+
+<details>
+<summary>Solution</summary>
+
 ```
 using Plots
 scatter(data2.pl, data2.pw, color=plot_color(c3.refs), legend=false)
 ```
 
+</details>
+
 ### Exercise 9
+
+Type the following string `"a²=b² ⟺ a=b ∨ a=-b"` in your terminal and bind it to
+`str` variable (do not copy paste the string, but type it).
+
+<details>
+<summary>Solution</summary>
 
 The hard part is typing `²`, `⟺` and `∨`. You can check how to do it using help:
 ```
@@ -237,7 +244,15 @@ help?> ∨
 
 Save the string in the `str` variable as we will use it in the next exercise.
 
+</details>
+
 ### Exercise 10
+
+In the `str` string from exercise 9 find all matches of a pattern where `a`
+is followed by `b` but there can be some characters between them.
+
+<details>
+<summary>Show!</summary>
 
 The exercise does not specify how the matching should be done. If we
 want it to be eager (match as much as possible), we write:

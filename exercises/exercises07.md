@@ -19,75 +19,10 @@ If you want to understand all the parameters plese check their meaning
 For us it is enough that this request generates 10 random integers in the range
 from 1 to 6. Run this query in Julia and parse the result.
 
-### Exercise 2
-
-Write a function that tries to parse a string as an integer.
-If it succeeds it should return the integer, otherwise it should return `0`
-but print error message.
-
-### Exercise 3
-
-Create a matrix containing truth table for `&&` operation including `missing`.
-If some operation errors store `"error"` in the table. As an extra feature (this
-is harder so you can skip it) in each cell store both inputs and output to make
-reading the table easier.
-
-### Exercise 4
-
-Take a vector `v = [1.5, 2.5, missing, 4.5, 5.5, missing]` and replace all
-missing values in it by the mean of the non-missing values.
-
-### Exercise 5
-
-Take a vector `s = ["1.5", "2.5", missing, "4.5", "5.5", missing]` and parse
-strings stored in it as `Float64`, while keeping `missing` values unchanged.
-
-### Exercise 6
-
-Print to the terminal all days in January 2023 that are Mondays.
-
-### Exercise 7
-
-Compute the dates that are one month later than January 15, 2020, February 15
-2020, March 15, 2020, and April 15, 2020. How many days pass during this one
-month. Print the results to the screen?
-
-### Exercise 8
-
-Parse the following string as JSON:
-```
-str = """
-[{"x":1,"y":1},
- {"x":2,"y":4},
- {"x":3,"y":9},
- {"x":4,"y":16},
- {"x":5,"y":25}]
-"""
-```
-into a `json` variable.
-
-### Exercise 9
-
-Extract from the `json` variable from exercise 8 two vectors `x` and `y`
-that correspond to the fields stored in the JSON structure.
-Plot `y` as a function of `x`.
-
-### Exercise 10
-
-Given a vector `m = [missing, 1, missing, 3, missing, missing, 6, missing]`.
-Use linear interpolation for filling missing values. For the extreme values
-use nearest available observation (you will need to consult Impute.jl
-documentation to find all required functions).
-
-# Solutions
-
 <details>
+<summary>Solution</summary>
 
-<summary>Show!</summary>
-
-### Exercise 1
-
-Solution (example run):
+Example run:
 
 ```
 julia> using HTTP
@@ -109,7 +44,16 @@ julia> parse.(Int, split(String(response.body)))
  6
 ```
 
+</details>
+
 ### Exercise 2
+
+Write a function that tries to parse a string as an integer.
+If it succeeds it should return the integer, otherwise it should return `0`
+but print error message.
+
+<details>
+<summary>Solution</summary>
 
 Example function:
 
@@ -160,9 +104,17 @@ end
 ```
 But this time we do not see the cause of the error.
 
+</details>
+
 ### Exercise 3
 
-Solution:
+Create a matrix containing truth table for `&&` operation including `missing`.
+If some operation errors store `"error"` in the table. As an extra feature (this
+is harder so you can skip it) in each cell store both inputs and output to make
+reading the table easier.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> function apply_and(x, y)
@@ -181,9 +133,15 @@ julia> apply_and.([true, false, missing], [true false missing])
  "missing && true = error"  "missing && false = error"  "missing && missing = error"
 ```
 
+</details>
+
 ### Exercise 4
 
-Solution:
+Take a vector `v = [1.5, 2.5, missing, 4.5, 5.5, missing]` and replace all
+missing values in it by the mean of the non-missing values.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> using Statistics
@@ -198,9 +156,15 @@ julia> coalesce.(v, mean(skipmissing(v)))
  3.5
 ```
 
+</details>
+
 ### Exercise 5
 
-Solution:
+Take a vector `s = ["1.5", "2.5", missing, "4.5", "5.5", missing]` and parse
+strings stored in it as `Float64`, while keeping `missing` values unchanged.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> using Missings
@@ -215,9 +179,16 @@ julia> passmissing(parse).(Float64, s)
   missing
 ```
 
+</details>
+
 ### Exercise 6
 
-Example solution:
+Print to the terminal all days in January 2023 that are Mondays.
+
+<details>
+<summary>Solution</summary>
+
+Example:
 
 ```
 julia> using Dates
@@ -232,9 +203,18 @@ julia> for day in Date.(2023, 01, 1:31)
 2023-01-30
 ```
 
+</details>
+
 ### Exercise 7
 
-Example solution:
+Compute the dates that are one month later than January 15, 2020, February 15
+2020, March 15, 2020, and April 15, 2020. How many days pass during this one
+month. Print the results to the screen?
+
+<details>
+<summary>Solution</summary>
+
+Example:
 
 ```
 julia> for day in Date.(2023, 1:4, 15)
@@ -247,9 +227,24 @@ julia> for day in Date.(2023, 1:4, 15)
 2023-04-15 + 1 month = 2023-05-15 (difference: 30 days)
 ```
 
+</details>
+
 ### Exercise 8
 
-Solution:
+Parse the following string as JSON:
+```
+str = """
+[{"x":1,"y":1},
+ {"x":2,"y":4},
+ {"x":3,"y":9},
+ {"x":4,"y":16},
+ {"x":5,"y":25}]
+"""
+```
+into a `json` variable.
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> using JSON3
@@ -278,9 +273,16 @@ julia> json = JSON3.read(str)
 }
 ```
 
+</details>
+
 ### Exercise 9
 
-Solution:
+Extract from the `json` variable from exercise 8 two vectors `x` and `y`
+that correspond to the fields stored in the JSON structure.
+Plot `y` as a function of `x`.
+
+<details>
+<summary>Solution</summary>
 
 ```
 using Plots
@@ -289,9 +291,17 @@ y = [el.y for el in json]
 plot(x, y, xlabel="x", ylabel="y", legend=false)
 ```
 
+</details>
+
 ### Exercise 10
 
-Solution:
+Given a vector `m = [missing, 1, missing, 3, missing, missing, 6, missing]`.
+Use linear interpolation for filling missing values. For the extreme values
+use nearest available observation (you will need to consult Impute.jl
+documentation to find all required functions).
+
+<details>
+<summary>Solution</summary>
 
 ```
 julia> using Impute

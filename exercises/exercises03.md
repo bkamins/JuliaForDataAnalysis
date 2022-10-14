@@ -11,64 +11,8 @@
 Check what methods does the `repeat` function have.
 Are they all covered in help for this function?
 
-### Exercise 2
-
-Write a function `fun2` that takes any vector and returns the difference between
-the largest and the smallest element in this vector.
-
-### Exercise 3
-
-Generate a vector of one million random numbers from `[0, 1]` interval.
-Check what is a faster way to get a maximum and minimum element in it. One
-option is by using the `maximum` and `minimum` functions and the other is by
-using the `extrema` function.
-
-### Exercise 4
-
-Assume you have accidentally typed `+x = 1` when wanting to assign `1` to
-variable `x`. What effects can this operation have?
-
-### Exercise 5
-
-What is the result of calling the `subtypes` on `Union{Bool, Missing}` and why?
-
-### Exercise 6
-
-Define two identical anonymous functions `x -> x + 1` in global scope? Do they
-have the same type?
-
-### Exercise 7
-
-Define the `wrap` function taking one argument `i` and returning the anonymous
-function `x -> x + i`. Is the type of such anonymous function the same across
-calls to `wrap` function?
-
-### Exercise 8
-
-You want to write a function that accepts any `Integer` except `Bool` and returns
-the passed value. If `Bool` is passed an error should be thrown.
-
-### Exercise 9
-
-The `@time` macro measures time taken by an expression run and prints it,
-but returns the value of the expression.
-The `@elapsed` macro works differently - it does not print anything, but returns
-time taken to evaluate an expression. Test the `@elapsed` macro by to see how
-long it takes to shuffle a vector of one million floats. Use the `shuffle` function
-from `Random` module.
-
-### Exercise 10
-
-Using the `@btime` macro benchmark the time of calculating the sum of one million
-random floats.
-
-# Solutions
-
 <details>
-
-<summary>Show!</summary>
-
-### Exercise 1
+<summary>Solution</summary>
 
 Write:
 ```
@@ -93,7 +37,15 @@ and `repeat(c::Char, r::Integer)` is its faster version
 that accepts values that have `Char` type only (and it is invoked by Julia
 if value of type `Char` is passed as an argument to `repeat`).
 
+</details>
+
 ### Exercise 2
+
+Write a function `fun2` that takes any vector and returns the difference between
+the largest and the smallest element in this vector.
+
+<details>
+<summary>Solution</summary>
 
 You can define is as follows:
 ```
@@ -109,7 +61,17 @@ end
 Note that these two functions will work with vectors of any elements that
 are ordered and support subtraction (they do not have to be numbers).
 
+</details>
+
 ### Exercise 3
+
+Generate a vector of one million random numbers from `[0, 1]` interval.
+Check what is a faster way to get a maximum and minimum element in it. One
+option is by using the `maximum` and `minimum` functions and the other is by
+using the `extrema` function.
+
+<details>
+<summary>Solution</summary>
 
 Here is a way to compare the performance of both options:
 ```
@@ -130,7 +92,15 @@ As you can see in this situation, although `extrema` does the operation
 in a single pass over `x` it is slower than computing `minimum` and `maximum`
 in two passes.
 
+</details>
+
 ### Exercise 4
+
+Assume you have accidentally typed `+x = 1` when wanting to assign `1` to
+variable `x`. What effects can this operation have?
+
+<details>
+<summary>Solution</summary>
 
 If it is a fresh Julia session you define a new function in `Main` for `+` operator:
 
@@ -167,7 +137,14 @@ julia> +x=1
 ERROR: error in method definition: function Base.+ must be explicitly imported to be extended
 ```
 
+</details>
+
 ### Exercise 5
+
+What is the result of calling the `subtypes` on `Union{Bool, Missing}` and why?
+
+<details>
+<summary>Solution</summary>
 
 You get an empty vector:
 ```
@@ -181,7 +158,15 @@ declared types that have names (type of such types is `DataType` in Julia).
 *Extra* for this reason `subtypes` has a limited use. To check if one type
 is a subtype of some other type use the `<:` operator.
 
+</details>
+
 ### Exercise 6
+
+Define two identical anonymous functions `x -> x + 1` in global scope? Do they
+have the same type?
+
+<details>
+<summary>Solution</summary>
 
 No, each of them has a different type:
 ```
@@ -215,7 +200,16 @@ julia> @time sum(x -> x^2, 1:10)
 385
 ```
 
+</details>
+
 ### Exercise 7
+
+Define the `wrap` function taking one argument `i` and returning the anonymous
+function `x -> x + i`. Is the type of such anonymous function the same across
+calls to `wrap` function?
+
+<details>
+<summary>Solution</summary>
 
 Yes, the type is the same:
 
@@ -252,7 +246,15 @@ julia> @time sumi(3)
 3025
 ```
 
+</details>
+
 ### Exercise 8
+
+You want to write a function that accepts any `Integer` except `Bool` and returns
+the passed value. If `Bool` is passed an error should be thrown.
+
+<details>
+<summary>Solution</summary>
 
 We check subtypes of `Integer`:
 
@@ -292,7 +294,19 @@ julia> fun2(true)
 ERROR: ArgumentError: Bool is not supported
 ```
 
+</details>
+
 ### Exercise 9
+
+The `@time` macro measures time taken by an expression run and prints it,
+but returns the value of the expression.
+The `@elapsed` macro works differently - it does not print anything, but returns
+time taken to evaluate an expression. Test the `@elapsed` macro by to see how
+long it takes to shuffle a vector of one million floats. Use the `shuffle` function
+from `Random` module.
+
+<details>
+<summary>Solution</summary>
 
 Here is the code that performs the task:
 ```
@@ -312,7 +326,15 @@ julia> @elapsed shuffle(x)
 
 Note that the first time we run `shuffle` it takes longer due to compilation.
 
+</details>
+
 ### Exercise 10
+
+Using the `@btime` macro benchmark the time of calculating the sum of one million
+random floats.
+
+<details>
+<summary>Solution</summary>
 
 The code you can use is:
 

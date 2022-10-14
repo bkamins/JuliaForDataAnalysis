@@ -12,10 +12,80 @@ Create a matrix of shape 2x3 containing numbers from 1 to 6 (fill the matrix
 columnwise with consecutive numbers). Next calculate sum, mean and standard
 deviation of each row and each column of this matrix.
 
+<details>
+<summary>Solution</summary>
+
+Write:
+```
+julia> using Statistics
+
+julia> mat = [1 3 5
+              2 4 6]
+2×3 Matrix{Int64}:
+ 1  3  5
+ 2  4  6
+
+julia> sum(mat, dims=1)
+1×3 Matrix{Int64}:
+ 3  7  11
+
+julia> sum(mat, dims=2)
+2×1 Matrix{Int64}:
+  9
+ 12
+
+julia> mean(mat, dims=1)
+1×3 Matrix{Float64}:
+ 1.5  3.5  5.5
+
+julia> mean(mat, dims=2)
+2×1 Matrix{Float64}:
+ 3.0
+ 4.0
+
+julia> std(mat, dims=1)
+1×3 Matrix{Float64}:
+ 0.707107  0.707107  0.707107
+
+julia> std(mat, dims=2)
+2×1 Matrix{Float64}:
+ 2.0
+ 2.0
+```
+
+Observe that the returned statistics are also stored in matrices.
+If we compute them for columns (`dims=1`) then the produced matrix has one row.
+If we compute them for rows (`dims=2`) then the produced matrix has one column.
+
+</details>
+
 ### Exercise 2
 
 For each column of the matrix created in exercise 1 compute its range
 (i.e. the difference between maximum and minimum element stored in it).
+
+<details>
+<summary>Solution</summary>
+
+Here are some ways you can do it:
+```
+julia> [maximum(x) - minimum(x) for x in eachcol(mat)]
+3-element Vector{Int64}:
+ 1
+ 1
+ 1
+
+julia> map(x -> maximum(x) - minimum(x), eachcol(mat))
+3-element Vector{Int64}:
+ 1
+ 1
+ 1
+```
+
+Observe that if we used `eachcol` the produced result is a vector (not a matrix
+like in exercise 1).
+
+</details>
 
 ### Exercise 3
 
@@ -79,127 +149,8 @@ speed  dist
 Load this data into Julia (this is part of the exercise) and fit a linear
 regression where speed is a feature and distance is target variable.
 
-### Exercise 4
-
-Plot the data loaded in exercise 4. Additionally plot the fitted regression
-(you need to check Plots.jl documentation to find a way to do this).
-
-### Exercise 5
-
-A simple code for calculation of Fibonacci numbers for positive
-arguments is as follows:
-
-```
-fib(n) =n < 3 ? 1 : fib(n-1) + fib(n-2)
-```
-
-Using the BenchmarkTools.jl package measure runtime of this function for
-`n` ranging from `1` to `20`.
-
-### Exercise 6
-
-Improve the speed of code from exercise 5 by using a dictionary where you
-store a mapping of `n` to `fib(n)`. Measure the performance of this function
-for the same range of values as in exercise 5.
-
-### Exercise 7
-
-Create a vector containing named tuples representing elements of a 4x4 grid.
-So the first element of this vector should be `(x=1, y=1)` and last should be
-`(x=4, y=4)`. Store the vector in variable `v`.
-
-### Exercise 8
-
-The `filter` function allows you to select some values of an input collection.
-Check its documentation first. Next, use it to keep from the vector `v` from
-exercise 7 only elements whose sum is even.
-
-### Exercise 9
-
-Check the documentation of the `filter!` function. Perform the same operation
-as asked in exercise 8 but using `filter!`. What is the difference?
-
-### Exercise 10
-
-Write a function that takes a number `n`. Next it generates two independent
-random vectors of length `n` and returns their correlation coefficient.
-Run this function `10000` times for `n` equal to `10`, `100`, `1000`,
-and `10000`.
-Create a plot with four histograms of distribution of computed Pearson
-correlation coefficient. Check in the Plots.jl package which function can be
-used to plot histograms.
-
-# Solutions
-
 <details>
-
-<summary>Show!</summary>
-
-### Exercise 1
-
-Write:
-```
-julia> using Statistics
-
-julia> mat = [1 3 5
-              2 4 6]
-2×3 Matrix{Int64}:
- 1  3  5
- 2  4  6
-
-julia> sum(mat, dims=1)
-1×3 Matrix{Int64}:
- 3  7  11
-
-julia> sum(mat, dims=2)
-2×1 Matrix{Int64}:
-  9
- 12
-
-julia> mean(mat, dims=1)
-1×3 Matrix{Float64}:
- 1.5  3.5  5.5
-
-julia> mean(mat, dims=2)
-2×1 Matrix{Float64}:
- 3.0
- 4.0
-
-julia> std(mat, dims=1)
-1×3 Matrix{Float64}:
- 0.707107  0.707107  0.707107
-
-julia> std(mat, dims=2)
-2×1 Matrix{Float64}:
- 2.0
- 2.0
-```
-
-Observe that the returned statistics are also stored in matrices.
-If we compute them for columns (`dims=1`) then the produced matrix has one row.
-If we compute them for rows (`dims=2`) then the produced matrix has one column.
-
-### Exercise 2
-
-Here are some ways you can do it:
-```
-julia> [maximum(x) - minimum(x) for x in eachcol(mat)]
-3-element Vector{Int64}:
- 1
- 1
- 1
-
-julia> map(x -> maximum(x) - minimum(x), eachcol(mat))
-3-element Vector{Int64}:
- 1
- 1
- 1
-```
-
-Observe that if we used `eachcol` the produced result is a vector (not a matrix
-like in exercise 1).
-
-### Exercise 3
+<summary>Solution</summary>
 
 First create a matrix with source data by copy pasting it from the exercise
 like this:
@@ -285,7 +236,15 @@ julia> [ones(50) data[:, 1]] \ data[:, 2]
    3.9324087591240877
 ```
 
+</details>
+
 ### Exercise 4
+
+Plot the data loaded in exercise 4. Additionally plot the fitted regression
+(you need to check Plots.jl documentation to find a way to do this).
+
+<details>
+<summary>Solution</summary>
 
 Run the following:
 ```
@@ -296,7 +255,22 @@ scatter(data[:, 1], data[:, 2];
 
 The `smooth=true` keyword argument adds the linear regression line to the plot.
 
+</details>
+
 ### Exercise 5
+
+A simple code for calculation of Fibonacci numbers for positive
+arguments is as follows:
+
+```
+fib(n) =n < 3 ? 1 : fib(n-1) + fib(n-2)
+```
+
+Using the BenchmarkTools.jl package measure runtime of this function for
+`n` ranging from `1` to `20`.
+
+<details>
+<summary>Solution</summary>
 
 Use the following code:
 ```
@@ -331,7 +305,16 @@ julia> for i in 1:40
 Notice that execution time for number `n` is roughly sum of ececution times
 for numbers `n-1` and `n-2`.
 
+</details>
+
 ### Exercise 6
+
+Improve the speed of code from exercise 5 by using a dictionary where you
+store a mapping of `n` to `fib(n)`. Measure the performance of this function
+for the same range of values as in exercise 5.
+
+<details>
+<summary>Solution</summary>
 
 Use the following code:
 
@@ -422,7 +405,16 @@ julia> @time fib2(200)
 
 As you can see the code does less allocations and is faster now.
 
+</details>
+
 ### Exercise 7
+
+Create a vector containing named tuples representing elements of a 4x4 grid.
+So the first element of this vector should be `(x=1, y=1)` and last should be
+`(x=4, y=4)`. Store the vector in variable `v`.
+
+<details>
+<summary>Solution</summary>
 
 Since we are asked to create a vector we can write:
 
@@ -470,7 +462,16 @@ julia> [(; x, y) for x in 1:4, y in 1:4]
  (x = 4, y = 1)  (x = 4, y = 2)  (x = 4, y = 3)  (x = 4, y = 4)
 ```
 
+</details>
+
 ### Exercise 8
+
+The `filter` function allows you to select some values of an input collection.
+Check its documentation first. Next, use it to keep from the vector `v` from
+exercise 7 only elements whose sum is even.
+
+<details>
+<summary>Solution</summary>
 
 To get help on the `filter` function write `?filter`. Next run:
 
@@ -487,7 +488,15 @@ julia> filter(e -> iseven(e.x + e.y), v)
  (x = 4, y = 4)
 ```
 
+</details>
+
 ### Exercise 9
+
+Check the documentation of the `filter!` function. Perform the same operation
+as asked in exercise 8 but using `filter!`. What is the difference?
+
+<details>
+<summary>Solution</summary>
 
 To get help on the `filter!` function write `?filter!`. Next run:
 
@@ -518,7 +527,20 @@ julia> v
 Notice that `filter` allocated a new vector, while `filter!` updated the `v`
 vector in place.
 
+</details>
+
 ### Exercise 10
+
+Write a function that takes a number `n`. Next it generates two independent
+random vectors of length `n` and returns their correlation coefficient.
+Run this function `10000` times for `n` equal to `10`, `100`, `1000`,
+and `10000`.
+Create a plot with four histograms of distribution of computed Pearson
+correlation coefficient. Check in the Plots.jl package which function can be
+used to plot histograms.
+
+<details>
+<summary>Solution</summary>
 
 You can use for example the following code:
 
