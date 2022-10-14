@@ -5,6 +5,11 @@ This repository contains source codes for the
 book that is written by Bogumił Kamiński and is planned to be published in 2022
 by [Manning Publications Co.](https://www.manning.com/)
 
+Extras:
+* in the `/exercises` folder for each book chapter you can find 10 additional
+  exercises with solutions (they are meant for self study and are not discussed
+  in the book)
+
 ## Setting up your environment
 
 In order to prepare the Julia environment before working with the materials
@@ -71,9 +76,9 @@ The codes for each chapter are stored in files named *chXX.jl*, where *XX* is
 chapter number. The exceptions are
 
 * chapter 14, where additionally a separate *ch14_server.jl* is present along
-with *ch14.jl* (the reason is that in this chapter we create a web service and
-the *ch14_server.jl* contains the server-side code that should be run in a
-separate Julia process);
+  with *ch14.jl* (the reason is that in this chapter we create a web service and
+  the *ch14_server.jl* contains the server-side code that should be run in a
+  separate Julia process);
 * appendix A, where the file name used is *appA.txt* because it also
   contains other instructions than only Julia code (in particular package
   manager mode instructions).
@@ -113,8 +118,6 @@ There are the following videos that feature material related to this book:
 * [Analysis of GitHub developer graph](https://www.twitch.tv/videos/1527593261)
   (a shortened version of material covered in chapter 12)
 
-
-
 ## Data used in the book
 
 For your convenience I additionally stored data files that we use in this book.
@@ -130,5 +133,3 @@ They are respectively:
   <https://snap.stanford.edu/data/github-social.html> under GPL-3.0 License)
 * owensboro.zip (for chapter 13, available at The Stanford Open Policing Project
   under the Open Data Commons Attribution License)
-
-<!-- markdownlint-disable-file MD033 -->
