@@ -16,9 +16,31 @@ y[1] = 10
 ```
 What is the value of `x[1]` and why?
 
+<details>
+<summary>Solution</summary>
+
+`x[1]` will be `10` because `y = x` is not copying data but it binds
+the same value both to variable `x` and `y`.
+
+</details>
+
+
 ### Exercise 2
 
 How can you type `⚡ = 1`. Check if this operation succeeds and what is its result.
+
+<details>
+<summary>Solution</summary>
+
+In help mode (activated by `?`) copy-paste `⚡` to get:
+```
+help?> ⚡
+"⚡" can be typed by \:zap:<tab>
+```
+After the `⚡ = 1` operation a new variable `⚡` is defined and it is bound
+to value `1`.
+
+</details>
 
 ### Exercise 3
 
@@ -31,62 +53,8 @@ end
 x /= 1_000_000
 ```
 
-### Exercise 4
-
-Express the type `Matrix{Bool}` using `Array` type.
-
-### Exercise 5
-
-Let `x` be a vector. Write code that prints an error if `x` is empty
-(has zero elements)
-
-### Exercise 6
-
-Write a function called `exec` that takes two values `x` and `y` and a function
-accepting two arguments, call it `op` and returns `op(x, y)`. Make `+` to be
-the default value of `op`.
-
-### Exercise 7
-
-Write a function that calculates a sum of absolute values of values stored in
-a collection passed to it.
-
-### Exercise 8
-
-Write a function that swaps first and last element in an array in place.
-
-### Exercise 9
-
-Write a loop in global scope that calculates the sum of cubes of numbers from
-`1` to `10^6`. Next use the `sum` function to perform the same computation.
-What is the difference in timing of these operations?
-
-### Exercise 10
-
-Explain the value of the result of summation obtained in exercise 9.
-
-# Solutions
-
 <details>
-
-<summary>Show!</summary>
-
-### Exercise 1
-
-`x[1]` will be `10` because `y = x` is not copying data but it binds
-the same value both to variable `x` and `y`.
-
-### Exercise 2
-
-In help mode (activated by `?`) copy-paste `⚡` to get:
-```
-help?> ⚡
-"⚡" can be typed by \:zap:<tab>
-```
-After the `⚡ = 1` operation a new variable `⚡` is defined and it is bound
-to value `1`.
-
-### Exercise 3
+<summary>Solution</summary>
 
 `x` will have value `0.9999999999242748`. This value is below `1.0` because
 representation of `1/7` using `Float64` type is less than rational number 1/7,
@@ -105,7 +73,14 @@ julia> 1/big(7) # construct high-precision float directly
 As you can see there is a difference at 17th place after decimal dot where we
 have `4` vs `5`.
 
+</details>
+
 ### Exercise 4
+
+Express the type `Matrix{Bool}` using `Array` type.
+
+<details>
+<summary>Solution</summary>
 
 It is `Array{Bool, 2}`. You immediately get this information in REPL:
 ```
@@ -113,7 +88,15 @@ julia> Matrix{Bool}
 Matrix{Bool} (alias for Array{Bool, 2})
 ```
 
+</details>
+
 ### Exercise 5
+
+Let `x` be a vector. Write code that prints an error if `x` is empty
+(has zero elements)
+
+<details>
+<summary>Solution</summary>
 
 You can do it like this:
 ```
@@ -127,7 +110,16 @@ passed as an argument to the function):
 isempty(x) && throw(ArgumentError("x is not allowed to be empty"))
 ```
 
+</details>
+
 ### Exercise 6
+
+Write a function called `exec` that takes two values `x` and `y` and a function
+accepting two arguments, call it `op` and returns `op(x, y)`. Make `+` to be
+the default value of `op`.
+
+<details>
+<summary>Solution</summary>
 
 Here are two ways to define the `exec` function:
 ```
@@ -144,14 +136,29 @@ julia> exec2(2, 3; op=*)
 6
 ```
 
+</details>
+
 ### Exercise 7
+
+Write a function that calculates a sum of absolute values of values stored in
+a collection passed to it.
+
+<details>
+<summary>Solution</summary>
 
 Such a function can be written as:
 ```
 sumabs(x) = sum(abs, x)
 ```
 
+</details>
+
 ### Exercise 8
+
+Write a function that swaps first and last element in an array in place.
+
+<details>
+<summary>Solution</summary>
 
 This can be written for example as:
 ```
@@ -184,7 +191,16 @@ Note the differences in the code:
   is technically called tuple destructuring; we discuss it in later chapters of
   the book)
 
+</details>
+
 ### Exercise 9
+
+Write a loop in global scope that calculates the sum of cubes of numbers from
+`1` to `10^6`. Next use the `sum` function to perform the same computation.
+What is the difference in timing of these operations?
+
+<details>
+<summary>Solution</summary>
 
 We used `@time` macro in chapter 1.
 
@@ -246,7 +262,14 @@ julia> @time sum3loop(10^6)
 ```
 This is also much faster than a loop in global scope.
 
+</details>
+
 ### Exercise 10
+
+Explain the value of the result of summation obtained in exercise 9.
+
+<details>
+<summary>Solution</summary>
 
 In exercise 9 we note that the result is `-8222430735553051648` which is a
 negative value, although we are adding cubes of positive values. The
