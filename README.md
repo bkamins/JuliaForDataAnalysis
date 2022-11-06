@@ -18,7 +18,9 @@ presented in the book please perform the following setup steps:
 * [download](https://julialang.org/downloads/) and
   [install](https://julialang.org/downloads/platform/)
   [Julia](https://julialang.org/);
-  all the codes were tested under Julia 1.7;
+  all the codes were tested under Julia 1.7 (under never versions of Julia
+  the code will work, but you might get warning messages when loading packages
+  due to the fact that their versions are pinned in this repository);
 * make sure you can start Julia by running `julia` command in your terminal;
 * download [this repository](https://github.com/bkamins/JuliaForDataAnalysis)
   to a local folder on your computer;
@@ -31,8 +33,8 @@ presented in the book please perform the following setup steps:
   given in appendix A to the book);
 * press <kbd>]</kbd>, write `instantiate` and press <kbd>Enter</kbd> (this
   process will ensure that Julia properly configures the working environment
-  for working with the codes from the book); in case you work on Julia newer
-  than 1.7 running the  `resolve` command also might be required;
+  for working with the codes from the book); in some cases 
+  running the `resolve` command also might be required;
 * press <kbd>Backspace</kbd>, write `exit()` and press <kbd>Enter</kbd>;
   now you should exit Julia and everything is set up to work with the materials
   presented in the book.
