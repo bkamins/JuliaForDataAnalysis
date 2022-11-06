@@ -31,7 +31,8 @@ presented in the book please perform the following setup steps:
   given in appendix A to the book);
 * press <kbd>]</kbd>, write `instantiate` and press <kbd>Enter</kbd> (this
   process will ensure that Julia properly configures the working environment
-  for working with the codes from the book);
+  for working with the codes from the book); in case you work on Julia newer
+  than 1.7 running the  `resolve` command also might be required;
 * press <kbd>Backspace</kbd>, write `exit()` and press <kbd>Enter</kbd>;
   now you should exit Julia and everything is set up to work with the materials
   presented in the book.
