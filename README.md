@@ -9,6 +9,10 @@ Extras:
 * in the `/exercises` folder for each book chapter you can find 10 additional
   exercises with solutions (they are meant for self study and are not discussed
   in the book)
+* in the `/lectures` folder for each book chapter you can find a Jupyter
+  Notebook file with code from this chapter (note that the code is slightly
+  adjusted in comparison to code contained in .jl files in the root folder
+  to accomodate it for running in Jupyter Notebook).
 
 ## Setting up your environment
 
