@@ -18,6 +18,8 @@ using CodecBzip2
 compressed = read("puzzles.csv.bz2")
 plain = transcode(Bzip2Decompressor, compressed)
 
+length(plain) / length(compressed)
+
 open("puzzles.csv", "w") do io
     println(io, "PuzzleId,FEN,Moves,Rating,RatingDeviation," *
                 "Popularity,NbPlays,Themes,GameUrl")
