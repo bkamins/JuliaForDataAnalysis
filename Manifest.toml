@@ -985,9 +985,9 @@ version = "1.94.1"
 
 [[deps.Qt5Base_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "Fontconfig_jll", "Glib_jll", "JLLWrappers", "Libdl", "Libglvnd_jll", "OpenSSL_jll", "Pkg", "Xorg_libXext_jll", "Xorg_libxcb_jll", "Xorg_xcb_util_image_jll", "Xorg_xcb_util_keysyms_jll", "Xorg_xcb_util_renderutil_jll", "Xorg_xcb_util_wm_jll", "Zlib_jll", "xkbcommon_jll"]
-git-tree-sha1 = "c6c0f690d0cc7caddb74cef7aa847b824a16b256"
+git-tree-sha1 = "0c03844e2231e12fda4d0086fd7cbe4098ee8dc5"
 uuid = "ea2cea3b-5b76-57ae-a6ef-0a8af62496e1"
-version = "5.15.3+1"
+version = "5.15.3+2"
 
 [[deps.QuadGK]]
 deps = ["DataStructures", "LinearAlgebra"]
@@ -1072,10 +1072,10 @@ version = "0.3.0+0"
 uuid = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 
 [[deps.SQLite]]
-deps = ["DBInterface", "Dates", "Libdl", "Random", "SQLite_jll", "Serialization", "Tables", "Test", "WeakRefStrings"]
-git-tree-sha1 = "93863dea19851aa45d67d70e638e16666f33731e"
+deps = ["DBInterface", "Random", "SQLite_jll", "Serialization", "Tables", "WeakRefStrings"]
+git-tree-sha1 = "deb6120aa0f510f45cfb3a0b733b0909ae8fb977"
 uuid = "0aa819cd-b072-5ff4-a722-6bc24af294d9"
-version = "1.4.2"
+version = "1.5.1"
 
 [[deps.SQLite_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg", "Zlib_jll"]
