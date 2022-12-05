@@ -302,7 +302,7 @@ julia> for i in 1:40
 20   18.100 μs (0 allocations: 0 bytes)
 ```
 
-Notice that execution time for number `n` is roughly sum of ececution times
+Notice that execution time for number `n` is roughly sum of execution times
 for numbers `n-1` and `n-2`.
 
 </details>

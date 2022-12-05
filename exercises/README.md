@@ -19,7 +19,7 @@ purpose, require using more functionalities of Julia ecosystem that is covered
 in the book. This is meant to teach you how to use help and documentation,
 as this is a very important skill to master.
 
-The files containing exercises have a naming convention `execricesDD.md`, where
+The files containing exercises have a naming convention `exercisesDD.md`, where
 `DD` is book chapter number for which the exercises were prepared.
 
 All the exercises should be possible to solve using project environment setting
