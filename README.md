@@ -1,11 +1,23 @@
 # Julia for Data Analysis
 
+## Contents
+
+* [Additional teaching materials](#additional-teaching-materials)
+* [Setting up your environment](#setting-up-your-environment)
+  * [General instructions](#general-instructions)
+  * [Note for Linux users](#note-for-linux-users)
+* [Organization of the code](#organization-of-the-code)
+* [Running the example codes](#running-the-example-codes)
+* [Accompanying materials](#accompanying-materials)
+* [Data used in the book](#data-used-in-the-book)
+* [Errata](#errata)
+
 This repository contains source codes for the
 ["Julia for Data Analysis"](https://www.manning.com/books/julia-for-data-analysis?utm_source=bkamins&utm_medium=affiliate&utm_campaign=book_kaminski2_julia_3_17_22)
 book that is written by Bogumił Kamiński and is planned to be published in 2022
 by [Manning Publications Co.](https://www.manning.com/)
 
-Extras:
+## Additional teaching materials
 * in the `/exercises` folder for each book chapter you can find 10 additional
   exercises with solutions (they are meant for self study and are not discussed
   in the book)
@@ -15,6 +27,8 @@ Extras:
   to accommodate it for running in Jupyter Notebook).
 
 ## Setting up your environment
+
+### General instructions
 
 In order to prepare the Julia environment before working with the materials
 presented in the book please perform the following setup steps:
@@ -140,3 +154,42 @@ They are respectively:
   <https://snap.stanford.edu/data/github-social.html> under GPL-3.0 License)
 * owensboro.zip (for chapter 13, available at The Stanford Open Policing Project
   under the Open Data Commons Attribution License)
+
+## Errata
+
+### Chapter 2, page 30
+
+I compare the following expressions:
+
+```
+x > 0 && println(x)
+```
+
+and
+
+```
+if x > 0
+    println(x)
+end
+```
+
+where `x = -7`.
+
+I write there that Julia interprets them both in the same way.
+It is true in terms of the fact that in both cases the `println` function is not called (and this is the focus point of the example).
+However, there is a difference in the value of these expressions.
+The first expression evaluates to `false`, while the second evaluates to `nothing`.
+
+Here is how you can check it:
+
+```
+julia> x = -7
+-7
+
+julia> show(x > 0 && println(x))
+false
+julia> show(if x > 0
+           println(x)
+       end)
+nothing
+```
