@@ -5,9 +5,13 @@
 # Code for listing 2.1
 
 1
+
 true
+
 "Hello world!"
+
 0.1
+
 [1, 2, 3]
 
 # Code for listing 2.2
