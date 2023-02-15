@@ -385,7 +385,7 @@ plot([bar(string.(g.n), g.mv;
           yerror=(g.mv - g.lo95, g.hi95-g.mv)) for g in gdf]...)
 ```
 
-As expected error bandwidth gets smaller as `k` encreases.
+As expected error bandwidth gets smaller as `k` increases.
 Note that as `n` increases the estimated value tends to `1-exp(-1)`.
 
 </details>

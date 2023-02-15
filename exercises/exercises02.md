@@ -64,7 +64,7 @@ and the error accumulates when we do addition multiple times.
 than rational 1/7 by increasing the precision of computations using the `big`
 function:
 ```
-julia> big(1/7) # convert Floa64 to high-precision float
+julia> big(1/7) # convert Float64 to high-precision float
 0.142857142857142849212692681248881854116916656494140625
 
 julia> 1/big(7) # construct high-precision float directly
@@ -187,7 +187,7 @@ Note the differences in the code:
 * if there are `0` or `1` element in the collection the function does not do
   anything (depending on the context we might want to throw an error instead)
 * in `x[begin], x[end] = x[end], x[begin]` we perform two assignments at the
-  same time to avoid having to use a temporaty variable `f` (this operation
+  same time to avoid having to use a temporary variable `f` (this operation
   is technically called tuple destructuring; we discuss it in later chapters of
   the book)
 

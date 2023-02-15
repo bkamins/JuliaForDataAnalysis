@@ -9,11 +9,11 @@
 ### Exercise 1
 
 Random.org provides a service that returns random numbers. One of the ways
-how you can use it is by sending HTTP GET reguests. Here is an example request:
+how you can use it is by sending HTTP GET requests. Here is an example request:
 
 > https://www.random.org/integers/?num=10&min=1&max=6&col=1&base=10&format=plain&rnd=new
 
-If you want to understand all the parameters plese check their meaning
+If you want to understand all the parameters please check their meaning
 [here](https://www.random.org/clients/http/).
 
 For us it is enough that this request generates 10 random integers in the range
