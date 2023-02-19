@@ -50,7 +50,7 @@ presented in the book please perform the following setup steps:
   given in appendix A to the book);
 * press <kbd>]</kbd>, write `instantiate` and press <kbd>Enter</kbd> (this
   process will ensure that Julia properly configures the working environment
-  for working with the codes from the book); in some cases 
+  for working with the codes from the book); in some cases
   running the `resolve` command also might be required;
 * press <kbd>Backspace</kbd>, write `exit()` and press <kbd>Enter</kbd>;
   now you should exit Julia and everything is set up to work with the materials
@@ -156,7 +156,7 @@ They are respectively:
 
 ## Errata
 
-### Chapter 2, page 30
+### Chapter 2, section 2.3.1, page 30
 
 I compare the following expressions:
 
@@ -192,3 +192,8 @@ julia> show(if x > 0
        end)
 nothing
 ```
+
+### Chapter 3, section 3.2.3, pages 58-59
+
+* middle of page 58: `y[end - the + 1] = y[end -- k]` should be `y[end - i + 1] = y[end - k]`
+* top of page 59: `sort(v::AbstractVector; kwthe.)` should be `sort(v::AbstractVector; kws...)`
