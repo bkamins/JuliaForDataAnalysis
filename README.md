@@ -197,3 +197,7 @@ nothing
 
 * middle of page 58: `y[end - the + 1] = y[end -- k]` should be `y[end - i + 1] = y[end - k]`
 * top of page 59: `sort(v::AbstractVector; kwthe.)` should be `sort(v::AbstractVector; kws...)`
+
+### Chapter 6, section 6.4.1, page 132
+
+* middle of Listing 6.4: `codeunits("?")` should be `codeunits("ε")`
