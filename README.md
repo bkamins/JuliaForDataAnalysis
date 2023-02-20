@@ -202,6 +202,10 @@ nothing
 
 * middle of Listing 6.4: `codeunits("?")` should be `codeunits("ε")`
 
+### Chapter 8, section 8.1.2, page 189
+
+* middle of page 189: `zsdf format` should be `zstd format`
+
 ### Chapter 8, section 8.2.1, page 191
 
 * bottom of page 191: `misssingstring` should be `missingstring`
