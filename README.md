@@ -201,3 +201,11 @@ nothing
 ### Chapter 6, section 6.4.1, page 132
 
 * middle of Listing 6.4: `codeunits("?")` should be `codeunits("ε")`
+
+### Chapter 8, section 8.2.1, page 191
+
+* bottom of page 191: `misssingstring` should be `missingstring`
+
+### Chapter 10, section 10.2.2, page 255
+
+* bottom of page 255: `? Error: Error adding value to column :b.` should be `┌ Error: Error adding value to column :b.`
