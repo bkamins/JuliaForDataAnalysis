@@ -154,6 +154,24 @@ They are respectively:
 * owensboro.zip (for chapter 13, available at The Stanford Open Policing Project
   under the Open Data Commons Attribution License)
 
+## Citation
+
+#### Plain text (Chicago style):
+
+Kamiński, Bogumił. 2023. *Julia for Data Analysis*. Manning.
+
+#### BibTeX:
+
+```
+@book{Kaminski2023,
+  title     = "Julia for Data Analysis",
+  author    = "Kamiński, Bogumił",
+  year      = 2023,
+  publisher = "Manning",
+  address   = "Shelter Island, NY"
+}
+```
+
 ## Errata
 
 ### Chapter 2, section 2.3.1, page 30
