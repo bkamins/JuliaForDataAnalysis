@@ -14,6 +14,7 @@ book that has been written by Bogumił Kamiński and has been published by [Mann
 * [Running the example codes](#running-the-example-codes)
 * [Accompanying materials](#accompanying-materials)
 * [Data used in the book](#data-used-in-the-book)
+* [Citation](#citation)
 * [Errata](#errata)
 
 ## Additional teaching materials
