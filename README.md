@@ -261,11 +261,11 @@ julia> show(if x > 0
 nothing
 ```
 
-### Chapter 3, section 3.2.3, pages 58
+### Chapter 3, section 3.2.3, page 58
 
 * middle of page 58: `y[end - the + 1] = y[end -- k]` should be `y[end - i + 1] = y[end - k]`
 
-### Chapter 3, section 3.2.3, pages 59
+### Chapter 3, section 3.2.3, page 59
 
 * top of page 59: `sort(v::AbstractVector; kwthe.)` should be `sort(v::AbstractVector; kws...)`
 
