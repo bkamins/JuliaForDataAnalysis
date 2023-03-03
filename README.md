@@ -206,7 +206,7 @@ julia> @time sum_n(1_000_000_000)
 500000000500000000
 ```
 
-The reason for this inconsistency is a bug in `@time` macro introduced in Julia 1.8 release.
+The reason for this inconsistency is a bug in the `@time` macro introduced in Julia 1.8 release.
 The `sum_n(1_000_000_000)` call (without `@time`) is executed fast.
 Here is a simplified benchmark (run under Julia 1.9-beta4):
 
