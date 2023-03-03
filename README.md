@@ -195,7 +195,7 @@ julia> @time sum_n(1_000_000_000)
 500000000500000000
 ```
 
-This timining is very fast (and the reason is explained in the book).
+This timing is very fast (and the reason is explained in the book).
 The issue is that this is the situation under Julia 1.7.
 
 Under Julia 1.8 and Julia 1.9 running the same code takes longer (tested under Julia 1.9-beta4):
