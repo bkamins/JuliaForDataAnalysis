@@ -22,7 +22,7 @@ using Downloads
 using SHA
 Downloads.download("https://go.dev/dl/go1.19.2.src.tar.gz", "go.tar.gz")
 shavec = open(sha256, "go.tar.gz")
-shastr = join(string.(s; base=16, pad=2))
+shastr = join(string.(shavec; base=16, pad=2))
 sha == shastr
 ```
 
