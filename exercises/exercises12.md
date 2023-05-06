@@ -90,7 +90,7 @@ in `target_df`.
 This is short, but you need to have a good understanding of Julia types
 and standar functions to properly write it:
 ```
-Symbol.(target_df.id) == keys(edges_json)
+Symbol.(target_df.id) == collect(keys(edges_json))
 ```
 
 </details>
@@ -115,7 +115,7 @@ function edgelist2graph(edgelist)
     end
     return g
 end
-target_df.egonet = edgelist2graph(values(edges_json))
+target_df.egonet = edgelist2graph.(values(edges_json))
 ```
 
 </details>
