@@ -10,6 +10,7 @@ book that has been written by Bogumił Kamiński and has been published by [Mann
 * [Setting up your environment](#setting-up-your-environment)
   * [General instructions](#general-instructions)
   * [Note for Linux users](#note-for-linux-users)
+  * [Dev Containers](#dev-containers)
 * [Organization of the code](#organization-of-the-code)
 * [Running the example codes](#running-the-example-codes)
 * [Accompanying materials](#accompanying-materials)
@@ -90,6 +91,17 @@ export PATH="$PATH:/opt/julia-1.7.2/bin"
 ```
 
 line (assuming you have downloaded Julia 1.7.2 and extracted it to `/opt` folder).
+
+### Dev Containers
+
+Folder `/.devcontainer` contains configuration files for
+[Dev Containers](https://containers.dev).
+
+* For use with Github Codespaces, please follow the instruction at
+  [Creating a codespace for a repository](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace-for-a-repository#creating-a-codespace-for-a-repository).
+* For local/'remote host' usage with Visual Studio Code, please follow the
+  instructions at
+  [Developing inside a Container](https://code.visualstudio.com/docs/devcontainers/containers).
 
 ## Organization of the code
 

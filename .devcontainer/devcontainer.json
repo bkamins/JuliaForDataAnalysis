@@ -1,0 +1,70 @@
+{
+	"name": "Julia base",
+	"build": {
+		"dockerfile": "./Julia.Dockerfile",
+		"context": ".",
+		"args": {
+			"BUILD_ON_IMAGE": "glcr.b-data.ch/julia/base",
+			"JULIA_VERSION": "1.7.3",
+			"USE_ZSH_FOR_ROOT": "unset-to-use-bash",
+			"SET_LANG": "en_US.UTF-8",
+			"SET_TZ": "Etc/UTC"
+		}
+	},
+
+	"postStartCommand": {
+		"julia": "postStartCommand.sh"
+	},
+
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"configureZshAsDefaultShell": true,
+			"upgradePackages": false,
+			"username": "vscode",
+			"userUid": "automatic",
+			"userGid": "automatic"
+		},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+			"moby": false
+		},
+		// A comma separated list of packages to install
+		"ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+			"packages": ""
+		}
+	},
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"editorconfig.editorconfig",
+				"ms-python.python",
+				"mutantdino.resourcemonitor",
+				"julialang.language-julia",
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				"ms-python.black-formatter",
+				"ms-azuretools.vscode-docker"
+			],
+			"settings": {
+				"julia.enableCrashReporter": false,
+				"julia.enableTelemetry": false,
+				"resmon.show.battery": false,
+				"resmon.show.cpufreq": false
+			}
+		}
+	},
+
+	// Set 'remoteUser' to 'root' to connect as root instead.
+	"remoteUser": "vscode",
+
+	// "remoteUser": "root",
+
+	// By default,
+	// - Julia starts up with a single thread of execution.
+	// - BLAS/OpenMP will use as many threads as possible.
+	// Set the following environment variables to control the exact number to use.
+	"remoteEnv": {
+		// "JULIA_NUM_THREADS": "1",
+		// "OMP_NUM_THREADS": "1"
+	}
+}
