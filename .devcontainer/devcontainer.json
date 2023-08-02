@@ -12,9 +12,7 @@
 		}
 	},
 
-	"postStartCommand": {
-		"julia": "postStartCommand.sh"
-	},
+	"postStartCommand": "postStartCommand.sh",
 
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {
