@@ -5,8 +5,6 @@ FROM ${BUILD_ON_IMAGE}:${JULIA_VERSION} as files
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
 RUN mkdir /files
 
 COPY julia-base/conf/user /files
@@ -31,10 +29,8 @@ ENV LANG=${SET_LANG:-$LANG} \
     TZ=${SET_TZ:-$TZ} \
     PARENT_IMAGE_BUILD_DATE=${BUILD_DATE}
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
   ## Change root's shell to ZSH
-RUN if [ ! -z "$USE_ZSH_FOR_ROOT" ]; then \
+RUN if [ -n "$USE_ZSH_FOR_ROOT" ]; then \
     chsh -s /bin/zsh; \
   fi \
   ## Update timezone if needed
@@ -52,7 +48,7 @@ RUN if [ ! -z "$USE_ZSH_FOR_ROOT" ]; then \
   fi \
   ## Allow updating pre-installed Julia packages
   ## Make sure $JULIA_PATH/local/share/julia/registries/* is deleted
-  && rm -rf ${JULIA_PATH}/local/share/julia/registries/*
+  && rm -rf "${JULIA_PATH}/local/share/julia/registries"/*
 
 ## Pip: Install to the Python user install directory (1) or not (0)
 ARG PIP_USER=1
