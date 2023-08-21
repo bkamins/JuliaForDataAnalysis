@@ -34,7 +34,9 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
+				"eamodio.gitlens@11.7.0",
 				"editorconfig.editorconfig",
+				"mhutchie.git-graph",
 				"ms-python.python",
 				"mutantdino.resourcemonitor",
 				"julialang.language-julia",
@@ -44,6 +46,8 @@
 				"ms-azuretools.vscode-docker"
 			],
 			"settings": {
+				"gitlens.showWelcomeOnInstall": false,
+				"gitlens.showWhatsNewAfterUpgrades": false,
 				"julia.enableCrashReporter": false,
 				"julia.enableTelemetry": false,
 				"resmon.show.battery": false,
@@ -52,10 +56,10 @@
 		}
 	},
 
-	// Set 'remoteUser' to 'root' to connect as root instead.
 	"remoteUser": "vscode",
-
-	// "remoteUser": "root",
+	"mounts": [
+		"source=jfda-home-vscode,target=/home/vscode,type=volume"
+	],
 
 	// By default,
 	// - Julia starts up with a single thread of execution.
