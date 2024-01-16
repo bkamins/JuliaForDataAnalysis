@@ -119,6 +119,10 @@ nothing
 
 * bottom of page 191: `misssingstring` should be `missingstring`
 
+### Chapter 9, section 9.2.2, page 231
+
+* top of page 191: `both ratings` should be `ratings`
+
 ### Chapter 10, section 10.2.2, page 255
 
 * bottom of page 255: `? Error: Error adding value to column :b.` should be `┌ Error: Error adding value to column :b.`
