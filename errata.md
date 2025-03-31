@@ -4,54 +4,6 @@ This file contains errata for the
 ["Julia for Data Analysis"](https://www.manning.com/books/julia-for-data-analysis?utm_source=bkamins&utm_medium=affiliate&utm_campaign=book_kaminski2_julia_3_17_22)
 book that has been written by Bogumił Kamiński and has been published by [Manning Publications Co.](https://www.manning.com/)
 
-### Chapter 1, section 1.2.1, page 7
-
-I show the following example of code execution:
-
-```
-julia> function sum_n(n)
-           s = 0
-           for i in 1:n
-               s += i
-           end
-           return s
-       end
-sum_n (generic function with 1 method)
-
-julia> @time sum_n(1_000_000_000)
-  0.000001 seconds
-500000000500000000
-```
-
-This timing is very fast (and the reason is explained in the book).
-The issue is that this is the situation under Julia 1.7.
-
-Under Julia 1.8 and Julia 1.9 running the same code takes longer (tested under Julia 1.9-beta4):
-
-```
-julia> @time sum_n(1_000_000_000)
-  2.265569 seconds
-500000000500000000
-```
-
-The reason for this inconsistency is a bug in the `@time` macro introduced in Julia 1.8 release.
-The `sum_n(1_000_000_000)` call (without `@time`) is executed fast.
-Here is a simplified benchmark (run under Julia 1.9-beta4):
-
-```
-julia> let
-           start = time_ns()
-           v = sum_n(1_000_000_000)
-           stop=time_ns()
-           v, Int(stop - start)
-       end
-(500000000500000000, 1000)
-```
-
-Unfortunately there is an issue with the `@time`
-macro used in global scope, that needs to be resolved in Base Julia.
-See [this issue](https://github.com/JuliaLang/julia/issues/47561).
-
 ### Chapter 2, introduction, page 20
 
 * middle of page 20: the provided link http://mng.bz/5mWD explaining *k-times winsorized mean* definition no longer works.
